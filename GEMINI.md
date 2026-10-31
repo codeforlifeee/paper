@@ -10,3 +10,4 @@
   ```
 - **Safe Modifications**: Never use greedy multiline regex replacements across multiple figures/sections. Always use exact string replacement.
 - **PowerShell Protection**: Never run inline python strings containing `$` math formulas inside PowerShell double-quotes, as PowerShell expands `$1`, `$G`, etc. to empty strings. Always write temporary scripts via dedicated tools.
+

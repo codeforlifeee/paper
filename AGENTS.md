@@ -18,3 +18,4 @@
   - `README_INDIAN_PINES.md` (Indian Pines baselines)
   - `README.md` (Pavia University & Salinas Scene baselines)
   - `MASTER_README_120+runs_SGSCF_Net.html` (SGSCF-Net 60 grid search runs, 12 scarcity runs, and ablations)
+

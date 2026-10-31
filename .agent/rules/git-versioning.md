@@ -21,3 +21,4 @@ Prevent any accidental data loss, truncation, or corruption across all sessions 
 - **Remote**: `origin` (`https://github.com/codeforlifeee/paper.git`)
 - **Branch**: `main`
 - Ensure that every commit is successfully synced to the remote so the user can inspect diffs, track full history, or rollback anytime.
+
