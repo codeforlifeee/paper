@@ -1080,24 +1080,32 @@ To evaluate hyperparameter sensitivity and identify optimal operational bounds, 
 \begin{table*}[t]
 \centering
 \footnotesize
-\caption{Ranked Performance Summary of Representative Grid Search Configurations on Indian Pines (Evaluated Across 20 Full Runs per Dataset, 200 Epochs).}
+\caption{Complete 20-Run Grid Search Ranking of SGSCF-Net on Indian Pines (200 Epochs). The adopted $11 \times 11$ / batch-32 configuration is in bold.}
 \label{tab:grid_search_summary}
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ccccccc}
 \toprule
 \textbf{Rank} & \textbf{Patch Size ($P \times P$)} & \textbf{Batch Size ($B$)} & \textbf{OA (\%)} & \textbf{AA (\%)} & \textbf{Kappa ($\kappa$)} & \textbf{Train Time (min)} \\
 \midrule
-1st  & \textbf{11 $\times$ 11} & \textbf{32}  & \textbf{98.05} & 94.82 & \textbf{97.78} & \textbf{8.80} \\
-2nd  & 15 $\times$ 15          & 32           & 97.82          & 94.68 & 97.52          & 16.60 \\
-3rd  & 17 $\times$ 17          & 32           & 97.75          & 91.40 & 97.44          & 19.40 \\
-4th  & 13 $\times$ 13          & 32           & 97.63          & \textbf{95.97} & 97.29          & 12.00 \\
-5th  & 13 $\times$ 13          & 64           & 97.28          & 97.17 & 96.90          & 11.60 \\
-6th  & 15 $\times$ 15          & 64           & 97.26          & 92.59 & 96.88          & 16.40 \\
-8th  & 11 $\times$ 11          & 64           & 97.07          & 93.08 & 96.66          & 11.40 \\
-14th & 9 $\times$ 9            & 64           & 96.12          & 95.35 & 95.57          & 7.80 \\
-15th & 9 $\times$ 9            & 32           & 95.79          & 92.75 & 95.20          & \textbf{6.00} \\
-18th & 9 $\times$ 9            & 128          & 94.95          & 93.30 & 94.24          & 8.00 \\
-19th & 11 $\times$ 11          & 256          & 94.62          & 93.04 & 93.87          & 12.50 \\
-20th & 9 $\times$ 9            & 256          & 92.61          & 93.10 & 91.56          & 8.30 \\
+1st  & \textbf{11 $\times$ 11} & \textbf{32}  & \textbf{98.05} & 94.82          & \textbf{97.78} & \textbf{8.80} \\
+2nd  & 15 $\times$ 15          & 32           & 97.82          & 94.68          & 97.52          & 16.60 \\
+3rd  & 17 $\times$ 17          & 32           & 97.75          & 91.40          & 97.44          & 19.40 \\
+4th  & 13 $\times$ 13          & 32           & 97.63          & 95.97          & 97.29          & 12.00 \\
+5th  & 13 $\times$ 13          & 64           & 97.28          & \textbf{97.17} & 96.90          & 11.60 \\
+6th  & 15 $\times$ 15          & 64           & 97.26          & 92.59          & 96.88          & 16.40 \\
+7th  & 17 $\times$ 17          & 64           & 97.13          & 90.56          & 96.73          & 20.50 \\
+8th  & 11 $\times$ 11          & 64           & 97.07          & 93.08          & 96.66          & 11.40 \\
+9th  & 13 $\times$ 13          & 128          & 97.02          & 96.69          & 96.60          & 11.50 \\
+10th & 15 $\times$ 15          & 128          & 96.98          & 92.83          & 96.56          & 16.30 \\
+11th & 17 $\times$ 17          & 128          & 96.80          & 90.93          & 96.35          & 17.80 \\
+12th & 15 $\times$ 15          & 256          & 96.18          & 94.14          & 95.64          & 14.60 \\
+13th & 11 $\times$ 11          & 128          & 96.16          & 91.54          & 95.63          & 11.80 \\
+14th & 9 $\times$ 9            & 64           & 96.12          & 95.35          & 95.57          & 7.80  \\
+15th & 9 $\times$ 9            & 32           & 95.79          & 92.75          & 95.20          & \textbf{6.00}  \\
+16th & 17 $\times$ 17          & 256          & 95.52          & 91.08          & 94.89          & 19.10 \\
+17th & 13 $\times$ 13          & 256          & 95.37          & 95.61          & 94.72          & 10.10 \\
+18th & 9 $\times$ 9            & 128          & 94.95          & 93.30          & 94.24          & 8.00  \\
+19th & 11 $\times$ 11          & 256          & 94.62          & 93.04          & 93.87          & 12.50 \\
+20th & 9 $\times$ 9            & 256          & 92.61          & 93.10          & 91.56          & 8.30  \\
 \bottomrule
 \end{tabular*}
 \end{table*}
