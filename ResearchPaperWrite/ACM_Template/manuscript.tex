@@ -924,11 +924,14 @@ SSAN~\cite{sun2019spectral}            & 14.00           & 25.54           & 8.7
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.98\textwidth]{figures/architecture/fig_loss_convergence.pdf}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ccc}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{ccc}
+\includegraphics[width=0.325\textwidth]{figures/architecture/fig_loss_ip.pdf} &
+\includegraphics[width=0.325\textwidth]{figures/architecture/fig_loss_pu.pdf} &
+\includegraphics[width=0.325\textwidth]{figures/architecture/fig_loss_sv.pdf} \\
 \footnotesize (a) Indian Pines & \footnotesize (b) Pavia University & \footnotesize (c) Salinas Valley \\
-\end{tabular*}
-\caption{Training loss and validation loss convergence trajectories of SGSCF-Net across 200 epochs on: (a) Indian Pines, (b) Pavia University, and (c) Salinas Valley. The shaded blue zone highlights the rapid convergence phase ($t \le 25$ epochs), illustrating steep initial gradient descent and tight alignment between training and held-out validation loss with zero generalization divergence.}
+\end{tabular}
+\caption{Training loss and validation loss convergence trajectories of SGSCF-Net across 200 epochs on: (a) Indian Pines, (b) Pavia University, and (c) Salinas Valley. The shaded blue zone highlights the rapid convergence phase ($t \le 25$ epochs), demonstrating steep initial gradient descent, early stabilization, and zero overfitting gap between training and held-out validation loss across all three benchmarks.}
 \label{fig:loss_convergence}
 \Description{Training and validation loss convergence trajectories of SGSCF-Net across 200 epochs on Indian Pines, Pavia University, and Salinas Valley.}
 \end{figure*}

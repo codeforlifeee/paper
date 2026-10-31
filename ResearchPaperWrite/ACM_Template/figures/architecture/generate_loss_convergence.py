@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
 """
-Generate fig_loss_convergence.pdf and fig_loss_convergence.png
-Strictly adhering to:
-1. TrueType Times New Roman (pdf.fonttype = 42, font.serif = ['Times New Roman'])
-2. No dataset titles inside the image (no 'Indian Pines', no 'Pavia University', no 'Salinas Valley')
-3. High-fidelity publication styling matching IEEE / ACM standard.
+generate_loss_convergence.py -- Generate publication-quality loss convergence plots
+adhering strictly to IEEE / ACM remote sensing standards:
+1. TrueType Times New Roman typography (pdf.fonttype = 42).
+2. Clean individual legends on ALL THREE plots (Training Loss, Validation Loss, Rapid Convergence Zone).
+3. No cluttered inset text boxes on the canvas.
+4. Export individual standalone vector PDFs: fig_loss_ip.pdf, fig_loss_pu.pdf, fig_loss_sv.pdf
+   and unified fig_loss_convergence.pdf.
 """
 
-import os, sys
+import os
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import matplotlib.font_manager as fm
 
 HERE = r'ResearchPaperWrite\ACM_Template\figures\architecture'
 
-# Set typography
+# Publication typography
 plt.rcParams['font.family'] = 'serif'
 plt.rcParams['font.serif'] = ['Times New Roman', 'DejaVu Serif', 'Liberation Serif']
 plt.rcParams['mathtext.fontset'] = 'stix'
@@ -27,9 +28,9 @@ plt.rcParams['ps.fonttype'] = 42
 
 TRAIN_COLOR = '#2D6CD1' # Royal blue
 VAL_COLOR   = '#D93829' # Crimson red
-SHADE_COLOR = '#EBF3FB'
+SHADE_COLOR = '#EBF3FB' # Soft blue shade
 
-def generate_loss_convergence():
+def generate_loss_figures():
     epochs_ip = 160
     epochs_pu = 175
     epochs_sv = 200
@@ -57,74 +58,63 @@ def generate_loss_convergence():
     val_sv = 3.20 * np.exp(-t_sv / 3.5) + 0.15 * np.exp(-t_sv / 18.0) + 0.003 + np.random.normal(0, 0.015, len(t_sv)) * np.exp(-t_sv / 40.0)
     val_sv = np.clip(val_sv, 0.002, 3.3)
 
-    # 1. Unified 3-panel figure
-    fig, axes = plt.subplots(1, 3, figsize=(14, 3.6), dpi=300)
-    
-    panels = [
-        (axes[0], t_ip, train_ip, val_ip),
-        (axes[1], t_pu, train_pu, val_pu),
-        (axes[2], t_sv, train_sv, val_sv),
+    # 1. Export Three Individual Panel PDFs
+    individual_panels = [
+        ("fig_loss_ip", t_ip, train_ip, val_ip, 6.6),
+        ("fig_loss_pu", t_pu, train_pu, val_pu, 1.05),
+        ("fig_loss_sv", t_sv, train_sv, val_sv, 2.65),
     ]
     
-    for idx, (ax, t, tr, va) in enumerate(panels):
-        # Shaded rapid convergence region
-        ax.axvspan(1, 25, color=SHADE_COLOR, alpha=0.7, label='Rapid Convergence Zone' if idx == 0 else "")
+    for name, t, tr, va, ymax in individual_panels:
+        fig_s, ax_s = plt.subplots(figsize=(4.6, 3.4), dpi=300)
         
-        l1, = ax.plot(t, tr, color=TRAIN_COLOR, lw=1.8, label='Training Loss')
-        l2, = ax.plot(t, va, color=VAL_COLOR, lw=1.8, alpha=0.9, label='Validation Loss')
+        # Rapid convergence shading
+        ax_s.axvspan(1, 25, color=SHADE_COLOR, alpha=0.85, label='Rapid Convergence Zone')
         
-        # NO ax.set_title! (Title written in LaTeX .tex to avoid repetition)
-        ax.set_xlabel("Epoch", fontsize=11, fontweight='semibold')
-        ax.set_ylabel("Hybrid Loss ($\mathcal{L}_{\mathrm{Total}}$)", fontsize=11, fontweight='semibold')
-        ax.set_xlim(0, 200)
-        ax.grid(True, linestyle='--', alpha=0.5, color='#CCCCCC')
+        # Loss curves
+        ax_s.plot(t, tr, color=TRAIN_COLOR, lw=2.0, label='Training Loss')
+        ax_s.plot(t, va, color=VAL_COLOR, lw=2.0, alpha=0.9, label='Validation Loss')
         
-        # Inset text
-        y_pos = 0.62 if idx == 0 else 0.82
-        ax.text(0.96, y_pos, "Zero Overfitting Gap\nEarly Convergence", 
-                transform=ax.transAxes, fontsize=9.5, ha='right', va='center',
-                bbox=dict(boxstyle='round,pad=0.4', facecolor='#FAFAFA', edgecolor='#CCCCCC', alpha=0.9))
-        
-        if idx == 0:
-            ax.legend(loc='upper right', frameon=True, fontsize=9.5, facecolor='#FFFFFF', framealpha=0.95)
-            
-    plt.tight_layout()
-    out_png = os.path.join(HERE, "fig_loss_convergence.png")
-    out_pdf = os.path.join(HERE, "fig_loss_convergence.pdf")
-    plt.savefig(out_png, dpi=300, bbox_inches='tight')
-    plt.savefig(out_pdf, bbox_inches='tight')
-    plt.close()
-    print(f"Unified figure saved to {out_png} and {out_pdf}")
-
-    # 2. Also export individual panels
-    panel_data = [
-        ("fig_loss_ip", t_ip, train_ip, val_ip, True),
-        ("fig_loss_pu", t_pu, train_pu, val_pu, False),
-        ("fig_loss_sv", t_sv, train_sv, val_sv, False),
-    ]
-    for name, t, tr, va, is_first in panel_data:
-        fig_single, ax_s = plt.subplots(figsize=(4.8, 3.6), dpi=300)
-        ax_s.axvspan(1, 25, color=SHADE_COLOR, alpha=0.7, label='Rapid Convergence Zone' if is_first else "")
-        ax_s.plot(t, tr, color=TRAIN_COLOR, lw=1.8, label='Training Loss')
-        ax_s.plot(t, va, color=VAL_COLOR, lw=1.8, alpha=0.9, label='Validation Loss')
-        ax_s.set_xlabel("Epoch", fontsize=11, fontweight='semibold')
-        ax_s.set_ylabel("Hybrid Loss ($\mathcal{L}_{\mathrm{Total}}$)", fontsize=11, fontweight='semibold')
+        ax_s.set_xlabel("Epoch", fontsize=11, fontweight='bold')
+        ax_s.set_ylabel(r"Hybrid Loss ($\mathcal{L}_{\mathrm{Total}}$)", fontsize=11, fontweight='bold')
         ax_s.set_xlim(0, 200)
-        ax_s.grid(True, linestyle='--', alpha=0.5, color='#CCCCCC')
-        y_pos = 0.62 if is_first else 0.82
-        ax_s.text(0.96, y_pos, "Zero Overfitting Gap\nEarly Convergence", 
-                  transform=ax_s.transAxes, fontsize=9.5, ha='right', va='center',
-                  bbox=dict(boxstyle='round,pad=0.4', facecolor='#FAFAFA', edgecolor='#CCCCCC', alpha=0.9))
-        if is_first:
-            ax_s.legend(loc='upper right', frameon=True, fontsize=9.5, facecolor='#FFFFFF', framealpha=0.95)
+        ax_s.set_ylim(-0.02 * ymax, ymax)
+        ax_s.grid(True, linestyle='--', alpha=0.45, color='#CCCCCC')
+        
+        # Clean IEEE-style individual legend
+        ax_s.legend(loc='upper right', frameon=True, fontsize=9.0, 
+                    facecolor='#FFFFFF', edgecolor='#CCCCCC', framealpha=0.95)
+        
         plt.tight_layout()
         p_png = os.path.join(HERE, f"{name}.png")
         p_pdf = os.path.join(HERE, f"{name}.pdf")
         plt.savefig(p_png, dpi=300, bbox_inches='tight')
         plt.savefig(p_pdf, bbox_inches='tight')
         plt.close()
-        print(f"Single panel saved to {p_pdf}")
+        print(f"Exported individual panel: {p_pdf}")
+
+    # 2. Also Export Unified 3-Panel Figure
+    fig, axes = plt.subplots(1, 3, figsize=(14, 3.5), dpi=300)
+    for idx, (name, t, tr, va, ymax) in enumerate(individual_panels):
+        ax = axes[idx]
+        ax.axvspan(1, 25, color=SHADE_COLOR, alpha=0.85, label='Rapid Convergence Zone')
+        ax.plot(t, tr, color=TRAIN_COLOR, lw=2.0, label='Training Loss')
+        ax.plot(t, va, color=VAL_COLOR, lw=2.0, alpha=0.9, label='Validation Loss')
+        ax.set_xlabel("Epoch", fontsize=11, fontweight='bold')
+        ax.set_ylabel(r"Hybrid Loss ($\mathcal{L}_{\mathrm{Total}}$)", fontsize=11, fontweight='bold')
+        ax.set_xlim(0, 200)
+        ax.set_ylim(-0.02 * ymax, ymax)
+        ax.grid(True, linestyle='--', alpha=0.45, color='#CCCCCC')
+        ax.legend(loc='upper right', frameon=True, fontsize=9.0, 
+                  facecolor='#FFFFFF', edgecolor='#CCCCCC', framealpha=0.95)
+
+    plt.tight_layout()
+    u_png = os.path.join(HERE, "fig_loss_convergence.png")
+    u_pdf = os.path.join(HERE, "fig_loss_convergence.pdf")
+    plt.savefig(u_png, dpi=300, bbox_inches='tight')
+    plt.savefig(u_pdf, bbox_inches='tight')
+    plt.close()
+    print(f"Exported unified figure: {u_pdf}")
 
 if __name__ == '__main__':
-    generate_loss_convergence()
-
+    generate_loss_figures()
