@@ -1,32 +1,38 @@
-# -*- coding: utf-8 -*-
 """
-generate_gap_diagram.py -- Generate the GAP (Global Average Pooling) and 
-Classification Head architecture diagram matching SGSCF-Net's style.
-Canvas: 660 x 360 px (matching fig_sbam, fig_cbsa, and fig_scfg).
+generate_gap_diagram.py -- GAP & Classification Head architecture diagram.
+
+Matches the design language of fig_sbam, fig_cbsa, fig_scfg from build_figures.py:
+  - Same palette, fonts, arrow style, panel conventions
+  - Same drawio_kit primitives (Diagram, cuboid, stack, block, etc.)
+  - Same canvas: 660 x 360 px (-> figure*, width=0.75\textwidth)
+
+Usage: python generate_gap_diagram.py [--no-render]
 """
 import os, sys, subprocess
-import numpy as np
 
 KIT = os.path.expanduser("~/.claude/skills/paper-architecture-diagrams/scripts")
 sys.path.insert(0, KIT)
 import drawio_kit
 drawio_kit.FONT = "Times New Roman"
-from drawio_kit import (Diagram, cuboid, stack, matrix, neurons, m, lighten, darken, cmap_hex)
+from drawio_kit import (Diagram, cuboid, stack, m, lighten, SLICES)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-# Palette matching the paper's Stage II
-GAP_C  = "#1E88E5"     # Vibrant royal blue for GAP
-RES_C  = "#4A6FA5"     # Steel blue for spatial residual input
-FC_C   = "#2D6CD1"     # Deep blue for linear projection
-PRED_C = "#3E8E4E"     # Forest green for predictions
-LOSS_C = "#C93C32"     # Crimson red for hybrid loss
-GREY   = "#555555"
-INK    = "#262626"
+# ---- Shared palette (identical to build_figures.py) ----
+SBAM_C, CBSA_C, SCFG_C = "#3E8E4E", "#D9822B", "#7A56B0"
+A_C, B_C = "#2D6CD1", "#C93C32"
+INK, GREY, STD_C = "#262626", "#555555", "#6B6B6B"
+RES_C = "#4A6FA5"
 FS, FS_S, FS_X, FS_T = 16, 14, 13, 17
 MOD_W, MOD_H = 660, 360
 
+# Stage II spatial-feature blues (from build_figures.py fig_overall)
+COLS2 = ["#C9DAF8", "#A4C2F4", "#6D9EEB", "#9FC5E8", "#CFE2F3", "#B4C7E7"]
+
+
 class Cub:
+    """Cuboid placed by left x and bbox-centre y (same as build_figures.py)."""
+
     def __init__(s, d, x, cy, w, h, dx, dy, **kw):
         s.d, s.w, s.h, s.dx, s.dy = d, w, h, dx, dy
         s.g = cuboid(w, h, dx, dy, **kw)
@@ -35,146 +41,137 @@ class Cub:
 
     @property
     def W(s): return s.w + s.dx
+
     @property
     def L(s): return (s.x, s.cy)
+
     @property
     def R(s): return (s.x + s.W, s.cy)
 
+    def dims(s, left=None, bottom=None, depth=None, fs=FS_X, color=GREY, bottom_f=0.5):
+        d = s.d
+        if left:
+            d.text(s.x - 24, s.y + s.dy, 20, s.h, m(left), fs=fs, align="right", color=color)
+        if bottom:
+            d.text(s.x + bottom_f * s.w - 20, s.y + s.dy + s.h + 1, 40, 18, m(bottom), fs=fs, color=color)
+        if depth:
+            d.text(s.x + s.w + s.dx / 2 + 1, s.y + s.dy / 2 + s.h - 6, 44, 18, m(depth), fs=fs, align="left",
+                   color=color)
+
+    def title(s, tex, dy=-24, fs=FS, color=INK, w_extra=40):
+        s.d.text(s.x - w_extra / 2, s.y + dy, s.W + w_extra, 20, tex, fs=fs, color=color)
+
+
 def arrow(d, a, b, pts=(), **kw):
     kw.setdefault("color", INK)
-    kw.setdefault("sw", 1.3)
-    return d.edge(a, b, pts=pts, **kw)
+    return d.edge(a, b, pts, **kw)
+
 
 def sub(text):
-    return f'<br><font style="font-size:{FS_X - 1}px;font-weight:normal;color:#555555">{text}</font>'
+    return f"<br><font style=\"font-size:{FS_X - 1}px;font-weight:normal\">{text}</font>"
+
 
 def build_gap_diagram():
     d = Diagram("fig_gap", MOD_W, MOD_H)
-    d.shift(0, 0)
-    
-    # Outer panel enclosing the module
-    d.panel(12, 12, 636, 336, "GAP & Classification Head", lighten(GAP_C, 0.94), GAP_C, fs=FS_T, title_align="right")
-    
-    Y = 125
-    
-    # -------------------------------------------------------------------------
-    # 1. Input Spatial Feature Tensor from Spatial ResBlock: s in R^(K x P x P x 1)
-    # -------------------------------------------------------------------------
-    purples = cmap_hex("Blues", np.linspace(0.35, 0.85, 8))
-    s_cub = Cub(d, 28, Y, 46, 46, 36, 24, front="#E3F2FD", stroke=RES_C, stripes=purples)
-    
-    d.text(s_cub.x - 14, s_cub.y - 28, 90, 20, m(r"\mathbf{s}\in\mathbb{R}^{K\times P\times P\times 1}"), fs=FS_S, bold=True)
-    d.text(s_cub.x - 14, s_cub.y + s_cub.h + s_cub.dy + 4, 90, 18, "Spatial ResBlock", fs=FS_X, color=RES_C, italic=True)
-    d.text(s_cub.x + 8, s_cub.y + s_cub.h + s_cub.dy - 12, 38, 16, m(r"P{\times}P"), fs=11, color=GREY)
-    d.text(s_cub.x + s_cub.W - 16, s_cub.y + 4, 32, 16, m(r"K{=}16"), fs=11, color=GREY)
+    d.shift(10, 0)
+    Y = 146
 
-    # -------------------------------------------------------------------------
-    # 2. Global Average Pooling (GAP) Operator Block
-    # -------------------------------------------------------------------------
-    gap_x, gap_y = 154, Y - 30
-    gap_w, gap_h = 72, 60
-    d.block(gap_x, gap_y, gap_w, gap_h, "GAP" + sub(m(r"\mathrm{Pool}_{3\mathrm{D}}")), GAP_C, fs=FS_S)
-    arrow(d, s_cub.R, (gap_x, Y))
-    
-    # Mathematical spatial reduction formula above GAP
-    d.rect(gap_x - 24, gap_y - 44, gap_w + 48, 32, 
-           m(r"\mathbf{z}_k = \frac{1}{P^2}\sum_{i=1}^{P}\sum_{j=1}^{P}\mathbf{s}_{k,i,j}"),
-           fill="#FFFFFF", stroke=lighten(GAP_C, 0.4), sw=1.0, fs=11)
-    d.edge((gap_x + gap_w / 2, gap_y - 12), (gap_x + gap_w / 2, gap_y), color=GAP_C, sw=1.0, dashed=True)
+    # Panel (steel blue -- classification head, not a proposed module)
+    d.panel(132, 20, 504, 232, "GAP &amp; Classification Head",
+            lighten(RES_C, 0.94), RES_C, fs=FS_T, title_align="right")
 
-    # -------------------------------------------------------------------------
-    # 3. Latent Feature Vector: z in R^K (16-D compact representation)
-    # -------------------------------------------------------------------------
-    z_x = 270
-    z_matrix = matrix(8, 1, 16, 10, [0.85, 0.42, 0.95, 0.18, 0.73, 0.61, 0.35, 0.88],
-                      lo="#E3F2FD", hi=GAP_C, stroke="#1565C0", sw=0.7)
-    z_y = Y - z_matrix.h / 2
-    d.glyph(z_x, z_y, z_matrix)
-    
-    arrow(d, (gap_x + gap_w, Y), (z_x - 3, Y))
-    
-    d.text(z_x - 24, z_y - 24, z_matrix.w + 48, 18, "Latent Vector", fs=FS_X, color=GREY, italic=True)
-    d.text(z_x - 20, z_y + z_matrix.h + 4, z_matrix.w + 40, 20, m(r"\mathbf{z}\in\mathbb{R}^{16}"), fs=FS_S, bold=True)
+    # ---- 1. Input: spatial ResBlock output s in R^{K x P x P} ----
+    x = Cub(d, 24, Y, 50, 50, 38, 26,
+            front=lighten(RES_C, 0.78), stroke=RES_C,
+            stripes=COLS2 + COLS2[:2])
+    x.dims(left="P", bottom="P", depth="K", bottom_f=0.3)
+    x.title(m(r"\mathbf{s}") + " " + m(r"\in\mathbb{R}^{K\times P\times P}"),
+            dy=-28, w_extra=60)
+    d.text(x.x - 10, x.y + x.h + x.dy + 20, x.W + 20, 18,
+           "Spatial ResBlock", fs=FS_X, color=RES_C, italic=True)
 
-    # -------------------------------------------------------------------------
-    # 4. Linear Fully Connected Layer: W_fc in R^(N_c x K) + b
-    # -------------------------------------------------------------------------
-    fc_x, fc_y = 338, Y - 30
-    fc_w, fc_h = 76, 60
-    d.block(fc_x, fc_y, fc_w, fc_h, "FC Head" + sub(m(r"16\to N_c")), FC_C, fs=FS_S)
-    arrow(d, (z_x + z_matrix.w + 3, Y), (fc_x, Y))
-    
-    # Projection equation above FC
-    d.rect(fc_x - 14, fc_y - 44, fc_w + 28, 32,
-           m(r"\boldsymbol{\ell} = \mathbf{W}_{\mathrm{fc}}\mathbf{z} + \mathbf{b}"),
-           fill="#FFFFFF", stroke=lighten(FC_C, 0.4), sw=1.0, fs=11)
-    d.edge((fc_x + fc_w / 2, fc_y - 12), (fc_x + fc_w / 2, fc_y), color=FC_C, sw=1.0, dashed=True)
+    # ---- 2. GAP (standard gray block, same style as overall fig) ----
+    gap = d.block(160, Y - 26, 66, 52,
+                  "GAP" + sub(m(r"\mathrm{mean}_{P\times P}")),
+                  STD_C, fs=FS_S, bold=False)
+    arrow(d, x.R, (gap, 0, 0.5))
 
-    # -------------------------------------------------------------------------
-    # 5. Softmax & Class Probability Distribution: \hat{y} in [0, 1]^(N_c)
-    # -------------------------------------------------------------------------
-    sm_x, sm_y = 458, Y - 25
-    sm_w, sm_h = 58, 50
-    d.block(sm_x, sm_y, sm_w, sm_h, "Softmax", "#6B6B6B", fs=FS_S, bold=False)
-    arrow(d, (fc_x + fc_w, Y), (sm_x, Y))
-    d.text(fc_x + fc_w + 1, Y - 18, sm_x - (fc_x + fc_w) - 2, 16, m(r"\boldsymbol{\ell}\in\mathbb{R}^{N_c}"), fs=10, color=GREY)
-    
-    # Output class probabilities: vertical bar / matrix
-    y_x = 558
-    y_matrix = matrix(8, 1, 16, 10, [0.03, 0.01, 0.94, 0.01, 0.01, 0.02, 0.01, 0.01],
-                      lo="#E8F5E9", hi=PRED_C, stroke="#2E7D32", sw=0.7)
-    y_y = Y - y_matrix.h / 2
-    d.glyph(y_x, y_y, y_matrix)
-    
-    arrow(d, (sm_x + sm_w, Y), (y_x - 3, Y))
-    
-    d.text(y_x - 20, y_y - 24, y_matrix.w + 40, 18, "Probabilities", fs=FS_X, color=PRED_C, italic=True)
-    d.text(y_x - 16, y_y + y_matrix.h + 4, y_matrix.w + 32, 20, m(r"\hat{\mathbf{y}}\in[0,1]^{N_c}"), fs=FS_S, bold=True)
-    d.text(y_x + y_matrix.w + 6, y_y + 12, 34, 20, m(r"\hat{c}"), fs=FS+1, color=PRED_C, bold=True)
+    # Formula annotation
+    d.rect(146, Y - 60, 94, 24,
+           m(r"z_k = \tfrac{1}{P^2}\sum_{i,j}s_{k,i,j}"),
+           fill="#FFFFFF", stroke=lighten(STD_C, 0.45), sw=0.8, fs=10)
+    d.edge((193, Y - 36), (193, Y - 26), color=STD_C, dashed=True, sw=0.8)
 
-    # -------------------------------------------------------------------------
-    # 6. Training Supervision: Minority-Aware Hybrid Loss Box
-    # -------------------------------------------------------------------------
-    loss_box_x, loss_box_y = 106, 238
-    loss_box_w, loss_box_h = 514, 82
-    
-    d.rect(loss_box_x, loss_box_y, loss_box_w, loss_box_h, "",
-           fill="#FFFBFB", stroke=LOSS_C, dashed=True, sw=1.3)
-    
-    d.text(loss_box_x + 12, loss_box_y + 6, 240, 18, "Training Loss Supervision:", fs=FS_X, bold=True, color=LOSS_C)
-    d.text(loss_box_x + 12, loss_box_y + 28, 480, 24,
-           m(r"\mathcal{L}_{\mathrm{Total}} = 0.7\,\mathcal{L}_{\mathrm{Spread}}(m_r) + 0.3\,\mathcal{L}_{\mathrm{Focal}}(\gamma, \mathbf{w})"),
-           fs=FS_S, color=INK)
-    d.text(loss_box_x + 12, loss_box_y + 54, 480, 18,
-           "Dynamic margin " + m(r"m_r\in[0.2, 0.9]") + " + Inverse-frequency class weights " + m(r"w_c \propto 1/N_c^{\alpha}"),
-           fs=11, color=GREY)
-    
-    # Downward dashed flow from predictions to loss
-    d.edge((y_x + y_matrix.w / 2, y_y + y_matrix.h + 24), 
-           (loss_box_x + loss_box_w - 40, loss_box_y),
-           pts=[(y_x + y_matrix.w / 2, loss_box_y - 12), (loss_box_x + loss_box_w - 40, loss_box_y - 12)],
-           color=LOSS_C, dashed=True, sw=1.2)
-    
-    # Ground truth label badge feeding into loss
-    d.rect(26, loss_box_y + 20, 64, 42, "Target<br>" + m(r"y\in\{1..N_c\}"),
-           fill="#FFFFFF", stroke="#555555", sw=1.0, fs=11)
-    d.edge((90, loss_box_y + 41), (loss_box_x, loss_box_y + 41), color="#555555", dashed=True, sw=1.2)
+    # ---- 3. Latent vector z in R^K (coloured stack, same glyph as overall) ----
+    z = stack(8, 10, 10, 5, 5, colors=SLICES[:8])
+    zx = 264
+    d.glyph(zx, Y - z.h / 2, z)
+    arrow(d, (gap, 1, 0.5), (zx - 1, Y))
+    d.text(zx - 12, Y - z.h / 2 - 26, z.w + 24, 22,
+           m(r"\mathbf{z}\in\mathbb{R}^{K}"), fs=FS_S)
+
+    # ---- 4. FC Head (deep blue block, linear projection K -> N_c) ----
+    fc = d.block(320, Y - 28, 74, 56,
+                 "FC Head" + sub(m(r"K{\to}N_c")), A_C, fs=FS_S)
+    arrow(d, (zx + z.w + 1, Y), (fc, 0, 0.5))
+
+    # Formula annotation
+    d.rect(310, Y - 60, 94, 24,
+           m(r"\ell = W_{\!fc}\,z + b"),
+           fill="#FFFFFF", stroke=lighten(A_C, 0.45), sw=0.8, fs=10)
+    d.edge((357, Y - 36), (357, Y - 26), color=A_C, dashed=True, sw=0.8)
+
+    # ---- 5. Softmax (standard gray, non-bold, matching overall style) ----
+    sm = d.block(432, Y - 22, 52, 44, "Softmax", STD_C, fs=FS_X, bold=False)
+    arrow(d, (fc, 1, 0.5), (sm, 0, 0.5))
+    d.text(395, Y + 4, 38, 16, m(r"\ell\!\in\!\mathbb{R}^{N_c}"), fs=10, color=GREY)
+
+    # ---- 6. Output probability vector y-hat (coloured stack) ----
+    yh = stack(9, 10, 10, 5, 5, colors=SLICES)
+    yx = 522
+    d.glyph(yx, Y - yh.h / 2, yh)
+    arrow(d, (sm, 1, 0.5), (yx - 1, Y))
+    d.text(yx - 20, Y - yh.h / 2 - 26, yh.w + 40, 22,
+           m(r"\hat{\mathbf{y}}\in[0,1]^{N_c}"), fs=FS_S)
+    d.text(yx + yh.w + 8, Y - 14, 28, 22,
+           m(r"\hat{c}"), fs=FS + 1, color=SBAM_C)
+
+    # ---- 7. Loss box (dashed gray rect, matching overall diagram) ----
+    ls = d.rect(92, 274, 396, 40,
+                "Training: " + m(r"\mathcal{L}=0.7\,\mathcal{L}_{\mathrm{Spread}}"
+                                r"+0.3\,\mathcal{L}_{\mathrm{Focal}}"),
+                fill="#FFFFFF", stroke="#8C8C8C", dashed=True, fs=FS_X)
+    d.edge((yx + yh.w / 2, Y + yh.h / 2 + 2), (ls, 0.78, 0),
+           pts=[(yx + yh.w / 2, 260)],
+           color="#8C8C8C", dashed=True, sw=1.1)
+
+    # Ground-truth target label
+    d.rect(18, 278, 58, 32, "Target " + m(r"y"),
+           fill="#FFFFFF", stroke=GREY, sw=0.8, fs=11)
+    d.edge((76, 294), (92, 294), color=GREY, dashed=True, sw=1.0)
+
+    # ---- 8. Legend (matching SBAM / CBSA / SCFG convention) ----
+    d.legend(4, 332, [
+        (None, m(r"\mathbf{s}") + ": spatial branch output after " + m(r"\times") + "2 ResBlock + ECA;  "
+               + m(r"K{=}16,\ N_c") + " = num. classes")
+    ], fs=FS_X)
 
     return d
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     print(f"Generating fig_gap in {HERE}...")
     d = build_gap_diagram()
-    d.save(HERE)
-    print("Saved fig_gap.drawio successfully!")
+    path = d.save(HERE)
+    print("Saved", path)
 
-    # Render via render_drawio.py
-    out_drawio = os.path.join(HERE, "fig_gap.drawio")
-    render_script = os.path.join(KIT, "render_drawio.py")
-    cmd = ["python", render_script, out_drawio, "--scale", "3"]
-    print("Rendering fig_gap.drawio to PDF and PNG...")
-    res = subprocess.run(cmd, capture_output=True, text=True)
-    print("RC:", res.returncode)
-    print("STDOUT:", res.stdout)
-    if res.stderr:
-        print("STDERR:", res.stderr[:300])
+    if "--no-render" not in sys.argv:
+        render_script = os.path.join(KIT, "render_drawio.py")
+        cmd = ["python", render_script, path, "--scale", "3"]
+        print("Rendering to PDF and PNG...")
+        res = subprocess.run(cmd, capture_output=True, text=True)
+        print("RC:", res.returncode)
+        if res.stdout.strip():
+            print("STDOUT:", res.stdout.strip())
+        if res.returncode != 0 and res.stderr:
+            print("STDERR:", res.stderr[:400])
