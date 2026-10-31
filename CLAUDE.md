@@ -106,3 +106,22 @@ Whenever introducing, citing, or discussing ANY model, baseline, algorithm, data
 5. `/write-introduction`: Construct Section I highlighting motivation, research gaps, and a bulleted list of 4 concrete contributions (including cross-dataset validation across 24 baseline runs).
 6. `/write-abstract`: Draft a compact 200-word empirical abstract and conclusion.
 
+
+
+---
+
+## [STRICT MANDATORY RULE] Automated Git Versioning & Remote Push Protocol
+
+To guarantee zero data loss and enable instant rollback to any prior state:
+1. **Pre-Change Verification**:
+   - Before executing any script or tool that modifies `manuscript.tex`, figures, tables, scripts, or model implementation files, ensure git working tree is known and clean.
+   - NEVER use greedy regex replacements (e.g. `re.DOTALL` across broad block tags like `\begin{figure*}`). Always use exact target string replacements or tightly bounded patterns.
+   - NEVER write LaTeX code containing dollar math (`$...$`) via PowerShell inline commands (`powershell -Command "python -c \"...\""`), as PowerShell interpolates `$` symbols into empty strings and breaks equations. Always use file-writing tools (`write_file`) or standalone python scripts.
+2. **Immediate Post-Change Commit & Push**:
+   - Immediately after completing ANY successful modification, table insertion, figure update, text refinement, or LaTeX build:
+     1. Stage all relevant modified/added files: `git add .` (respecting `.gitignore`).
+     2. Commit with an informative semantic message: `git commit -m "feat/fix/refactor: <clear description>"`.
+     3. Push immediately to GitHub: `git push origin main`.
+3. **Continuous Safety Guarantee**:
+   - Every state of the document and codebase is permanently preserved in the remote GitHub repository (`https://github.com/codeforlifeee/paper`).
+   - If any unexpected error or discrepancy occurs, the exact pre-change version can be restored immediately using `git checkout` or `git restore`.
