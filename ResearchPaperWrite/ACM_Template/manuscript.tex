@@ -56,6 +56,26 @@
 \usepackage{colortbl}
 \usepackage{multirow}
 
+%% Publication Hyperlink and Citation Color: Pure Blue (RGB: 0, 0, 255)
+\definecolor{citeblue}{RGB}{0,0,255}
+\definecolor[named]{ACMPurple}{RGB}{0,0,255}
+\definecolor[named]{ACMDarkBlue}{RGB}{0,0,255}
+
+\makeatletter
+\AtBeginDocument{%
+  \hypersetup{
+    colorlinks = true,
+    linkcolor  = citeblue,
+    citecolor  = citeblue,
+    urlcolor   = citeblue,
+    filecolor  = citeblue
+  }%
+  \renewcommand\NAT@open{\textcolor{citeblue}{[}}%
+  \renewcommand\NAT@close{\textcolor{citeblue}{]}}%
+  \renewcommand\NAT@sep{\textcolor{citeblue}{,}}%
+}
+\makeatother
+
 %% Reusable solid colour-swatch cell used inside the Class-Colour tables.
 \newcommand{\clrsw}[1]{\textcolor{#1}{\rule{1.3em}{1.3ex}}}
 
