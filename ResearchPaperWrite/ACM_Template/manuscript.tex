@@ -863,23 +863,7 @@ Fig.~\ref{fig:salinas_maps} displays the qualitative classification maps generat
 
 \subsection{Cross-Dataset Summary}
 \label{subsec:cross_summary}
-Table~\ref{tab:cross_dataset} consolidates the three benchmarks under the identical architecture, patch size, batch size, and optimisation schedule. Overall Accuracy climbs from 98.05\% on Indian Pines (dense agricultural mix with severe class imbalance) to 99.82\% on Pavia University (urban material confusion) and 99.92\% on Salinas Valley (fine-grained vegetation stages). The Average-Accuracy gap closes dramatically as the minimum-class sample count rises: Indian Pines contains the Oats class with 20 pixels (AA = 94.82\%), whereas Salinas Valley's smallest class holds 916 pixels (AA = 99.92\%). This monotonic trend empirically substantiates the earlier claim that SGSCF-Net's residual AA deficit on Indian Pines is governed by data scarcity, not by the modelling capacity of SBAM, CBSA, or SCFG.
-
-\begin{table}[t]
-\centering
-\footnotesize
-\caption{SGSCF-Net Performance Summary Across Three Benchmark Datasets (Patch 11$\times$11, Batch 32, 200 Epochs).}
-\label{tab:cross_dataset}
-\begin{tabular}{lcccc}
-\toprule
-\textbf{Dataset} & \textbf{OA (\%)} & \textbf{AA (\%)} & \textbf{Kappa} & \textbf{Train (min)} \\
-\midrule
-Indian Pines         & 98.05 & 94.82 & 97.78 & 8.80 \\
-Pavia University  & 99.82 & 99.71 & 99.76 & 12.90 \\
-Salinas Valley       & 99.92 & 99.92 & 99.91 & 57.70 \\
-\bottomrule
-\end{tabular}
-\end{table}
+Consolidating SGSCF-Net's performance across the three benchmarks under the identical architecture, patch size ($11\times 11$), batch size (32), and optimisation schedule reveals consistent cross-domain robustness. Overall Accuracy climbs from 98.05\% on Indian Pines (dense agricultural mix with severe class imbalance) to 99.82\% on Pavia University (urban material confusion) and 99.92\% on Salinas Valley (fine-grained vegetation stages). The Average-Accuracy gap closes dramatically as the minimum-class sample count rises: Indian Pines contains the Oats class with 20 pixels (AA = 94.82\%), whereas Salinas Valley's smallest class holds 916 pixels (AA = 99.92\%). This monotonic trend empirically substantiates the earlier claim that SGSCF-Net's residual AA deficit on Indian Pines is governed by data scarcity, not by the modelling capacity of SBAM, CBSA, or SCFG.
 
 \subsection{Computational Complexity and Efficiency Analysis}
 \label{subsec:complexity_analysis}
