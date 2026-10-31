@@ -613,29 +613,7 @@ The Salinas Valley dataset was captured by the AVIRIS sensor \cite{green1998imag
 \label{subsec:implementation}
 
 \subsubsection{Compared Methods}
-To establish a rigorous, holistic benchmark, SGSCF-Net is evaluated against eight representative methods spanning four distinct architectural paradigms:
-\begin{enumerate}
-    \item \textbf{CNN \& Residual Baselines:}
-    \begin{itemize}
-        \item \textbf{SSRN} \cite{zhong2017spectral}: A 3D convolutional spectral-spatial residual network that extracts consecutive spectral and spatial representations using residual units.
-        \item \textbf{A2S2K-ResNet} \cite{roy2020attention}: An attention-based adaptive spectral-spatial kernel ResNet employing dual 3D entry streams with a shared Squeeze-and-Excitation gating mechanism.
-    \end{itemize}
-    \item \textbf{Attention Networks:}
-    \begin{itemize}
-        \item \textbf{SSAN} \cite{sun2019spectral}: A spectral-spatial attention network that decouples attention maps into spatial and spectral branches to suppress background clutter.
-    \end{itemize}
-    \item \textbf{Vision Transformers:}
-    \begin{itemize}
-        \item \textbf{ViT} \cite{dosovitskiy2020image}: The standard Vision Transformer adapted for hyperspectral patches, utilizing multi-head self-attention across linear patch embeddings.
-        \item \textbf{HSI-SSFTT} \cite{sun2022spectral}: A spectral-spatial feature tokenization transformer converting 3D convolutional feature maps into visual tokens for attention modeling.
-        \item \textbf{HyperRoPE-HiT} \cite{khan2025hyperrope}: A hyperspectral transformer incorporating patch-local mixed-axis 2D rotary position embeddings (RoPE) with learnable frequencies.
-    \end{itemize}
-    \item \textbf{Hybrid \& Capsule Networks:}
-    \begin{itemize}
-        \item \textbf{CRV-MHDL} \cite{alalimi2022compression}: A compression and reinforced variation model coupled with a multi-hybrid deep learning classifier.
-        \item \textbf{DMC} \cite{wang2021deep}: A deep matrix capsule network employing expectation-maximization (EM) routing to model part-whole geometric hierarchies.
-    \end{itemize}
-\end{enumerate}
+SGSCF-Net is benchmarked against eight representative baselines across four architectural paradigms, evaluated using their official open-source implementations: 3D residual CNNs (SSRN~\cite{zhong2017spectral}\footnote{\url{https://github.com/zilongzhong/SSRN}}, A2S2K-ResNet~\cite{roy2020attention}\footnote{\url{https://github.com/suvojit-0x55aa/A2S2K-ResNet}}), decoupled attention networks (SSAN~\cite{sun2019spectral}\footnote{\url{https://github.com/EtPan/SSAN}}), vision transformers (standard ViT~\cite{dosovitskiy2020image}\footnote{\url{https://github.com/google-research/vision_transformer}}, tokenized HSI-SSFTT~\cite{sun2022spectral}\footnote{\url{https://github.com/zgr6010/HSI_SSFTT}}, and rotary-embedded HyperRoPE-HiT~\cite{khan2025hyperrope}\footnote{\url{https://github.com/zirakkk/hyperrope-sst}}), and hybrid/capsule networks (CRV-MHDL~\cite{alalimi2022compression}\footnote{\url{https://github.com/DalalAL-Alimi/CRV}} and EM-routed DMC~\cite{wang2021deep}\footnote{\url{https://github.com/DeepMatrixCapsules/DeepMatrixCapsules}}).
 
 \subsubsection{Evaluation Metrics}
 Model performance is quantified across three standard objective metrics: Overall Accuracy (OA, \%), Average Accuracy (AA, \%), and Cohen's Kappa coefficient ($\kappa \times 100$). OA measures the proportion of correctly classified test samples over total test samples:
