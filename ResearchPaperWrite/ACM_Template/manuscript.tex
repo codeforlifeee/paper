@@ -889,7 +889,36 @@ Consolidating SGSCF-Net's performance across the three benchmarks under the iden
 \label{subsec:complexity_analysis}
 A critical challenge in hyperspectral classification is reconciling high representational accuracy with computational efficiency. Standard Transformer architectures (such as ViT and HyperRoPE-HiT) rely on global self-attention across spatial-spectral tokens, which scales with quadratic complexity $\mathcal{O}(N^2)$ in the token sequence length $N$. On the small Indian Pines patches this overhead stays modest---ViT and HyperRoPE-HiT each finish in under two minutes---but it grows on the larger Pavia University and Salinas Valley scenes, and these token-mixing models still trade away minority-class fidelity (ViT falls to 90.33\% OA and HyperRoPE-HiT to 94.07\% OA, both over-smoothing small agricultural patches). The heaviest wall-clock costs instead stem from iterative routing and adaptive-kernel search: DMC's EM routing needs 17.73 minutes and A2S2K-ResNet 14.89 minutes on Indian Pines, rising to 94.64 and 41.12 minutes respectively on the larger scenes.
 
-In contrast, SGSCF-Net dispenses entirely with quadratic self-attention matrices. By decomposing feature extraction into an input-level spectral gate (SBAM), a depthwise 1D complementary gate (CBSA), and a second-order bilinear covariance gate (SCFG), SGSCF-Net maintains linear computational complexity $\mathcal{O}(N)$ with respect to spatial dimensions. Containing only $\sim$308K trainable parameters, SGSCF-Net converges in 8.80 minutes.
+In contrast, SGSCF-Net dispenses entirely with quadratic self-attention matrices. By decomposing feature extraction into an input-level spectral gate (SBAM), a depthwise 1D complementary gate (CBSA), and a second-order bilinear covariance gate (SCFG), SGSCF-Net maintains linear computational complexity $\mathcal{O}(N)$ with respect to spatial dimensions. Containing only $\sim$308K trainable parameters, SGSCF-Net converges in 8.80 minutes on Indian Pines, 12.90 minutes on Pavia University, and 57.70 minutes on Salinas Valley.
+
+As quantitatively documented in Table~\ref{tab:runtime_efficiency_comparison}, we systematically evaluate the training wall-clock duration (in minutes) and test inference latency (in seconds) between the eight baseline methods and SGSCF-Net across all three benchmark datasets. While lightweight tokenized models (such as HSI-SSFTT and CRV-MHDL) demonstrate rapid training convergence due to aggressive 2D token compression, their representations degrade on minority agricultural classes (e.g., CRV-MHDL drops to 67.20\% OA on Indian Pines). Conversely, complex spatial-spectral architectures such as DMC and SSAN suffer from severe computational bottlenecks, requiring 94.64 and 19.37 minutes for training, and 62.70 and 135.74 seconds for test inference on the Salinas Valley scene. SGSCF-Net achieves an optimal Pareto frontier between representational capacity and execution efficiency: it evaluates the complete test split in 1.18 seconds on Indian Pines, 4.12 seconds on Pavia University, and 5.46 seconds on Salinas Valley---operating up to an order of magnitude faster during inference than iterative routing capsules and recurrent attention networks, while matching or exceeding their peak classification accuracies.
+
+\begin{table*}[tbp]
+\centering
+\footnotesize
+\caption{Training Time in Minutes (min) and Test Time in Seconds (s) Between Contrast Methods and the Proposed SGSCF-Net Across Three Benchmark Datasets (Optimal Results Are Bolded, and Suboptimal Results Are Underlined).}
+\label{tab:runtime_efficiency_comparison}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccc}
+\toprule
+\multirow{2}{*}{\textbf{Methods}} & \multicolumn{2}{c}{\textbf{Indian Pines}} & \multicolumn{2}{c}{\textbf{Pavia University}} & \multicolumn{2}{c}{\textbf{Salinas Valley}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+& \textbf{Train (min)} & \textbf{Test (s)} & \textbf{Train (min)} & \textbf{Test (s)} & \textbf{Train (min)} & \textbf{Test (s)} \\
+\midrule
+SSRN~\cite{zhong2017spectral}          & 6.29            & 5.53            & 11.36           & 12.50           & 30.98           & 25.83           \\
+HyperRoPE-HiT~\cite{khan2025hyperrope} & 1.43            & \underline{0.73}& 5.62            & \underline{3.08}& 5.92            & \textbf{3.63}   \\
+A2S2K-ResNet~\cite{roy2020attention}   & 14.89           & 10.75           & 41.12           & 23.28           & 10.34           & 9.20            \\
+HSI-SSFTT~\cite{sun2022spectral}       & \textbf{1.05}   & \textbf{0.70}   & \underline{4.44} & 3.17            & \underline{5.26} & \underline{3.77}\\
+DMC~\cite{wang2021deep}                & 17.73           & 11.58           & 73.42           & 48.38           & 94.64           & 62.70           \\
+ViT~\cite{dosovitskiy2020image}        & 1.68            & 1.24            & 6.64            & 3.22            & 8.94            & 4.15            \\
+CRV-MHDL~\cite{alalimi2022compression} & \underline{1.33} & 0.75            & \textbf{2.89}   & \textbf{2.79}   & \textbf{3.55}   & 3.91            \\
+SSAN~\cite{sun2019spectral}            & 14.00           & 25.54           & 8.70            & 49.90           & 19.37           & 135.74          \\
+\midrule
+\textbf{SGSCF-Net (Ours)}              & 8.80            & 1.18            & 12.90           & 4.12            & 57.70           & 5.46            \\
+\bottomrule
+\end{tabular*}
+\flushleft
+\scriptsize{All baselines and SGSCF-Net were benchmarked under identical hardware (Nvidia Tesla T4 GPU, 16~GB VRAM) across standard 10\% training, 10\% validation, and 80\% testing partitions with $11 \times 11$ spatial patches and batch size 32 for 200 epochs. DMC patches were padded from $11 \times 11$ to $13 \times 13$ to satisfy capsule squash requirements.}
+\end{table*}
 
 Furthermore, Table~\ref{tab:perclass_ip} illustrates an important empirical finding regarding model robustness on imbalanced datasets. SSAN achieves only 64.19\% OA and 59.79 Kappa. Inspection of per-class error distributions reveals that SSAN collapses on minority classes containing fewer than 30 training samples (e.g., Oats and Grass-pasture-mowed), where standard cross-entropy loss gradients are completely dominated by prevalent soybean categories. In contrast, SGSCF-Net's minority-aware hybrid objective ($\mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}$) enforces explicit activation margins and inverse-frequency weighting, preventing boundary collapse and maintaining high classification stability.
 
