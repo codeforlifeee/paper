@@ -496,7 +496,7 @@ This section presents an empirical evaluation of SGSCF-Net alongside eight stand
 
 \subsection{Dataset Description}
 \label{subsec:datasets}
-To evaluate model performance across heterogeneous spatial resolutions, sensor configurations, and land-cover categories, experiments are conducted on three standard benchmark datasets: Indian Pines, University of Pavia, and Salinas Valley. In all experiments, labeled samples are partitioned into training, validation, and testing sets following a standard 10\%, 10\%, and 80\% stratified split per class. A structured summary of sensor properties, spatial dimensions, spectral channels, and sample allocations for each benchmark is provided in Table~\ref{tab:dataset_summary}. For each benchmark, the corresponding subsection below first describes the acquisition protocol and land-cover composition, and then reports the per-class ground-truth colour palette together with the stratified sample allocation (Tables~\ref{tab:cat_ip}, \ref{tab:cat_pu}, and \ref{tab:cat_sv}). These palettes are retained consistently throughout the classification maps rendered for each dataset in the subsequent sections.
+To evaluate model performance across heterogeneous spatial resolutions, sensor configurations, and land-cover categories, experiments are conducted on three standard benchmark datasets: Indian Pines, Pavia University, and Salinas Valley. In all experiments, labeled samples are partitioned into training, validation, and testing sets following a standard 10\%, 10\%, and 80\% stratified split per class. A structured summary of sensor properties, spatial dimensions, spectral channels, and sample allocations for each benchmark is provided in Table~\ref{tab:dataset_summary}. For each benchmark, the corresponding subsection below first describes the acquisition protocol and land-cover composition, and then reports the per-class ground-truth colour palette together with the stratified sample allocation (Tables~\ref{tab:cat_ip}, \ref{tab:cat_pu}, and \ref{tab:cat_sv}). These palettes are retained consistently throughout the classification maps rendered for each dataset in the subsequent sections.
 
 \begin{table*}[t]
 \centering
@@ -508,7 +508,7 @@ To evaluate model performance across heterogeneous spatial resolutions, sensor c
 \textbf{Dataset} & \textbf{Sensor} & \textbf{Range ($\mu$m)} & \textbf{Bands} & \textbf{Spatial Size} & \textbf{Res. (m)} & \textbf{Classes} & \textbf{Labeled Pixels} & \textbf{Train / Val / Test} \\
 \midrule
 Indian Pines & AVIRIS & 0.40--2.50 & 200 & $145 \times 145$ & 20.0 & 16 & 10,249 & 1,025 / 1,025 / 8,199 \\
-University of Pavia & ROSIS-03 & 0.43--0.86 & 103 & $610 \times 340$ & 1.3 & 9 & 42,776 & 4,277 / 4,277 / 34,222 \\
+Pavia University & ROSIS-03 & 0.43--0.86 & 103 & $610 \times 340$ & 1.3 & 9 & 42,776 & 4,277 / 4,277 / 34,222 \\
 Salinas Valley & AVIRIS & 0.40--2.50 & 204 & $512 \times 217$ & 3.7 & 16 & 54,129 & 5,413 / 5,413 / 43,303 \\
 \bottomrule
 \end{tabular*}
@@ -548,13 +548,13 @@ The Indian Pines dataset was gathered in 1992 by the Airborne Visible/Infrared I
 \end{tabular}
 \end{table}
 
-\subsubsection{University of Pavia}
-The University of Pavia dataset was acquired by the Reflective Optics System Imaging Spectrometer (ROSIS-03) sensor during an aerial flight campaign over Pavia, Northern Italy \cite{fauvel2008spectral}. The image dimensions are $610 \times 340$ pixels with a fine spatial resolution of 1.3 m per pixel. The sensor covers the spectral range from 430 to 860 nm across 115 bands. After discarding 12 heavily corrupted atmospheric noise bands, 103 calibrated spectral channels are retained. The ground-truth reference map contains nine urban land-cover classes, including asphalt roads, meadows, gravel, trees, painted metal sheets, bare soil, bitumen, self-blocking bricks, and shadows. The scene contains 42,776 labeled pixels, characterized by complex geometric boundaries and high intra-class spatial variance. The per-class ground-truth colour palette and stratified sample allocation are listed in Table~\ref{tab:cat_pu}.
+\subsubsection{Pavia University}
+The Pavia University dataset was acquired by the Reflective Optics System Imaging Spectrometer (ROSIS-03) sensor during an aerial flight campaign over Pavia, Northern Italy \cite{fauvel2008spectral}. The image dimensions are $610 \times 340$ pixels with a fine spatial resolution of 1.3 m per pixel. The sensor covers the spectral range from 430 to 860 nm across 115 bands. After discarding 12 heavily corrupted atmospheric noise bands, 103 calibrated spectral channels are retained. The ground-truth reference map contains nine urban land-cover classes, including asphalt roads, meadows, gravel, trees, painted metal sheets, bare soil, bitumen, self-blocking bricks, and shadows. The scene contains 42,776 labeled pixels, characterized by complex geometric boundaries and high intra-class spatial variance. The per-class ground-truth colour palette and stratified sample allocation are listed in Table~\ref{tab:cat_pu}.
 
 \begin{table}[htbp]
 \centering
 \footnotesize
-\caption{Category Information of the University of Pavia Dataset. Train/Val/Test counts follow a stratified 10\%/10\%/80\% split per class.}
+\caption{Category Information of the Pavia University Dataset. Train/Val/Test counts follow a stratified 10\%/10\%/80\% split per class.}
 \label{tab:cat_pu}
 \begin{tabular}{clcccc}
 \toprule
@@ -735,13 +735,13 @@ Stone-Steel-Towers           & 97.18 & 100.00 & 90.12 & 94.67 & 76.00 & 96.00 & 
 \footnotesize{Baseline per-class accuracies are evaluated on the held-out 80\% test split from each model's standardized Indian Pines benchmark run. ``HyperRoPE'' denotes the HyperRoPE-HiT variant. SSRN attains the highest OA but collapses on the three extreme-minority classes (Alfalfa, Grass-pasture-mowed, Oats at 0.00\%), yielding the lowest AA among competitive models; SGSCF-Net attains the best Average Accuracy (94.82\%). DMC patches were zero-padded from 11$\times$11 to 13$\times$13 to satisfy capsule squash requirements.}
 \end{table*}
 
-\subsection{Comparative Study on University of Pavia}
+\subsection{Comparative Study on Pavia University}
 \label{subsec:pavia_study}
-The University of Pavia benchmark evaluates model robustness on high-spatial-resolution (1.3-m) urban remote sensing imagery. Table~\ref{tab:perclass_pu} reports the per-class, overall, and average classification performance across all nine evaluated architectures under standardized 10\% training, 10\% validation, and 80\% testing splits over 200 epochs.
+The Pavia University benchmark evaluates model robustness on high-spatial-resolution (1.3-m) urban remote sensing imagery. Table~\ref{tab:perclass_pu} reports the per-class, overall, and average classification performance across all nine evaluated architectures under standardized 10\% training, 10\% validation, and 80\% testing splits over 200 epochs.
 
 As detailed in Table~\ref{tab:perclass_pu}, 3D convolutional models (SSRN at 99.87\% OA, A2S2K-ResNet at 99.83\% OA) and transformer architectures (HyperRoPE-SST at 99.83\% OA, HSI-SSFTT at 99.72\% OA) achieve competitive accuracy on this urban benchmark. However, substantial disparities emerge across computational latency and parametric efficiency. A2S2K-ResNet requires 41.12 minutes of GPU training due to multi-scale adaptive kernel convolutions, while Deep Matrix Capsules (DMC) demands 73.42 minutes to complete iterative Expectation-Maximization (EM) routing. In contrast, SGSCF-Net achieves 99.82\% OA, 99.71\% AA, and 99.76 Kappa in only 12.90 minutes of training, matching the top-tier accuracy while maintaining a lightweight footprint of $\sim$308K parameters.
 
-The primary land-cover challenge in University of Pavia centers on urban material confusion: spectral ambiguity between materials exhibiting similar visible-NIR reflectance curves (asphalt roads versus bitumen rooftops; self-blocking bricks versus bare soil), juxtaposed against thin geometric structures including pedestrian walkways and shadow slivers. Table~\ref{tab:perclass_pu} reports the granular per-class accuracies of SGSCF-Net and the eight baseline models under the standardized 11$\times$11 / batch-32 configuration.
+The primary land-cover challenge in Pavia University centers on urban material confusion: spectral ambiguity between materials exhibiting similar visible-NIR reflectance curves (asphalt roads versus bitumen rooftops; self-blocking bricks versus bare soil), juxtaposed against thin geometric structures including pedestrian walkways and shadow slivers. Table~\ref{tab:perclass_pu} reports the granular per-class accuracies of SGSCF-Net and the eight baseline models under the standardized 11$\times$11 / batch-32 configuration.
 
 Four urban categories (Meadows, Painted metal sheets, Bare Soil, and Bitumen) reach perfect 100.00\% classification accuracy. The historically confused material pairs---Asphalt vs. Bitumen and Self-Blocking Bricks vs. Bare Soil---attain 99.79\% and 99.32\%, respectively. This fine discrimination is directly enabled by the complementary CBSA gating mechanism ($\alpha \odot a + (1-\alpha) \odot b$), which forces the $1\times 1\times 7$ spectral-only branch to isolate subtle hydrocarbon absorption valleys while the $3\times 3\times 7$ branch preserves structural boundaries. The low-radiance Shadows class (947 labeled pixels) attains 99.34\% accuracy through the second-order SCFG covariance operator, which preserves discriminative activation where first-order pooling drops toward zero.
 
@@ -770,9 +770,9 @@ Four urban categories (Meadows, Painted metal sheets, Bare Soil, and Bitumen) re
 \footnotesize (i) DMC \cite{wang2021deep} &
 \footnotesize (j) SGSCF-Net (\textbf{Ours}) \\
 \end{tabular}
-\caption{Classification maps of different methods for the University of Pavia dataset under standardized 10\% training ratio. (a) Ground truth. (b) ViT (OA: 99.05\%). (c) HSI-SSFTT (OA: 99.72\%). (d) SSRN (OA: 99.87\%). (e) SSAN (OA: 76.82\%). (f) A2S2K-ResNet (OA: 99.83\%). (g) CRV-MHDL (OA: 98.40\%). (h) HyperRoPE-SST (OA: 99.83\%). (i) DMC (OA: 99.34\%). (j) SGSCF-Net (Ours, OA: 99.82\%).}
+\caption{Classification maps of different methods for the Pavia University dataset under standardized 10\% training ratio. (a) Ground truth. (b) ViT (OA: 99.05\%). (c) HSI-SSFTT (OA: 99.72\%). (d) SSRN (OA: 99.87\%). (e) SSAN (OA: 76.82\%). (f) A2S2K-ResNet (OA: 99.83\%). (g) CRV-MHDL (OA: 98.40\%). (h) HyperRoPE-SST (OA: 99.83\%). (i) DMC (OA: 99.34\%). (j) SGSCF-Net (Ours, OA: 99.82\%).}
 \label{fig:pavia_maps}
-\Description{Classification maps of the University of Pavia dataset comparing ground truth, eight baseline models, and SGSCF-Net.}
+\Description{Classification maps of the Pavia University dataset comparing ground truth, eight baseline models, and SGSCF-Net.}
 \end{figure*}
 
 Fig.~\ref{fig:pavia_maps} illustrates the qualitative classification maps across all evaluated models alongside the ground-truth map. The spatial distribution of classification errors highlights critical architectural distinctions. The spatial-spectral attention model SSAN (Fig.~\ref{fig:pavia_maps}(e)) suffers a severe breakdown, dropping to 76.82\% OA. Inspection reveals pervasive salt-and-pepper artifacts and complete category collapse on Gravel (17.96\% accuracy) and Bare Soil (60.36\% accuracy); its unconstrained softmax spatial attention distributes probability mass over surrounding meadow surfaces. ViT (Fig.~\ref{fig:pavia_maps}(b)) and CRV-MHDL (Fig.~\ref{fig:pavia_maps}(g)) generate noticeable boundary blurring along elongated building perimeters. Conversely, 3D convolutional models (SSRN, A2S2K-ResNet) and SGSCF-Net (Fig.~\ref{fig:pavia_maps}(j)) reproduce crisp, geometrically sharp building contours and continuous asphalt arteries, demonstrating that input-level SBAM filtering prevents atmospheric dispersion from polluting high-resolution spatial boundaries.
@@ -781,7 +781,7 @@ Fig.~\ref{fig:pavia_maps} illustrates the qualitative classification maps across
 \centering
 \scriptsize
 \setlength{\tabcolsep}{3.5pt}
-\caption{Per-Class Classification Accuracy (\%) of SGSCF-Net and Eight Baseline Models on the University of Pavia Test Set (10\% Train / 10\% Val / 80\% Test, Patch 11$\times$11, Batch 32, 200 Epochs). Overall Accuracy (OA), Average Accuracy (AA), Kappa ($\kappa \times 100$), and training time are reported in the final rows. Best OA/AA/$\kappa$ in bold.}
+\caption{Per-Class Classification Accuracy (\%) of SGSCF-Net and Eight Baseline Models on the Pavia University Test Set (10\% Train / 10\% Val / 80\% Test, Patch 11$\times$11, Batch 32, 200 Epochs). Overall Accuracy (OA), Average Accuracy (AA), Kappa ($\kappa \times 100$), and training time are reported in the final rows. Best OA/AA/$\kappa$ in bold.}
 \label{tab:perclass_pu}
 \begin{tabular}{p{2.6cm}ccccccccc}
 \toprule
@@ -900,7 +900,7 @@ Table~\ref{tab:cross_dataset} consolidates the three benchmarks under the identi
 \textbf{Dataset} & \textbf{OA (\%)} & \textbf{AA (\%)} & \textbf{Kappa} & \textbf{Train (min)} \\
 \midrule
 Indian Pines         & 98.05 & 94.82 & 97.78 & 8.80 \\
-University of Pavia  & 99.82 & 99.71 & 99.76 & 12.90 \\
+Pavia University  & 99.82 & 99.71 & 99.76 & 12.90 \\
 Salinas Valley       & 99.92 & 99.92 & 99.91 & 57.70 \\
 \bottomrule
 \end{tabular}
@@ -908,7 +908,7 @@ Salinas Valley       & 99.92 & 99.92 & 99.91 & 57.70 \\
 
 \subsection{Computational Complexity and Efficiency Analysis}
 \label{subsec:complexity_analysis}
-A critical challenge in hyperspectral classification is reconciling high representational accuracy with computational efficiency. Standard Transformer architectures (such as ViT and HyperRoPE-HiT) rely on global self-attention across spatial-spectral tokens, which scales with quadratic complexity $\mathcal{O}(N^2)$ in the token sequence length $N$. On the small Indian Pines patches this overhead stays modest---ViT and HyperRoPE-HiT each finish in under two minutes---but it grows on the larger University of Pavia and Salinas Valley scenes, and these token-mixing models still trade away minority-class fidelity (ViT falls to 90.33\% OA and HyperRoPE-HiT to 94.07\% OA, both over-smoothing small agricultural patches). The heaviest wall-clock costs instead stem from iterative routing and adaptive-kernel search: DMC's EM routing needs 17.73 minutes and A2S2K-ResNet 14.89 minutes on Indian Pines, rising to 94.64 and 41.12 minutes respectively on the larger scenes.
+A critical challenge in hyperspectral classification is reconciling high representational accuracy with computational efficiency. Standard Transformer architectures (such as ViT and HyperRoPE-HiT) rely on global self-attention across spatial-spectral tokens, which scales with quadratic complexity $\mathcal{O}(N^2)$ in the token sequence length $N$. On the small Indian Pines patches this overhead stays modest---ViT and HyperRoPE-HiT each finish in under two minutes---but it grows on the larger Pavia University and Salinas Valley scenes, and these token-mixing models still trade away minority-class fidelity (ViT falls to 90.33\% OA and HyperRoPE-HiT to 94.07\% OA, both over-smoothing small agricultural patches). The heaviest wall-clock costs instead stem from iterative routing and adaptive-kernel search: DMC's EM routing needs 17.73 minutes and A2S2K-ResNet 14.89 minutes on Indian Pines, rising to 94.64 and 41.12 minutes respectively on the larger scenes.
 
 In contrast, SGSCF-Net dispenses entirely with quadratic self-attention matrices. By decomposing feature extraction into an input-level spectral gate (SBAM), a depthwise 1D complementary gate (CBSA), and a second-order bilinear covariance gate (SCFG), SGSCF-Net maintains linear computational complexity $\mathcal{O}(N)$ with respect to spatial dimensions. Containing only $\sim$308K trainable parameters, SGSCF-Net converges in 8.80 minutes.
 
@@ -920,9 +920,9 @@ In this section, we conduct a systematic empirical discussion and ablation inves
 
 \subsection{Analysis of Model Parameter Quantities and Computational Efficiency}
 \label{subsec:param_analysis}
-Model parameter count and inference latency are decisive factors governing deployment on resource-constrained platforms, such as unmanned aerial vehicles (UAVs) and Earth-observation satellites. As summarized in Table~\ref{tab:model_param_comparison}, existing hyperspectral classification models suffer from an acute performance-efficiency bottleneck. Large-scale transformer and attention architectures exhibit substantial structural redundancy. For instance, Vision Transformers (ViT) \cite{dosovitskiy2020image} and HyperRoPE-HiT \cite{khan2025hyperrope} require dense multi-head self-attention projections that scale quadratically $\mathcal{O}(N^2)$ with token sequence length. This overhead is most visible on the larger scenes, where capsule-routing and adaptive-kernel baselines dominate the wall-clock budget---DMC requires 73.42 minutes and A2S2K-ResNet 41.12 minutes per 200 epochs on University of Pavia. On Indian Pines, DMC's EM routing (17.73 min) is the costliest run yet still saturates at only 82.55\% Overall Accuracy. Similarly, the Spectral-Spatial Attention Network (SSAN) \cite{sun2019spectral} incurs heavy architectural redundancy, reaching over 6.4 million parameters, yet its unweighted cross-entropy formulation collapses on minority classes (64.19\% OA). Complex multi-hybrid architectures such as CRV-MHDL \cite{alalimi2022compression} produce excessive checkpoint footprints (58.2~MB). Conversely, conventional lightweight models such as 2D CNNs maintain a compact footprint of 5.6k--8.7k parameters, but their restricted receptive field and omission of continuous spectral-spatial volumetric correlations result in suboptimal performance (frequently yielding below 75\% OA).
+Model parameter count and inference latency are decisive factors governing deployment on resource-constrained platforms, such as unmanned aerial vehicles (UAVs) and Earth-observation satellites. As summarized in Table~\ref{tab:model_param_comparison}, existing hyperspectral classification models suffer from an acute performance-efficiency bottleneck. Large-scale transformer and attention architectures exhibit substantial structural redundancy. For instance, Vision Transformers (ViT) \cite{dosovitskiy2020image} and HyperRoPE-HiT \cite{khan2025hyperrope} require dense multi-head self-attention projections that scale quadratically $\mathcal{O}(N^2)$ with token sequence length. This overhead is most visible on the larger scenes, where capsule-routing and adaptive-kernel baselines dominate the wall-clock budget---DMC requires 73.42 minutes and A2S2K-ResNet 41.12 minutes per 200 epochs on Pavia University. On Indian Pines, DMC's EM routing (17.73 min) is the costliest run yet still saturates at only 82.55\% Overall Accuracy. Similarly, the Spectral-Spatial Attention Network (SSAN) \cite{sun2019spectral} incurs heavy architectural redundancy, reaching over 6.4 million parameters, yet its unweighted cross-entropy formulation collapses on minority classes (64.19\% OA). Complex multi-hybrid architectures such as CRV-MHDL \cite{alalimi2022compression} produce excessive checkpoint footprints (58.2~MB). Conversely, conventional lightweight models such as 2D CNNs maintain a compact footprint of 5.6k--8.7k parameters, but their restricted receptive field and omission of continuous spectral-spatial volumetric correlations result in suboptimal performance (frequently yielding below 75\% OA).
 
-In contrast, SGSCF-Net achieves an optimal classical design point, reconciling extreme parameter compactness with state-of-the-art representational capacity. As documented in Table~\ref{tab:model_param_comparison}, SGSCF-Net requires only 308,097 trainable parameters on Indian Pines, 300,879 on University of Pavia, and 308,441 on Salinas Valley. This parameter scale is orders of magnitude leaner than transformer-based networks and 18.9\% more compact than A2S2K-ResNet \cite{roy2020attention}. It trains in 8.80 minutes on Indian Pines---41\% faster than A2S2K-ResNet (14.89 min) and roughly half of DMC's 17.73 min---with the efficiency gap widening dramatically on the larger scenes, where A2S2K-ResNet needs 41.12 minutes and DMC 73.42 minutes on Pavia University. Despite its lean parameter footprint, SGSCF-Net consistently yields competitive or superior classification metrics, attaining the best Average Accuracy on Indian Pines (94.82\%) and top-tier Overall Accuracy on Pavia University (99.82\%) and Salinas Valley (99.92\%). This efficiency stems directly from our modular factorization: the input-level SBAM suppresses noise without deep convolutional expansion, CBSA enforces orthogonal specialization via depthwise 1D gating (contrasting with parameter-heavy cross-attention alignment architectures such as CSCANet \cite{wang2023cscanet}), and SCFG replaces iterative capsule routing mechanisms \cite{paoletti2018capsule, wang2021deep} with single-step bilinear outer-product covariance pooling.
+In contrast, SGSCF-Net achieves an optimal classical design point, reconciling extreme parameter compactness with state-of-the-art representational capacity. As documented in Table~\ref{tab:model_param_comparison}, SGSCF-Net requires only 308,097 trainable parameters on Indian Pines, 300,879 on Pavia University, and 308,441 on Salinas Valley. This parameter scale is orders of magnitude leaner than transformer-based networks and 18.9\% more compact than A2S2K-ResNet \cite{roy2020attention}. It trains in 8.80 minutes on Indian Pines---41\% faster than A2S2K-ResNet (14.89 min) and roughly half of DMC's 17.73 min---with the efficiency gap widening dramatically on the larger scenes, where A2S2K-ResNet needs 41.12 minutes and DMC 73.42 minutes on Pavia University. Despite its lean parameter footprint, SGSCF-Net consistently yields competitive or superior classification metrics, attaining the best Average Accuracy on Indian Pines (94.82\%) and top-tier Overall Accuracy on Pavia University (99.82\%) and Salinas Valley (99.92\%). This efficiency stems directly from our modular factorization: the input-level SBAM suppresses noise without deep convolutional expansion, CBSA enforces orthogonal specialization via depthwise 1D gating (contrasting with parameter-heavy cross-attention alignment architectures such as CSCANet \cite{wang2023cscanet}), and SCFG replaces iterative capsule routing mechanisms \cite{paoletti2018capsule, wang2021deep} with single-step bilinear outer-product covariance pooling.
 
 \begin{table*}[t]
 \centering
@@ -1028,7 +1028,7 @@ $D = 4$ & 565,633 & 16.9 min & 97.40 & 92.65 & 97.04 \\
 
 \subsection{Spatial Patch and Batch Size Grid Search Analysis}
 \label{subsec:grid_search}
-To evaluate hyperparameter sensitivity and identify optimal operational bounds, a 60-run parameter grid search was executed spanning five spatial patch sizes ($9 \times 9$, $11 \times 11$, $13 \times 13$, $15 \times 15$, and $17 \times 17$) and four mini-batch sizes (32, 64, 128, and 256) across Indian Pines, University of Pavia, and Salinas Valley. Fig.~\ref{fig:hyperparameter_heatmaps} depicts the resulting two-dimensional performance heatmaps, and Fig.~\ref{fig:hyperparameter_surfaces} visualizes the corresponding three-dimensional continuous response surfaces across all three benchmarks, illustrating the smooth convex accuracy manifolds. Table~\ref{tab:grid_search_summary} summarizes representative ranked configurations on Indian Pines across the parameter search space.
+To evaluate hyperparameter sensitivity and identify optimal operational bounds, a 60-run parameter grid search was executed spanning five spatial patch sizes ($9 \times 9$, $11 \times 11$, $13 \times 13$, $15 \times 15$, and $17 \times 17$) and four mini-batch sizes (32, 64, 128, and 256) across Indian Pines, Pavia University, and Salinas Valley. Fig.~\ref{fig:hyperparameter_heatmaps} depicts the resulting two-dimensional performance heatmaps, and Fig.~\ref{fig:hyperparameter_surfaces} visualizes the corresponding three-dimensional continuous response surfaces across all three benchmarks, illustrating the smooth convex accuracy manifolds. Table~\ref{tab:grid_search_summary} summarizes representative ranked configurations on Indian Pines across the parameter search space.
 
 \begin{figure*}[t]
 \centering
@@ -1037,9 +1037,9 @@ To evaluate hyperparameter sensitivity and identify optimal operational bounds, 
 \includegraphics[width=0.315\textwidth]{figures/heatmap_ip.png} &
 \includegraphics[width=0.315\textwidth]{figures/heatmap_pu.png} &
 \includegraphics[width=0.315\textwidth]{figures/heatmap_sv.png} \\
-\footnotesize (a) Indian Pines & \footnotesize (b) University of Pavia & \footnotesize (c) Salinas Valley \\
+\footnotesize (a) Indian Pines & \footnotesize (b) Pavia University & \footnotesize (c) Salinas Valley \\
 \end{tabular}
-\caption{Hyperparameter sensitivity heatmaps displaying Overall Accuracy (\%) across spatial patch sizes ($P \in \{9, 11, 13, 15, 17\}$) and mini-batch sizes ($B \in \{32, 64, 128, 256\}$) across 60 exhaustive training runs (20 runs per benchmark). (a) Indian Pines. (b) University of Pavia. (c) Salinas Valley.}
+\caption{Hyperparameter sensitivity heatmaps displaying Overall Accuracy (\%) across spatial patch sizes ($P \in \{9, 11, 13, 15, 17\}$) and mini-batch sizes ($B \in \{32, 64, 128, 256\}$) across 60 exhaustive training runs (20 runs per benchmark). (a) Indian Pines. (b) Pavia University. (c) Salinas Valley.}
 \label{fig:hyperparameter_heatmaps}
 \Description{Hyperparameter sensitivity heatmaps across patch size and batch size for Indian Pines, Pavia University, and Salinas Valley.}
 \end{figure*}
@@ -1083,12 +1083,12 @@ To evaluate hyperparameter sensitivity and identify optimal operational bounds, 
 \end{tabular*}
 \end{table*}
 
-The complete 20-run grid searches on University of Pavia and Salinas Valley, conducted under the identical patch/batch sweep and 200-epoch protocol, are reported in Tables~\ref{tab:grid_search_pu} and~\ref{tab:grid_search_sv}. In both, the adopted $11 \times 11$ / batch-32 configuration (bold) sits within 0.08\% OA of the top-ranked setting while training in a fraction of the time.
+The complete 20-run grid searches on Pavia University and Salinas Valley, conducted under the identical patch/batch sweep and 200-epoch protocol, are reported in Tables~\ref{tab:grid_search_pu} and~\ref{tab:grid_search_sv}. In both, the adopted $11 \times 11$ / batch-32 configuration (bold) sits within 0.08\% OA of the top-ranked setting while training in a fraction of the time.
 
 \begin{table*}[t]
 \centering
 \footnotesize
-\caption{Complete 20-Run Grid Search Ranking of SGSCF-Net on University of Pavia (200 Epochs). The adopted $11 \times 11$ / batch-32 configuration is in bold.}
+\caption{Complete 20-Run Grid Search Ranking of SGSCF-Net on Pavia University (200 Epochs). The adopted $11 \times 11$ / batch-32 configuration is in bold.}
 \label{tab:grid_search_pu}
 \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ccccccc}
 \toprule
@@ -1155,7 +1155,7 @@ Inspection of Table~\ref{tab:grid_search_summary} and Figs.~\ref{fig:hyperparame
 \begin{enumerate}
     \item \textbf{Optimal Spatial Window:} As illustrated in Figs.~\ref{fig:hyperparameter_heatmaps}(a) and \ref{fig:hyperparameter_surfaces}(a), Configuration Rank 1 ($11 \times 11$, batch size 32) achieves the best trade-off, attaining 98.05\% OA and 97.78 Kappa in 8.80 minutes. Although smaller patches ($9 \times 9$, batch 32) train in 6.00 minutes, OA drops to 95.79\% because the localized window fails to encapsulate spatial texture boundaries. Conversely, expanding patch size to $15 \times 15$ and $17 \times 17$ inflates training latency to 16.60 and 19.40 minutes without accuracy gains (97.82\% and 97.75\% OA). Because Indian Pines has a 20-meter ground sampling distance, a $17 \times 17$ window spans $340 \times 340 \text{ m}^2$, crossing agricultural boundaries and introducing spectral contamination from neighboring fields.
     \item \textbf{Batch Size Dynamics:} Across all patch dimensions, smaller batch sizes ($B=32$ and $B=64$) systematically outperform larger batch sizes ($B=128$ and $B=256$). For instance, with an $11 \times 11$ patch, scaling $B$ from 32 to 256 degrades OA from 98.05\% to 94.62\% (-3.43\%). Under severe class imbalance, large batches cause gradient steps to be overwhelmingly dominated by frequent majority classes (e.g., Soybean-mintill with 2,468 pixels), washing out minority gradient contributions. A smaller batch size of 32 provides higher stochastic gradient variance, enabling the optimizer to escape sharp local minima and preserve minority decision boundaries.
-    \item \textbf{Cross-Dataset Consistency:} On University of Pavia (Figs.~\ref{fig:hyperparameter_heatmaps}(b), \ref{fig:hyperparameter_surfaces}(b)) and Salinas Valley (Figs.~\ref{fig:hyperparameter_heatmaps}(c), \ref{fig:hyperparameter_surfaces}(c)), the $11 \times 11$ / batch 32 setup maintains competitive performance: 99.82\% OA on Pavia (Rank 6, 12.9 min vs. Rank 1 at $13 \times 13$ with 99.86\% OA in 25.6 min) and 99.92\% OA on Salinas Valley (Rank 11, 57.7 min vs. Rank 1 at $17 \times 17$ with 100.00\% OA in 116.8 min). Adopting $11 \times 11$ with batch size 32 universally cuts training latency by half while sacrificing less than 0.08\% in Overall Accuracy.
+    \item \textbf{Cross-Dataset Consistency:} On Pavia University (Figs.~\ref{fig:hyperparameter_heatmaps}(b), \ref{fig:hyperparameter_surfaces}(b)) and Salinas Valley (Figs.~\ref{fig:hyperparameter_heatmaps}(c), \ref{fig:hyperparameter_surfaces}(c)), the $11 \times 11$ / batch 32 setup maintains competitive performance: 99.82\% OA on Pavia (Rank 6, 12.9 min vs. Rank 1 at $13 \times 13$ with 99.86\% OA in 25.6 min) and 99.92\% OA on Salinas Valley (Rank 11, 57.7 min vs. Rank 1 at $17 \times 17$ with 100.00\% OA in 116.8 min). Adopting $11 \times 11$ with batch size 32 universally cuts training latency by half while sacrificing less than 0.08\% in Overall Accuracy.
 \end{enumerate}
 
 \subsection{Data Scarcity Stress Testing and Degradation Dynamics}
@@ -1188,7 +1188,7 @@ Fig.~\ref{fig:data_scarcity_degradation} illustrates the empirical performance d
 \textbf{Dataset Benchmark} & \textbf{1\% Train Ratio} & \textbf{2\% Train Ratio} & \textbf{5\% Train Ratio} & \textbf{10\% Train Ratio} & \textbf{Degradation (10\% $\to$ 1\%)} \\
 \midrule
 Indian Pines          & 70.12\% & 81.55\% & 93.91\% & 97.84\% & -27.73\% \\
-University of Pavia   & 95.41\% & 98.04\% & 99.51\% & 99.83\% & -4.43\% \\
+Pavia University   & 95.41\% & 98.04\% & 99.51\% & 99.83\% & -4.43\% \\
 Salinas Valley        & 97.73\% & 99.11\% & 99.79\% & 99.93\% & -2.20\% \\
 \bottomrule
 \end{tabular*}
@@ -1197,7 +1197,7 @@ Salinas Valley        & 97.73\% & 99.11\% & 99.79\% & 99.93\% & -2.20\% \\
 Table~\ref{tab:scarcity_table} and Fig.~\ref{fig:data_scarcity_degradation} expose distinct, dataset-specific sensitivity behaviors:
 \begin{itemize}
     \item \textbf{Salinas Valley (-2.20\% drop):} As visualized in Fig.~\ref{fig:data_scarcity_degradation}, Salinas Valley exhibits exceptional resilience, retaining 97.73\% OA under a 1\% training ratio. Due to large contiguous fields and high intra-class spatial homogeneity, the SBAM and SCFG modules extract representative class descriptors even from minimal training patches.
-    \item \textbf{University of Pavia (-4.43\% drop):} Despite high intra-class spectral variance among urban materials, Pavia retains 95.41\% OA at 1\% training data. CBSA's complementary branch gating preserves distinct spectral signatures (such as Asphalt versus Bitumen) without confusing spatial edge transitions.
+    \item \textbf{Pavia University (-4.43\% drop):} Despite high intra-class spectral variance among urban materials, Pavia retains 95.41\% OA at 1\% training data. CBSA's complementary branch gating preserves distinct spectral signatures (such as Asphalt versus Bitumen) without confusing spatial edge transitions.
     \item \textbf{Indian Pines (-27.73\% drop):} Indian Pines experiences a steep performance decline from 97.84\% at 10\% down to 70.12\% at 1\%. As shown in Fig.~\ref{fig:data_scarcity_degradation}, a sharp degradation knee occurs below 5\% training ratio. This decline reflects a mathematical sample scarcity floor rather than an architectural defect, consistent with effective sample volume theory \cite{cui2019class} where representation quality degrades sharply when effective sample counts drop below class manifold rank.
 \end{itemize}
 
@@ -1211,7 +1211,7 @@ Table~\ref{tab:scarcity_table} and Fig.~\ref{fig:data_scarcity_degradation} expo
 \textbf{Dataset} & \textbf{Best Performing Class} & \textbf{Worst Performing Class} \\
 \midrule
 Indian Pines & Hay-windrowed (99.27\%) & Oats (7.66\%) \\
-University of Pavia & Painted metal sheets (99.62\%) & Self-Blocking Bricks (84.70\%) \\
+Pavia University & Painted metal sheets (99.62\%) & Self-Blocking Bricks (84.70\%) \\
 Salinas Valley & Brocoli\_green\_weeds\_2 (100.00\%) & Fallow (89.47\%) \\
 \bottomrule
 \end{tabular}
@@ -1226,7 +1226,7 @@ This article proposes the Spectral-Guided Spatial Cross-Attention Fusion Network
 In the future, based on the lightweight design of SGSCF-Net, we will investigate hardware-aware integer quantization (INT8/FP8) and structured tensor pruning to support onboard, real-time inference on edge NPUs and FPGAs aboard aerial and satellite platforms. We also plan to explore self-supervised masked spectral pre-training on large uncurated hyperspectral cubes to enhance representation transfer under extreme label scarcity. In addition, the second-order covariance fusion mechanism offers high architectural scalability for multimodal earth observation, providing a principled foundation for joint feature extraction and classification across co-registered hyperspectral and LiDAR data.
 
 \begin{acks}
-This research was conducted at the National Institute of Technology (NIT) Raipur. The authors express their gratitude to the NASA Jet Propulsion Laboratory and the University of Pavia for providing the open-access hyperspectral benchmarks.
+This research was conducted at the National Institute of Technology (NIT) Raipur. The authors express their gratitude to the NASA Jet Propulsion Laboratory and the Pavia University for providing the open-access hyperspectral benchmarks.
 \end{acks}
 
 \bibliographystyle{ACM-Reference-Format}
