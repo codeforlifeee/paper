@@ -77,7 +77,7 @@ def build_gap_diagram():
     Y = 146
 
     # Panel (steel blue -- classification head, not a proposed module)
-    d.panel(132, 20, 504, 232, "GAP &amp; Classification Head",
+    d.panel(132, 20, 504, 232, "",
             lighten(RES_C, 0.94), RES_C, fs=FS_T, title_align="right")
 
     # ---- 1. Input: spatial ResBlock output s in R^{K x P x P} ----

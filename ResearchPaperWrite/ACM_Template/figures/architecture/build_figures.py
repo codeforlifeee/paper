@@ -259,7 +259,7 @@ def fig_sbam():
     d = Diagram("fig_sbam", MOD_W, MOD_H)
     d.shift(26, 6)
     Y = 140
-    d.panel(156, 30, 296, 234, "SBAM", lighten(SBAM_C, 0.92), SBAM_C, fs=FS_T, title_align="right")
+    d.panel(156, 30, 296, 234, "", lighten(SBAM_C, 0.92), SBAM_C, fs=FS_T, title_align="right")
     x = Cub(d, 36, Y, 60, 60, 48, 32, **PATCH_KW)
     x.dims(left="P", bottom="P", depth="C", bottom_f=0.3)
     x.title(m("X") + " " + m(r"\in\mathbb{R}^{P\times P\times C}"), dy=-28, w_extra=60)
@@ -300,7 +300,7 @@ def fig_cbsa():
     d = Diagram("fig_cbsa", MOD_W, MOD_H)
     d.shift(14, 0)
     Y = 176
-    d.panel(108, 42, 424, 262, "CBSA", lighten(CBSA_C, 0.93), CBSA_C, fs=FS_T, title_align="left",
+    d.panel(108, 42, 424, 262, "", lighten(CBSA_C, 0.93), CBSA_C, fs=FS_T, title_align="left",
             title_valign="bottom")
     a = Cub(d, 16, 96, 44, 44, 36, 22, front=lighten(A_C, 0.72), stroke=A_C, sw=1.2)
     b = Cub(d, 16, 256, 44, 44, 36, 22, front=lighten(B_C, 0.72), stroke=B_C, sw=1.2)
@@ -375,7 +375,7 @@ def fig_scfg():
     G = matrix(6, 8, cw, cw, [[u * v for u in fsp] for v in fch], hi=SCFG_C)
     lin_x = gx + G.w + 22
     gtx = lin_x + 86 + 20
-    d.panel(126, 18, gtx + 30 - 126, 296, "SCFG", lighten(SCFG_C, 0.93), SCFG_C, fs=FS_T, title_align="right")
+    d.panel(126, 18, gtx + 30 - 126, 296, "", lighten(SCFG_C, 0.93), SCFG_C, fs=FS_T, title_align="right")
 
     x = Cub(d, 30, Y, 48, 48, 40, 26, front="#EFE9F7", stroke=SCFG_C, stripes=pur)
     x.dims(left="P", bottom="P", depth=r"C_{\mathrm{mid}}", bottom_f=0.3)
