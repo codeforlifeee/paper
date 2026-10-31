@@ -936,37 +936,30 @@ Classifier Head & Adaptive Pool + Linear ($16 \to 16$) & 272 & 0.09 \\
 
 \subsection{Architectural Component Ablation and Layer Depth Sensitivity}
 \label{subsec:ablation_analysis}
-To isolate the individual performance contributions of the proposed algorithmic mechanisms, we perform an ablation study on the Indian Pines dataset under identical experimental settings ($11 \times 11$ patch, batch size 32, 200 epochs). Table~\ref{tab:component_ablation} presents the quantitative ablation trajectory across five incremental configurations:
-\begin{enumerate}
-    \item \textbf{Base Backbone:} A standard dual-branch 3D CNN without input gating, using a shared scalar Squeeze-and-Excitation gate across branches, standard first-order Global Average Pooling (GAP), and conventional Cross-Entropy loss. This configuration attains 93.65\% OA and 89.24\% AA.
-    \item \textbf{+ SBAM:} Integrating the Spectral Band Attention Module directly on the raw input tensor $X \in \mathbb{R}^{B \times 1 \times P \times P \times C}$ yields a +1.53\% gain in OA (95.18\%) and a +2.56\% gain in AA (91.80\%). By adaptively dampening atmospheric water-vapor absorption bands prior to convolution, SBAM shields downstream spatial-spectral filters from learning spurious noise artifacts.
-    \item \textbf{+ CBSA:} Replacing the shared SE gate with Complementary Branch Spectral Attention increases OA to 96.44\% (+1.26\%) and AA to 93.05\% (+1.25\%). Unlike uniform attention scaling, the complementary formulation $\alpha \odot a + (1-\alpha) \odot b$ forces the $1 \times 1 \times 7$ pure spectral branch and the $3 \times 3 \times 7$ joint spatial-spectral branch to specialize orthogonally, preventing co-adaptation and preserving sharp inter-band reflectance gradients.
-    \item \textbf{+ SCFG:} Replacing first-order spatial pooling with the Second-Order Covariance Fusion Gate elevates OA to 97.26\% (+0.82\%) and AA to 93.78\%. SCFG computes the outer product $G = f_{\text{ch}} \otimes f_{\text{sp}}$, capturing localized spatial co-activation patterns with specific semantic channels that are systematically discarded by standard GAP.
-    \item \textbf{Full SGSCF-Net (+ Hybrid Loss):} Replacing standard Cross-Entropy with the minority-aware hybrid objective ($\mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}$) brings the model to its peak performance of 98.05\% OA, 94.82\% AA, and 97.78 Kappa (+0.79\% OA, +1.04\% AA). The scheduled spread margin $m(r) \in [0.2, 0.9]$ expands decision margins around hard boundary samples, while class-weighted focal mining prevents gradient starvation on severe minority classes (such as Oats and Grass-pasture-mowed).
-\end{enumerate}
+To isolate the empirical contribution of each architectural component, we conduct an incremental ablation study on Indian Pines ($11 \times 11$ patch, batch size 32, 200 epochs), summarized in Table~\ref{tab:component_ablation}. The baseline dual-branch 3D CNN---configured with a shared Squeeze-and-Excitation gate, first-order Global Average Pooling (GAP), and Cross-Entropy loss---yields 93.65\% OA and 89.24\% AA. Introducing SBAM on raw input patches $X \in \mathbb{R}^{B \times 1 \times P \times P \times C}$ provides an immediate boost of +1.53\% OA (95.18\%) and +2.56\% AA (91.80\%) by dampening atmospheric water-vapor noise before convolutional filtering. Replacing the uniform SE gate with CBSA further raises OA to 96.44\% (+1.26\%) and AA to 93.05\%; its complementary weighting $\alpha \odot a + (1-\alpha) \odot b$ forces orthogonal specialization between the $1\times 1\times 7$ spectral and $3\times 3\times 7$ spatial-spectral branches. Incorporating SCFG elevates OA to 97.26\% (+0.82\%) by computing second-order covariance $G = f_{\text{ch}} \otimes f_{\text{sp}}$, recovering localized spatial-spectral correlations discarded under GAP. Finally, substituting Cross-Entropy with the minority-aware hybrid objective ($\mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}$) achieves peak accuracy at 98.05\% OA and 94.82\% AA (+1.04\% AA). The scheduled spread margin $m(r) \in [0.2, 0.9]$ reinforces decision boundaries on confused agricultural classes, while focal weighting prevents minority gradient starvation.
 
 \begin{table}[t]
 \centering
 \scriptsize
-\setlength{\tabcolsep}{3pt}
+\setlength{\tabcolsep}{3.5pt}
 \caption{Ablation Study Isolating the Contributions of SBAM, CBSA, SCFG, and Minority-Aware Hybrid Loss on the Indian Pines Dataset (Patch $11 \times 11$, Batch 32, 200 Epochs; Optimal Results in Bold).}
 \label{tab:component_ablation}
-\begin{tabular}{c cccc cccc}
+\begin{tabular}{c ccccc cccc}
 \toprule
-\multirow{2}{*}{\textbf{Case}} & \multicolumn{4}{c}{\textbf{Component}} & \multicolumn{4}{c}{\textbf{Indicators}} \\
-\cmidrule(lr){2-5} \cmidrule(lr){6-9}
-& \textbf{SBAM} & \textbf{CBSA} & \textbf{SCFG} & \textbf{Hybrid Loss} & \textbf{OA (\%)} & \textbf{AA (\%)} & \textbf{Kappa ($\kappa$)} & \textbf{$\Delta$OA (\%)} \\
+\multirow{2}{*}{\textbf{Case}} & \multicolumn{5}{c}{\textbf{Component}} & \multicolumn{4}{c}{\textbf{Indicators}} \\
+\cmidrule(lr){2-6} \cmidrule(lr){7-10}
+& \textbf{Base 3D} & \textbf{SBAM} & \textbf{CBSA} & \textbf{SCFG} & \textbf{Hybrid Loss} & \textbf{OA (\%)} & \textbf{AA (\%)} & \textbf{Kappa ($\kappa$)} & \textbf{$\Delta$OA (\%)} \\
 \midrule
-1 & $\times$ & $\times$ & $\times$ & $\times$ & 93.65 & 89.24 & 92.74 & -- \\
-2 & $\checkmark$ & $\times$ & $\times$ & $\times$ & 95.18 & 91.80 & 94.48 & +1.53 \\
-3 & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & 96.44 & 93.05 & 95.94 & +1.26 \\
-4 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\times$ & 97.26 & 93.78 & 96.88 & +0.82 \\
-5 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & \textbf{98.05} & \textbf{94.82} & \textbf{97.78} & \textbf{+0.79} \\
+1 & $\checkmark$ & $\times$ & $\times$ & $\times$ & $\times$ & 93.65 & 89.24 & 92.74 & -- \\
+2 & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & $\times$ & 95.18 & 91.80 & 94.48 & +1.53 \\
+3 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & 96.44 & 93.05 & 95.94 & +1.26 \\
+4 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\times$ & 97.26 & 93.78 & 96.88 & +0.82 \\
+5 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & \textbf{98.05} & \textbf{94.82} & \textbf{97.78} & \textbf{+0.79} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-We additionally investigate the sensitivity of classification accuracy and computational scale to the depth of the 3D residual stages. Table~\ref{tab:depth_ablation} compares model behavior across residual block depths $D \in \{1, 2, 3, 4\}$ per stage. At $D=1$, the model operates with 179K parameters and 6.1 minutes training latency, but achieves only 95.82\% OA, indicating insufficient capacity to model subtle higher-order spectral curvature. Increasing depth to $D=2$ produces a substantial accuracy leap: OA surges by +2.23\% to 98.05\%, while AA increases by +3.62\% to 94.82\%. Expanding depth beyond $D=2$, however, exhibits diminishing returns: at $D=3$, parameters grow to 437K and training time increases to 12.4 minutes, while OA slightly declines to 97.88\%. At $D=4$, performance drops further to 97.40\% OA. In small-sample HSI classification (1,025 training pixels on Indian Pines), overly deep 3D residual cascades induce gradient dispersion and subtle overfitting. Consequently, $D=2$ represents the optimal configuration, striking a balance between expressive capacity and sample-efficiency.
+We evaluate model depth sensitivity across residual block counts $D \in \{1, 2, 3, 4\}$ per stage in Table~\ref{tab:depth_ablation}. At $D=1$ (179K parameters, 6.1 min), the network underfits, reaching only 95.82\% OA due to insufficient non-linear capacity for complex spectral curvature. Setting $D=2$ yields an optimal trade-off: OA surges by +2.23\% to 98.05\% and AA by +3.62\% to 94.82\% with 308K parameters and 8.8 minutes training latency. Deeper configurations exhibit diminishing returns; parameters increase to 437K at $D=3$ (97.88\% OA, 12.4 min) and 566K at $D=4$ (97.40\% OA, 16.9 min). Given the constrained sample budget of hyperspectral benchmarks (1,025 training pixels on Indian Pines), deeper 3D cascades induce gradient dispersion and empirical overfitting. Thus, $D=2$ is adopted across all experiments.
 
 \begin{table}[t]
 \centering
