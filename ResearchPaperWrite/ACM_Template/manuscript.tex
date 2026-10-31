@@ -326,22 +326,24 @@ where $B$ denotes the mini-batch size, and the unitary second dimension represen
 
 The computational dataflow of SGSCF-Net, illustrated in Fig.~\ref{fig:sgscf_overall}, processes the input patch $X$ through two coordinated stages of spectral filtering and second-order spatial refinement. First, $X$ enters the \textbf{Spectral Band Attention Module (SBAM)} to produce an adaptively recalibrated tensor $\tilde{X} \in \mathbb{R}^{B \times 1 \times P \times P \times C}$, suppressing noisy atmospheric absorption channels before convolutional operations. Next, $\tilde{X}$ feeds into a \textbf{Dual 3D Entry Stream} that yields a spectral-only representation $a \in \mathbb{R}^{B \times K \times P \times P \times C_2}$ via $1\times 1\times 7$ convolution and a joint spatial-spectral representation $b \in \mathbb{R}^{B \times K \times P \times P \times C_2}$ via $3\times 3\times 7$ convolution, with $K=16$ filters and $C_2 = \lfloor(C-7)/2\rfloor + 1$. The \textbf{Complementary Branch Spectral Attention (CBSA)} mechanism then couples both streams using a depthwise 1D gate $\alpha \in \mathbb{R}^{B \times K \times 1 \times 1 \times C_2}$, fusing them as $\alpha \odot a + (1-\alpha) \odot b$ to enforce orthogonal feature specialization. The coupled tensor subsequently traverses two cascaded \textbf{3D Spectral Residual Blocks} ($\mathcal{R}_{\text{spec}}^{(1)}, \mathcal{R}_{\text{spec}}^{(2)}$) integrated with 3D Efficient Channel Attention (ECA-3D).
 
-Following spectral feature extraction, adaptive 3D pooling collapses the spectral dimension ($C_2 \to 1$), and a $1\times 1\times 1$ convolution projects channels to $C_{\text{mid}} = 128$. Squeezing the singleton axis yields a spatial feature map $x \in \mathbb{R}^{B \times 128 \times P \times P}$. The \textbf{Second-Order Covariance Fusion Gate (SCFG)} captures bilinear cross-domain dependencies via outer-product interaction ($G = f_{\text{ch}} \otimes f_{\text{sp}} \in \mathbb{R}^{B \times 128 \times N}$), normalizes the matrix via Frobenius norm, and recalibrates spatial activations through a linear projection. The recalibrated features are then permuted into a volumetric tensor $v_{\text{spat}} \in \mathbb{R}^{B \times 1 \times P \times P \times 128}$, projected back to $K=16$ channels by a $3\times 3\times 128$ convolution, and processed by two \textbf{3D Spatial Residual Blocks} ($\mathcal{R}_{\text{spat}}^{(1)}, \mathcal{R}_{\text{spat}}^{(2)}$). Finally, global 3D average pooling condenses spatial activations into a compact latent vector $z \in \mathbb{R}^{B \times K}$, mapped to class logits $\hat{y} \in \mathbb{R}^{B \times C_{\text{cls}}}$ by a linear classification head. The entire network is trained end-to-end using the \textbf{Minority-Aware Hybrid Loss} $\mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}$ with dynamic margin scheduling and inverse-frequency class weights.
+Following spectral feature extraction, adaptive 3D pooling collapses the spectral dimension ($C_2 \to 1$), and a $1\times 1\times 1$ convolution projects channels to $C_{\text{mid}} = 128$. Squeezing the singleton axis yields a spatial feature map $x \in \mathbb{R}^{B \times 128 \times P \times P}$. The \textbf{Second-Order Covariance Fusion Gate (SCFG)} captures bilinear cross-domain dependencies via outer-product interaction ($G = f_{\text{ch}} \otimes f_{\text{sp}} \in \mathbb{R}^{B \times 128 \times N}$), normalizes the matrix via Frobenius norm, and recalibrates spatial activations through a linear projection. The recalibrated features are then permuted into a volumetric tensor $v_{\text{spat}} \in \mathbb{R}^{B \times 1 \times P \times P \times 128}$, projected back to $K=16$ channels by a $3\times 3\times 128$ convolution, and processed by two \textbf{3D Spatial Residual Blocks} ($\mathcal{R}_{\text{spat}}^{(1)}, \mathcal{R}_{\text{spat}}^{(2)}$). Finally, global 3D average pooling condenses spatial activations into a compact latent vector $z \in \mathbb{R}^{B \times K}$, mapped to class logits $\hat{y} \in \mathbb{R}^{B \times C_{\text{cls}}}$ by a linear classification head (Fig.~\ref{fig:proposed_modules}(d)). The entire network is trained end-to-end using the \textbf{Minority-Aware Hybrid Loss} $\mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}$ with dynamic margin scheduling and inverse-frequency class weights.
 
 \subsection{Spectral Band Attention Module (SBAM)}
 \label{subsec:sbam}
 \begin{figure*}[t]
 \centering
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{ccc}
-\includegraphics[width=0.32\textwidth]{figures/architecture/fig_sbam.pdf} &
-\includegraphics[width=0.32\textwidth]{figures/architecture/fig_cbsa.pdf} &
-\includegraphics[width=0.32\textwidth]{figures/architecture/fig_scfg.pdf} \\
-\footnotesize (a) SBAM & \footnotesize (b) CBSA & \footnotesize (c) SCFG \\
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{cc}
+\includegraphics[width=0.48\textwidth]{figures/architecture/fig_sbam.pdf} &
+\includegraphics[width=0.48\textwidth]{figures/architecture/fig_cbsa.pdf} \\
+\footnotesize (a) SBAM & \footnotesize (b) CBSA \\[6pt]
+\includegraphics[width=0.48\textwidth]{figures/architecture/fig_scfg.pdf} &
+\includegraphics[width=0.48\textwidth]{figures/architecture/fig_gap.pdf} \\
+\footnotesize (c) SCFG & \footnotesize (d) GAP \& Classification Head \\
 \end{tabular}
-\caption{Detailed architectural topologies of the three proposed algorithmic modules: (a) Spectral Band Attention Module (SBAM) dynamically attenuating noisy atmospheric absorption bands on raw input cubes, (b) Complementary Branch Spectral Attention (CBSA) enforcing orthogonal specialization between dual 3D convolutional streams, and (c) Second-Order Covariance Fusion Gate (SCFG) capturing localized spatial-channel co-activation statistics.}
+\caption{Detailed architectural topologies of the four constituent algorithmic modules of SGSCF-Net: (a) Spectral Band Attention Module (SBAM) dynamically attenuating noisy atmospheric absorption bands on raw input cubes, (b) Complementary Branch Spectral Attention (CBSA) enforcing orthogonal specialization between dual 3D convolutional streams, (c) Second-Order Covariance Fusion Gate (SCFG) capturing localized spatial-channel co-activation statistics, and (d) Global Average Pooling (GAP) and Linear Classification Head aggregating spatial manifolds into class posterior probabilities under minority-aware hybrid loss supervision.}
 \label{fig:proposed_modules}
-\Description{Architectural schematics of SBAM, CBSA, and SCFG modules.}
+\Description{Architectural schematics of the four constituent modules of SGSCF-Net: SBAM, CBSA, SCFG, and GAP with Classification Head.}
 \end{figure*}
 
 Hyperspectral sensors capture hundreds of contiguous spectral bands, but atmospheric water vapor absorption bands (such as those around 1.4 $\mu$m and 1.9 $\mu$m) and low signal-to-noise ratios at spectral boundaries corrupt raw reflectance signatures. Conventional deep learning architectures apply convolutional kernels indiscriminately across all raw bands, permitting noisy band responses to propagate into deep feature representations. While the Squeeze-and-Excitation Network (SENet) \cite{hu2018squeeze} and Convolutional Block Attention Module (CBAM) \cite{woo2018cbam} introduced channel and spatial attention, they operate strictly on deep latent feature maps following multiple convolutional stages. Unlike reinforcement learning band selection policies \cite{mou2022deep} or connected grouping heuristics \cite{guo2022feature} that require expensive outer optimization loops, SBAM embeds direct channel gating into the end-to-end differentiable graph.
@@ -406,7 +408,7 @@ where each spectral residual block utilizes $1 \times 1 \times 7$ 3D convolution
 
 \subsection{Second-Order Covariance Fusion Gate (SCFG)}
 \label{subsec:scfg}
-To transition from spectral-dominant processing to spatial context extraction, the spectral dimension $C_2$ is collapsed using adaptive 3D average pooling:
+As illustrated in Fig.~\ref{fig:proposed_modules}(c), to transition from spectral-dominant processing to spatial context extraction, the spectral dimension $C_2$ is collapsed using adaptive 3D average pooling:
 \begin{equation}
 \label{eq:scfg_pool}
 v_{\text{pool}} = \text{AdaptiveAvgPool3D}_{(P, P, 1)}(v) \in \mathbb{R}^{B \times K \times P \times P \times 1}
