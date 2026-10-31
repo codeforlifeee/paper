@@ -888,22 +888,22 @@ In contrast, SGSCF-Net achieves an optimal classical design point, reconciling e
 \footnotesize
 \caption{Comparative Analysis of Model Parameter Quantities, Checkpoint Sizes, Training Wall-Clock Latency, and Classification Accuracy on the Indian Pines Benchmark (10\% Training / 10\% Validation / 80\% Testing Split, 200 Epochs).}
 \label{tab:model_param_comparison}
-\begin{tabular}{llccccc}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llcccccc}
 \toprule
-\textbf{Model Architecture} & \textbf{Paradigm / Mechanism} & \textbf{Params / Size} & \textbf{Train Time} & \textbf{OA (\%)} & \textbf{AA (\%)} & \textbf{Kappa ($\kappa$)} \\
+\textbf{Model Architecture} & \textbf{Paradigm / Mechanism} & \textbf{Params} & \textbf{Size} & \textbf{Train Time} & \textbf{OA (\%)} & \textbf{AA (\%)} & \textbf{Kappa ($\kappa$)} \\
 \midrule
-ViT \cite{dosovitskiy2020image} & Vision Transformer & 2.4 MB ($\sim$610K) & 1.68 min & 90.33 & 89.12 & 88.95 \\
-HSI-SSFTT \cite{sun2022spectral} & Feature Token Transformer & 625 KB ($\sim$156K) & \textbf{1.05 min} & 98.45 & 94.29 & 98.23 \\
-SSRN \cite{zhong2017spectral} & Spectral-Spatial Residual ConvNet & $\sim$540K & 6.29 min & \textbf{98.52} & 79.99 & \textbf{98.31} \\
-SSAN \cite{sun2019spectral} & Spectral-Spatial Attention Net & 6.40 M & 14.00 min & 64.19 & 72.77 & 59.79 \\
-A2S2K-ResNet \cite{roy2020attention} & 3D-2D Hybrid CNN ResNet & 1.5 MB ($\sim$380K) & 14.89 min & 98.11 & 94.41 & 97.85 \\
-CRV-MHDL \cite{alalimi2022compression} & Complex Multi-Scale Hybrid & 58.2 MB ($\sim$15M) & 1.33 min & 67.20 & 51.71 & 62.22 \\
-HyperRoPE-HiT \cite{khan2025hyperrope} & Rotary Position Transformer & $\sim$2.10 M & 1.43 min & 94.07 & 89.37 & 93.24 \\
-DMC \cite{wang2021deep} & Deep Matrix Capsules (EM Routing) & $\sim$480K & 17.73 min & 82.55 & 64.11 & 79.89 \\
+ViT \cite{dosovitskiy2020image} & Vision Transformer & $\sim$610K & 2.4 MB & 1.68 min & 90.33 & 89.12 & 88.95 \\
+HSI-SSFTT \cite{sun2022spectral} & Feature Token Transformer & $\sim$156K & 625 KB & \textbf{1.05 min} & 98.45 & 94.29 & 98.23 \\
+SSRN \cite{zhong2017spectral} & Spectral-Spatial Residual ConvNet & $\sim$540K & -- & 6.29 min & \textbf{98.52} & 79.99 & \textbf{98.31} \\
+SSAN \cite{sun2019spectral} & Spectral-Spatial Attention Net & 6.40 M & -- & 14.00 min & 64.19 & 72.77 & 59.79 \\
+A2S2K-ResNet \cite{roy2020attention} & 3D-2D Hybrid CNN ResNet & $\sim$380K & 1.5 MB & 14.89 min & 98.11 & 94.41 & 97.85 \\
+CRV-MHDL \cite{alalimi2022compression} & Complex Multi-Scale Hybrid & $\sim$15 M & 58.2 MB & 1.33 min & 67.20 & 51.71 & 62.22 \\
+HyperRoPE-HiT \cite{khan2025hyperrope} & Rotary Position Transformer & $\sim$2.10 M & -- & 1.43 min & 94.07 & 89.37 & 93.24 \\
+DMC \cite{wang2021deep} & Deep Matrix Capsules (EM Routing) & $\sim$480K & -- & 17.73 min & 82.55 & 64.11 & 79.89 \\
 \midrule
-\textbf{SGSCF-Net (Proposed)} & \textbf{Spectral Gated Spatial-Cross Fusion} & \textbf{308,097 (1.2 MB)} & 8.80 min & 98.05 & \textbf{94.82} & 97.78 \\
+\textbf{SGSCF-Net (Proposed)} & \textbf{Spectral Gated Spatial-Cross Fusion} & \textbf{308,097} & \textbf{1.2 MB} & 8.80 min & 98.05 & \textbf{94.82} & 97.78 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \flushleft
 \footnotesize{All baselines were trained from scratch under the identical 10\%/10\%/80\% protocol; DMC patches were zero-padded from 11$\times$11 to 13$\times$13 to satisfy the capsule squash receptive field. SGSCF-Net attains the best Average Accuracy (bold) despite a mid-range training time, reflecting its robustness on minority classes rather than raw overall accuracy.}
 \end{table*}
@@ -929,7 +929,7 @@ Spatial Entry Stream & $3\times 3\times 128$ Conv3D ($1 \to 16$) + BN & 36,912 &
 Spatial ResBlocks ($2\times$) & $3\times 3\times 1$ Conv3D + ECA-3D & 249,562 & 81.00 \\
 Classifier Head & Adaptive Pool + Linear ($16 \to 16$) & 272 & 0.09 \\
 \midrule
-\textbf{Total Trainable Network} & \textbf{End-to-End SGSCF-Net} & \textbf{308,097} & \textbf{100.00} \\
+\textbf{Total Trainable Network} & \textbf{SGSCF-Net} & \textbf{308,097} & \textbf{100.00} \\
 \bottomrule
 \end{tabular}
 \end{table}
