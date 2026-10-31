@@ -1,0 +1,2472 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>SGSCF-Net Master Experiments Report</title>
+
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #24292e; max-width: 1100px; margin: 0 auto; padding: 40px; background-color: #ffffff; }
+h1 { color: #0366d6; border-bottom: 2px solid #eaecef; padding-bottom: 10px; margin-top: 40px; }
+h2 { color: #24292e; border-bottom: 1px solid #eaecef; padding-bottom: 6px; margin-top: 30px; }
+h3 { color: #2f363d; margin-top: 25px; }
+table { border-collapse: collapse; width: 100%; margin-bottom: 25px; margin-top: 15px; background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+th, td { padding: 10px 14px; text-align: left; border: 1px solid #dfe2e5; font-size: 14px; }
+th { background-color: #0366d6; color: white; font-weight: 600; }
+tr:nth-child(even) { background-color: #f6f8fa; }
+tr:hover { background-color: #f1f8ff; }
+code { background-color: #f6f8fa; padding: 2px 5px; border-radius: 3px; font-family: Consolas, monospace; color: #d73a49; font-size: 0.9em; }
+pre { background-color: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; border: 1px solid #e1e4e8; }
+blockquote { border-left: 4px solid #0366d6; padding: 10px 18px; margin: 20px 0; background-color: #f1f8ff; color: #444d56; }
+img { max-width: 48%; height: auto; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); margin: 10px 1%; display: inline-block; vertical-align: top; }
+a { color: #0366d6; text-decoration: none; font-weight: 500; }
+a:hover { text-decoration: underline; }
+hr { border: 0; height: 1px; background: #e1e4e8; margin: 30px 0; }
+</style>
+
+</head>
+<body>
+<h1 id="executive-summary">EXECUTIVE SUMMARY</h1>
+<blockquote>
+<p><strong>Quick Jump:</strong> Use the links in the tables below to jump directly to the detailed images/reports in the rest of the document.</p>
+</blockquote>
+<h2 id="1-grid-search-configurations-ranked">1. Grid Search Configurations (Ranked)</h2>
+<h3 id="indian-pines-all-runs">Indian Pines (All Runs)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Rank</th>
+<th style="text-align: center;">Patch Size</th>
+<th style="text-align: center;">Batch Size</th>
+<th style="text-align: center;">Overall Acc (OA)</th>
+<th style="text-align: center;">Avg Acc (AA)</th>
+<th style="text-align: center;">Kappa</th>
+<th style="text-align: center;">Train Time</th>
+<th style="text-align: center;">Details Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1st</td>
+<td style="text-align: center;">11x11</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;"><strong>98.05%</strong></td>
+<td style="text-align: center;">94.82%</td>
+<td style="text-align: center;">97.78</td>
+<td style="text-align: center;">8.8 min</td>
+<td style="text-align: center;"><a href="#patch-size-11x11-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">2nd</td>
+<td style="text-align: center;">15x15</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">97.82%</td>
+<td style="text-align: center;">94.68%</td>
+<td style="text-align: center;">97.52</td>
+<td style="text-align: center;">16.6 min</td>
+<td style="text-align: center;"><a href="#patch-size-15x15-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">3rd</td>
+<td style="text-align: center;">17x17</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">97.75%</td>
+<td style="text-align: center;">91.40%</td>
+<td style="text-align: center;">97.44</td>
+<td style="text-align: center;">19.4 min</td>
+<td style="text-align: center;"><a href="#patch-size-17x17-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">4th</td>
+<td style="text-align: center;">13x13</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">97.63%</td>
+<td style="text-align: center;">95.97%</td>
+<td style="text-align: center;">97.29</td>
+<td style="text-align: center;">12.0 min</td>
+<td style="text-align: center;"><a href="#patch-size-13x13-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">5th</td>
+<td style="text-align: center;">13x13</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">97.28%</td>
+<td style="text-align: center;">97.17%</td>
+<td style="text-align: center;">96.90</td>
+<td style="text-align: center;">11.6 min</td>
+<td style="text-align: center;"><a href="#patch-size-13x13-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">6th</td>
+<td style="text-align: center;">15x15</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">97.26%</td>
+<td style="text-align: center;">92.59%</td>
+<td style="text-align: center;">96.88</td>
+<td style="text-align: center;">16.4 min</td>
+<td style="text-align: center;"><a href="#patch-size-15x15-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">7th</td>
+<td style="text-align: center;">17x17</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">97.13%</td>
+<td style="text-align: center;">90.56%</td>
+<td style="text-align: center;">96.73</td>
+<td style="text-align: center;">20.5 min</td>
+<td style="text-align: center;"><a href="#patch-size-17x17-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">8th</td>
+<td style="text-align: center;">11x11</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">97.07%</td>
+<td style="text-align: center;">93.08%</td>
+<td style="text-align: center;">96.66</td>
+<td style="text-align: center;">11.4 min</td>
+<td style="text-align: center;"><a href="#patch-size-11x11-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">9th</td>
+<td style="text-align: center;">13x13</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">97.02%</td>
+<td style="text-align: center;">96.69%</td>
+<td style="text-align: center;">96.60</td>
+<td style="text-align: center;">11.5 min</td>
+<td style="text-align: center;"><a href="#patch-size-13x13-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">10th</td>
+<td style="text-align: center;">15x15</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">96.98%</td>
+<td style="text-align: center;">92.83%</td>
+<td style="text-align: center;">96.56</td>
+<td style="text-align: center;">16.3 min</td>
+<td style="text-align: center;"><a href="#patch-size-15x15-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">11th</td>
+<td style="text-align: center;">17x17</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">96.80%</td>
+<td style="text-align: center;">90.93%</td>
+<td style="text-align: center;">96.35</td>
+<td style="text-align: center;">17.8 min</td>
+<td style="text-align: center;"><a href="#patch-size-17x17-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">12th</td>
+<td style="text-align: center;">15x15</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">96.18%</td>
+<td style="text-align: center;">94.14%</td>
+<td style="text-align: center;">95.64</td>
+<td style="text-align: center;">14.6 min</td>
+<td style="text-align: center;"><a href="#patch-size-15x15-batch-size-256">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">13th</td>
+<td style="text-align: center;">11x11</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">96.16%</td>
+<td style="text-align: center;">91.54%</td>
+<td style="text-align: center;">95.63</td>
+<td style="text-align: center;">11.8 min</td>
+<td style="text-align: center;"><a href="#patch-size-11x11-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">14th</td>
+<td style="text-align: center;">9x9</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">96.12%</td>
+<td style="text-align: center;">95.35%</td>
+<td style="text-align: center;">95.57</td>
+<td style="text-align: center;">7.8 min</td>
+<td style="text-align: center;"><a href="#patch-size-9x9-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">15th</td>
+<td style="text-align: center;">9x9</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">95.79%</td>
+<td style="text-align: center;">92.75%</td>
+<td style="text-align: center;">95.20</td>
+<td style="text-align: center;">6.0 min</td>
+<td style="text-align: center;"><a href="#patch-size-9x9-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">16th</td>
+<td style="text-align: center;">17x17</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">95.52%</td>
+<td style="text-align: center;">91.08%</td>
+<td style="text-align: center;">94.89</td>
+<td style="text-align: center;">19.1 min</td>
+<td style="text-align: center;"><a href="#patch-size-17x17-batch-size-256">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">17th</td>
+<td style="text-align: center;">13x13</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">95.37%</td>
+<td style="text-align: center;">95.61%</td>
+<td style="text-align: center;">94.72</td>
+<td style="text-align: center;">10.1 min</td>
+<td style="text-align: center;"><a href="#patch-size-13x13-batch-size-256">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">18th</td>
+<td style="text-align: center;">9x9</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">94.95%</td>
+<td style="text-align: center;">93.30%</td>
+<td style="text-align: center;">94.24</td>
+<td style="text-align: center;">8.0 min</td>
+<td style="text-align: center;"><a href="#patch-size-9x9-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">19th</td>
+<td style="text-align: center;">11x11</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">94.62%</td>
+<td style="text-align: center;">93.04%</td>
+<td style="text-align: center;">93.87</td>
+<td style="text-align: center;">12.5 min</td>
+<td style="text-align: center;"><a href="#patch-size-11x11-batch-size-256">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">20th</td>
+<td style="text-align: center;">9x9</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">92.61%</td>
+<td style="text-align: center;">93.10%</td>
+<td style="text-align: center;">91.56</td>
+<td style="text-align: center;">8.3 min</td>
+<td style="text-align: center;"><a href="#patch-size-9x9-batch-size-256">View Details</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="pavia-university-all-runs">Pavia University (All Runs)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Rank</th>
+<th style="text-align: center;">Patch Size</th>
+<th style="text-align: center;">Batch Size</th>
+<th style="text-align: center;">Overall Acc (OA)</th>
+<th style="text-align: center;">Avg Acc (AA)</th>
+<th style="text-align: center;">Kappa</th>
+<th style="text-align: center;">Train Time</th>
+<th style="text-align: center;">Details Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1st</td>
+<td style="text-align: center;">13x13</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;"><strong>99.86%</strong></td>
+<td style="text-align: center;">99.71%</td>
+<td style="text-align: center;">99.82</td>
+<td style="text-align: center;">25.6 min</td>
+<td style="text-align: center;"><a href="#patch-size-13x13-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">2nd</td>
+<td style="text-align: center;">13x13</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">99.86%</td>
+<td style="text-align: center;">99.70%</td>
+<td style="text-align: center;">99.81</td>
+<td style="text-align: center;">15.4 min</td>
+<td style="text-align: center;"><a href="#patch-size-13x13-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">3rd</td>
+<td style="text-align: center;">13x13</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">99.84%</td>
+<td style="text-align: center;">99.70%</td>
+<td style="text-align: center;">99.79</td>
+<td style="text-align: center;">28.2 min</td>
+<td style="text-align: center;"><a href="#patch-size-13x13-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">4th</td>
+<td style="text-align: center;">15x15</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">99.84%</td>
+<td style="text-align: center;">99.65%</td>
+<td style="text-align: center;">99.78</td>
+<td style="text-align: center;">38.0 min</td>
+<td style="text-align: center;"><a href="#patch-size-15x15-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">5th</td>
+<td style="text-align: center;">9x9</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">99.83%</td>
+<td style="text-align: center;">99.82%</td>
+<td style="text-align: center;">99.78</td>
+<td style="text-align: center;">14.1 min</td>
+<td style="text-align: center;"><a href="#patch-size-9x9-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">6th</td>
+<td style="text-align: center;">11x11</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">99.82%</td>
+<td style="text-align: center;">99.71%</td>
+<td style="text-align: center;">99.76</td>
+<td style="text-align: center;">12.9 min</td>
+<td style="text-align: center;"><a href="#patch-size-11x11-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">7th</td>
+<td style="text-align: center;">9x9</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">99.80%</td>
+<td style="text-align: center;">99.74%</td>
+<td style="text-align: center;">99.73</td>
+<td style="text-align: center;">15.2 min</td>
+<td style="text-align: center;"><a href="#patch-size-9x9-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">8th</td>
+<td style="text-align: center;">13x13</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">99.78%</td>
+<td style="text-align: center;">99.55%</td>
+<td style="text-align: center;">99.70</td>
+<td style="text-align: center;">24.4 min</td>
+<td style="text-align: center;"><a href="#patch-size-13x13-batch-size-256">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">9th</td>
+<td style="text-align: center;">11x11</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">99.76%</td>
+<td style="text-align: center;">99.70%</td>
+<td style="text-align: center;">99.69</td>
+<td style="text-align: center;">23.4 min</td>
+<td style="text-align: center;"><a href="#patch-size-11x11-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">10th</td>
+<td style="text-align: center;">11x11</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">99.75%</td>
+<td style="text-align: center;">99.66%</td>
+<td style="text-align: center;">99.68</td>
+<td style="text-align: center;">19.7 min</td>
+<td style="text-align: center;"><a href="#patch-size-11x11-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">11th</td>
+<td style="text-align: center;">15x15</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">99.75%</td>
+<td style="text-align: center;">99.59%</td>
+<td style="text-align: center;">99.66</td>
+<td style="text-align: center;">23.6 min</td>
+<td style="text-align: center;"><a href="#patch-size-15x15-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">12th</td>
+<td style="text-align: center;">15x15</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">99.73%</td>
+<td style="text-align: center;">99.53%</td>
+<td style="text-align: center;">99.64</td>
+<td style="text-align: center;">29.6 min</td>
+<td style="text-align: center;"><a href="#patch-size-15x15-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">13th</td>
+<td style="text-align: center;">11x11</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">99.72%</td>
+<td style="text-align: center;">99.52%</td>
+<td style="text-align: center;">99.62</td>
+<td style="text-align: center;">28.3 min</td>
+<td style="text-align: center;"><a href="#patch-size-11x11-batch-size-256">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">14th</td>
+<td style="text-align: center;">15x15</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">99.72%</td>
+<td style="text-align: center;">99.54%</td>
+<td style="text-align: center;">99.62</td>
+<td style="text-align: center;">44.4 min</td>
+<td style="text-align: center;"><a href="#patch-size-15x15-batch-size-256">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">15th</td>
+<td style="text-align: center;">17x17</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">99.72%</td>
+<td style="text-align: center;">99.31%</td>
+<td style="text-align: center;">99.62</td>
+<td style="text-align: center;">24.0 min</td>
+<td style="text-align: center;"><a href="#patch-size-17x17-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">16th</td>
+<td style="text-align: center;">17x17</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">99.71%</td>
+<td style="text-align: center;">99.46%</td>
+<td style="text-align: center;">99.62</td>
+<td style="text-align: center;">41.2 min</td>
+<td style="text-align: center;"><a href="#patch-size-17x17-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">17th</td>
+<td style="text-align: center;">17x17</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">99.70%</td>
+<td style="text-align: center;">99.50%</td>
+<td style="text-align: center;">99.60</td>
+<td style="text-align: center;">32.1 min</td>
+<td style="text-align: center;"><a href="#patch-size-17x17-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">18th</td>
+<td style="text-align: center;">17x17</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">99.63%</td>
+<td style="text-align: center;">99.19%</td>
+<td style="text-align: center;">99.52</td>
+<td style="text-align: center;">38.2 min</td>
+<td style="text-align: center;"><a href="#patch-size-17x17-batch-size-256">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">19th</td>
+<td style="text-align: center;">9x9</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">99.62%</td>
+<td style="text-align: center;">99.66%</td>
+<td style="text-align: center;">99.50</td>
+<td style="text-align: center;">15.8 min</td>
+<td style="text-align: center;"><a href="#patch-size-9x9-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">20th</td>
+<td style="text-align: center;">9x9</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">99.42%</td>
+<td style="text-align: center;">99.44%</td>
+<td style="text-align: center;">99.24</td>
+<td style="text-align: center;">16.1 min</td>
+<td style="text-align: center;"><a href="#patch-size-9x9-batch-size-256">View Details</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="salinas-valley-all-runs">Salinas Valley (All Runs)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Rank</th>
+<th style="text-align: center;">Patch Size</th>
+<th style="text-align: center;">Batch Size</th>
+<th style="text-align: center;">Overall Acc (OA)</th>
+<th style="text-align: center;">Avg Acc (AA)</th>
+<th style="text-align: center;">Kappa</th>
+<th style="text-align: center;">Train Time</th>
+<th style="text-align: center;">Details Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1st</td>
+<td style="text-align: center;">17x17</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;"><strong>100.00%</strong></td>
+<td style="text-align: center;">100.00%</td>
+<td style="text-align: center;">100.00</td>
+<td style="text-align: center;">116.8 min</td>
+<td style="text-align: center;"><a href="#patch-size-17x17-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">2nd</td>
+<td style="text-align: center;">17x17</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">100.00%</td>
+<td style="text-align: center;">99.99%</td>
+<td style="text-align: center;">100.00</td>
+<td style="text-align: center;">115.4 min</td>
+<td style="text-align: center;"><a href="#patch-size-17x17-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">3rd</td>
+<td style="text-align: center;">15x15</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">99.98%</td>
+<td style="text-align: center;">99.97%</td>
+<td style="text-align: center;">99.98</td>
+<td style="text-align: center;">93.9 min</td>
+<td style="text-align: center;"><a href="#patch-size-15x15-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">4th</td>
+<td style="text-align: center;">17x17</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">99.97%</td>
+<td style="text-align: center;">99.94%</td>
+<td style="text-align: center;">99.97</td>
+<td style="text-align: center;">94.2 min</td>
+<td style="text-align: center;"><a href="#patch-size-17x17-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">5th</td>
+<td style="text-align: center;">17x17</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">99.97%</td>
+<td style="text-align: center;">99.94%</td>
+<td style="text-align: center;">99.97</td>
+<td style="text-align: center;">111.0 min</td>
+<td style="text-align: center;"><a href="#patch-size-17x17-batch-size-256">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">6th</td>
+<td style="text-align: center;">13x13</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">99.97%</td>
+<td style="text-align: center;">99.96%</td>
+<td style="text-align: center;">99.97</td>
+<td style="text-align: center;">57.3 min</td>
+<td style="text-align: center;"><a href="#patch-size-13x13-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">7th</td>
+<td style="text-align: center;">15x15</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">99.97%</td>
+<td style="text-align: center;">99.94%</td>
+<td style="text-align: center;">99.96</td>
+<td style="text-align: center;">63.5 min</td>
+<td style="text-align: center;"><a href="#patch-size-15x15-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">8th</td>
+<td style="text-align: center;">15x15</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">99.96%</td>
+<td style="text-align: center;">99.93%</td>
+<td style="text-align: center;">99.96</td>
+<td style="text-align: center;">95.1 min</td>
+<td style="text-align: center;"><a href="#patch-size-15x15-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">9th</td>
+<td style="text-align: center;">13x13</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">99.95%</td>
+<td style="text-align: center;">99.93%</td>
+<td style="text-align: center;">99.94</td>
+<td style="text-align: center;">67.0 min</td>
+<td style="text-align: center;"><a href="#patch-size-13x13-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">10th</td>
+<td style="text-align: center;">13x13</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">99.92%</td>
+<td style="text-align: center;">99.92%</td>
+<td style="text-align: center;">99.91</td>
+<td style="text-align: center;">43.4 min</td>
+<td style="text-align: center;"><a href="#patch-size-13x13-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">11th</td>
+<td style="text-align: center;">11x11</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">99.92%</td>
+<td style="text-align: center;">99.92%</td>
+<td style="text-align: center;">99.91</td>
+<td style="text-align: center;">57.7 min</td>
+<td style="text-align: center;"><a href="#patch-size-11x11-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">12th</td>
+<td style="text-align: center;">11x11</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">99.92%</td>
+<td style="text-align: center;">99.92%</td>
+<td style="text-align: center;">99.91</td>
+<td style="text-align: center;">69.7 min</td>
+<td style="text-align: center;"><a href="#patch-size-11x11-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">13th</td>
+<td style="text-align: center;">15x15</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">99.92%</td>
+<td style="text-align: center;">99.82%</td>
+<td style="text-align: center;">99.91</td>
+<td style="text-align: center;">74.6 min</td>
+<td style="text-align: center;"><a href="#patch-size-15x15-batch-size-256">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">14th</td>
+<td style="text-align: center;">11x11</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">99.91%</td>
+<td style="text-align: center;">99.93%</td>
+<td style="text-align: center;">99.90</td>
+<td style="text-align: center;">79.5 min</td>
+<td style="text-align: center;"><a href="#patch-size-11x11-batch-size-256">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">15th</td>
+<td style="text-align: center;">13x13</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">99.88%</td>
+<td style="text-align: center;">99.86%</td>
+<td style="text-align: center;">99.86</td>
+<td style="text-align: center;">59.5 min</td>
+<td style="text-align: center;"><a href="#patch-size-13x13-batch-size-256">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">16th</td>
+<td style="text-align: center;">11x11</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">99.87%</td>
+<td style="text-align: center;">99.89%</td>
+<td style="text-align: center;">99.85</td>
+<td style="text-align: center;">65.4 min</td>
+<td style="text-align: center;"><a href="#patch-size-11x11-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">17th</td>
+<td style="text-align: center;">9x9</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">99.83%</td>
+<td style="text-align: center;">99.82%</td>
+<td style="text-align: center;">99.81</td>
+<td style="text-align: center;">49.7 min</td>
+<td style="text-align: center;"><a href="#patch-size-9x9-batch-size-128">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">18th</td>
+<td style="text-align: center;">9x9</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">99.83%</td>
+<td style="text-align: center;">99.87%</td>
+<td style="text-align: center;">99.81</td>
+<td style="text-align: center;">39.8 min</td>
+<td style="text-align: center;"><a href="#patch-size-9x9-batch-size-32">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">19th</td>
+<td style="text-align: center;">9x9</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">99.76%</td>
+<td style="text-align: center;">99.81%</td>
+<td style="text-align: center;">99.74</td>
+<td style="text-align: center;">40.4 min</td>
+<td style="text-align: center;"><a href="#patch-size-9x9-batch-size-64">View Details</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">20th</td>
+<td style="text-align: center;">9x9</td>
+<td style="text-align: center;">256</td>
+<td style="text-align: center;">99.60%</td>
+<td style="text-align: center;">99.73%</td>
+<td style="text-align: center;">99.56</td>
+<td style="text-align: center;">54.5 min</td>
+<td style="text-align: center;"><a href="#patch-size-9x9-batch-size-256">View Details</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-train-ratio-scarcity-experiment-side-by-side">2. Train Ratio Scarcity Experiment (Side-by-Side)</h2>
+<p><em>(All 12 Scarcity tests were performed using a constant configuration of </em><em>Patch Size: 11x11</em><em> and </em><em>Batch Size: 32</em><em> to isolate the effect of data reduction).</em></p>
+<table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th style="text-align: center;">1% Ratio OA</th>
+<th style="text-align: center;">2% Ratio OA</th>
+<th style="text-align: center;">5% Ratio OA</th>
+<th style="text-align: center;">10% Ratio OA</th>
+<th style="text-align: center;">Accuracy Drop (10% to 1%)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Indian Pines</strong></td>
+<td style="text-align: center;"><a href="#training-ratio-1">70.12%</a></td>
+<td style="text-align: center;"><a href="#training-ratio-2">81.55%</a></td>
+<td style="text-align: center;"><a href="#training-ratio-5">93.91%</a></td>
+<td style="text-align: center;"><strong><a href="#training-ratio-10">97.84%</a></strong></td>
+<td style="text-align: center;">-27.73%</td>
+</tr>
+<tr>
+<td><strong>Pavia University</strong></td>
+<td style="text-align: center;"><a href="#training-ratio-1">95.41%</a></td>
+<td style="text-align: center;"><a href="#training-ratio-2">98.04%</a></td>
+<td style="text-align: center;"><a href="#training-ratio-5">99.51%</a></td>
+<td style="text-align: center;"><strong><a href="#training-ratio-10">99.83%</a></strong></td>
+<td style="text-align: center;">-4.43%</td>
+</tr>
+<tr>
+<td><strong>Salinas Valley</strong></td>
+<td style="text-align: center;"><a href="#training-ratio-1">97.73%</a></td>
+<td style="text-align: center;"><a href="#training-ratio-2">99.11%</a></td>
+<td style="text-align: center;"><a href="#training-ratio-5">99.79%</a></td>
+<td style="text-align: center;"><strong><a href="#training-ratio-10">99.93%</a></strong></td>
+<td style="text-align: center;">-2.20%</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-class-level-extremes-under-extreme-1-scarcity">3. Class-Level Extremes (Under Extreme 1% Scarcity)</h2>
+<table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>Best Performing Class</th>
+<th>Worst Performing Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Indian Pines</strong></td>
+<td>Hay-windrowed (99.27%)</td>
+<td>Oats (7.66%)</td>
+</tr>
+<tr>
+<td><strong>Pavia University</strong></td>
+<td>Painted metal sheets (99.62%)</td>
+<td>Self-Blocking Bricks (84.70%)</td>
+</tr>
+<tr>
+<td><strong>Salinas Valley</strong></td>
+<td>Brocoli_green_weeds_2 (100.00%)</td>
+<td>Fallow (89.47%)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-visual-summary-of-all-runs">4. Visual Summary of All Runs</h2>
+<p>Below is the definitive visual summary of the hyperparameter sweeps (Patch Size &amp; Batch Size) and the data scarcity tests (Train Ratio). These visualizations compress the 72 distinct runs into four key insights: performance efficiency, hyperparameter sweet spots, cross-dataset stability, and robustness under extreme data starvation.</p>
+<p><img src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/IMPORTANT/summary_plots/scatter_efficiency.png" style="max-width: 100%; width: 100%; display: block; margin: 10pt auto;"></p>
+<p><img src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/IMPORTANT/summary_plots/heatmaps.png" style="max-width: 100%; width: 100%; display: block; margin: 10pt auto;"></p>
+<p><img src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/IMPORTANT/summary_plots/boxplot_stability.png" style="max-width: 100%; width: 100%; display: block; margin: 10pt auto;"></p>
+<p><img src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/IMPORTANT/summary_plots/degradation_lines.png" style="max-width: 100%; width: 100%; display: block; margin: 10pt auto;"></p>
+<hr />
+<h1 id="part-1-full-60-run-grid-search-results">PART 1: Full 60-Run Grid Search Results</h1>
+<h2 id="indian-pines">Indian Pines</h2>
+<h3 id="patch-size-9x9-batch-size-32">Patch Size 9x9 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 95.79%
+- <strong>AA (Average Accuracy):</strong> 92.75%
+- <strong>Kappa Coefficient:</strong> 95.20
+- <strong>Train Time:</strong> 6.0 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 91.67%
+- Corn-notill: 97.32%
+- Corn-mintill: 97.97%
+- Corn: 97.25%
+- Grass-pasture: 96.43%
+- Grass-trees: 98.83%
+- Grass-pasture-mowed: 75.00%
+- Hay-windrowed: 98.19%
+- Oats: 73.68%
+- Soybean-notill: 90.85%
+- Soybean-mintill: 95.18%
+- Soybean-clean: 89.53%
+- Wheat: 97.60%
+- Woods: 98.45%
+- Buildings-Grass-Trees: 97.36%
+- Stone-Steel-Towers: 88.75%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P9_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P9_B32.png" /></p>
+<hr />
+<h3 id="patch-size-9x9-batch-size-64">Patch Size 9x9 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 96.12%
+- <strong>AA (Average Accuracy):</strong> 95.35%
+- <strong>Kappa Coefficient:</strong> 95.57
+- <strong>Train Time:</strong> 7.8 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 96.77%
+- Corn-notill: 95.48%
+- Corn-mintill: 98.74%
+- Corn: 90.71%
+- Grass-pasture: 97.68%
+- Grass-trees: 99.66%
+- Grass-pasture-mowed: 100.00%
+- Hay-windrowed: 97.94%
+- Oats: 81.25%
+- Soybean-notill: 92.54%
+- Soybean-mintill: 95.94%
+- Soybean-clean: 94.32%
+- Wheat: 100.00%
+- Woods: 96.76%
+- Buildings-Grass-Trees: 95.39%
+- Stone-Steel-Towers: 92.41%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P9_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P9_B64.png" /></p>
+<hr />
+<h3 id="patch-size-9x9-batch-size-128">Patch Size 9x9 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 94.95%
+- <strong>AA (Average Accuracy):</strong> 93.30%
+- <strong>Kappa Coefficient:</strong> 94.24
+- <strong>Train Time:</strong> 8.0 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 89.19%
+- Corn-notill: 92.74%
+- Corn-mintill: 96.83%
+- Corn: 94.77%
+- Grass-pasture: 97.95%
+- Grass-trees: 99.50%
+- Grass-pasture-mowed: 100.00%
+- Hay-windrowed: 100.00%
+- Oats: 60.00%
+- Soybean-notill: 93.12%
+- Soybean-mintill: 94.23%
+- Soybean-clean: 86.00%
+- Wheat: 99.39%
+- Woods: 97.04%
+- Buildings-Grass-Trees: 97.32%
+- Stone-Steel-Towers: 94.67%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P9_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P9_B128.png" /></p>
+<hr />
+<h3 id="patch-size-9x9-batch-size-256">Patch Size 9x9 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 92.61%
+- <strong>AA (Average Accuracy):</strong> 93.10%
+- <strong>Kappa Coefficient:</strong> 91.56
+- <strong>Train Time:</strong> 8.3 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 100.00%
+- Corn-notill: 87.36%
+- Corn-mintill: 95.91%
+- Corn: 92.42%
+- Grass-pasture: 95.84%
+- Grass-trees: 98.49%
+- Grass-pasture-mowed: 100.00%
+- Hay-windrowed: 99.74%
+- Oats: 72.73%
+- Soybean-notill: 87.77%
+- Soybean-mintill: 92.63%
+- Soybean-clean: 82.03%
+- Wheat: 96.88%
+- Woods: 95.83%
+- Buildings-Grass-Trees: 96.32%
+- Stone-Steel-Towers: 95.71%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P9_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P9_B256.png" /></p>
+<hr />
+<h3 id="patch-size-11x11-batch-size-32">Patch Size 11x11 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 98.05%
+- <strong>AA (Average Accuracy):</strong> 94.82%
+- <strong>Kappa Coefficient:</strong> 97.78
+- <strong>Train Time:</strong> 8.8 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 95.00%
+- Corn-notill: 98.13%
+- Corn-mintill: 97.72%
+- Corn: 100.00%
+- Grass-pasture: 99.74%
+- Grass-trees: 99.17%
+- Grass-pasture-mowed: 95.24%
+- Hay-windrowed: 100.00%
+- Oats: 54.17%
+- Soybean-notill: 98.84%
+- Soybean-mintill: 98.42%
+- Soybean-clean: 91.85%
+- Wheat: 99.39%
+- Woods: 98.65%
+- Buildings-Grass-Trees: 99.00%
+- Stone-Steel-Towers: 91.89%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P11_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P11_B32.png" /></p>
+<hr />
+<h3 id="patch-size-11x11-batch-size-64">Patch Size 11x11 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 97.07%
+- <strong>AA (Average Accuracy):</strong> 93.08%
+- <strong>Kappa Coefficient:</strong> 96.66
+- <strong>Train Time:</strong> 11.4 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 92.86%
+- Corn-notill: 98.06%
+- Corn-mintill: 97.70%
+- Corn: 97.42%
+- Grass-pasture: 98.70%
+- Grass-trees: 96.90%
+- Grass-pasture-mowed: 69.23%
+- Hay-windrowed: 100.00%
+- Oats: 69.23%
+- Soybean-notill: 92.27%
+- Soybean-mintill: 98.01%
+- Soybean-clean: 95.62%
+- Wheat: 100.00%
+- Woods: 98.18%
+- Buildings-Grass-Trees: 96.71%
+- Stone-Steel-Towers: 88.46%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P11_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P11_B64.png" /></p>
+<hr />
+<h3 id="patch-size-11x11-batch-size-128">Patch Size 11x11 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 96.16%
+- <strong>AA (Average Accuracy):</strong> 91.54%
+- <strong>Kappa Coefficient:</strong> 95.63
+- <strong>Train Time:</strong> 11.8 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 100.00%
+- Corn-notill: 95.83%
+- Corn-mintill: 96.32%
+- Corn: 95.77%
+- Grass-pasture: 96.05%
+- Grass-trees: 97.05%
+- Grass-pasture-mowed: 72.00%
+- Hay-windrowed: 98.42%
+- Oats: 50.00%
+- Soybean-notill: 92.59%
+- Soybean-mintill: 97.59%
+- Soybean-clean: 92.21%
+- Wheat: 99.39%
+- Woods: 97.98%
+- Buildings-Grass-Trees: 97.67%
+- Stone-Steel-Towers: 85.71%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P11_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P11_B128.png" /></p>
+<hr />
+<h3 id="patch-size-11x11-batch-size-256">Patch Size 11x11 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 94.62%
+- <strong>AA (Average Accuracy):</strong> 93.04%
+- <strong>Kappa Coefficient:</strong> 93.87
+- <strong>Train Time:</strong> 12.5 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 100.00%
+- Corn-notill: 95.43%
+- Corn-mintill: 93.63%
+- Corn: 85.92%
+- Grass-pasture: 93.55%
+- Grass-trees: 97.64%
+- Grass-pasture-mowed: 100.00%
+- Hay-windrowed: 95.96%
+- Oats: 71.43%
+- Soybean-notill: 87.83%
+- Soybean-mintill: 96.12%
+- Soybean-clean: 90.53%
+- Wheat: 100.00%
+- Woods: 97.60%
+- Buildings-Grass-Trees: 99.66%
+- Stone-Steel-Towers: 83.33%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P11_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P11_B256.png" /></p>
+<hr />
+<h3 id="patch-size-13x13-batch-size-32">Patch Size 13x13 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 97.63%
+- <strong>AA (Average Accuracy):</strong> 95.97%
+- <strong>Kappa Coefficient:</strong> 97.29
+- <strong>Train Time:</strong> 12.0 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 90.70%
+- Corn-notill: 98.27%
+- Corn-mintill: 99.22%
+- Corn: 100.00%
+- Grass-pasture: 98.47%
+- Grass-trees: 99.32%
+- Grass-pasture-mowed: 95.24%
+- Hay-windrowed: 100.00%
+- Oats: 84.21%
+- Soybean-notill: 94.35%
+- Soybean-mintill: 96.48%
+- Soybean-clean: 96.77%
+- Wheat: 100.00%
+- Woods: 99.90%
+- Buildings-Grass-Trees: 97.18%
+- Stone-Steel-Towers: 85.37%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P13_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P13_B32.png" /></p>
+<hr />
+<h3 id="patch-size-13x13-batch-size-64">Patch Size 13x13 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 97.28%
+- <strong>AA (Average Accuracy):</strong> 97.17%
+- <strong>Kappa Coefficient:</strong> 96.90
+- <strong>Train Time:</strong> 11.6 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 95.00%
+- Corn-notill: 98.99%
+- Corn-mintill: 98.32%
+- Corn: 100.00%
+- Grass-pasture: 96.73%
+- Grass-trees: 97.35%
+- Grass-pasture-mowed: 95.24%
+- Hay-windrowed: 100.00%
+- Oats: 100.00%
+- Soybean-notill: 96.52%
+- Soybean-mintill: 95.62%
+- Soybean-clean: 94.73%
+- Wheat: 99.38%
+- Woods: 99.22%
+- Buildings-Grass-Trees: 95.67%
+- Stone-Steel-Towers: 92.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P13_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P13_B64.png" /></p>
+<hr />
+<h3 id="patch-size-13x13-batch-size-128">Patch Size 13x13 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 97.02%
+- <strong>AA (Average Accuracy):</strong> 96.69%
+- <strong>Kappa Coefficient:</strong> 96.60
+- <strong>Train Time:</strong> 11.5 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 97.44%
+- Corn-notill: 98.33%
+- Corn-mintill: 97.55%
+- Corn: 100.00%
+- Grass-pasture: 96.67%
+- Grass-trees: 96.85%
+- Grass-pasture-mowed: 100.00%
+- Hay-windrowed: 100.00%
+- Oats: 90.91%
+- Soybean-notill: 97.34%
+- Soybean-mintill: 96.11%
+- Soybean-clean: 92.80%
+- Wheat: 99.38%
+- Woods: 98.55%
+- Buildings-Grass-Trees: 93.29%
+- Stone-Steel-Towers: 91.78%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P13_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P13_B128.png" /></p>
+<hr />
+<h3 id="patch-size-13x13-batch-size-256">Patch Size 13x13 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 95.37%
+- <strong>AA (Average Accuracy):</strong> 95.61%
+- <strong>Kappa Coefficient:</strong> 94.72
+- <strong>Train Time:</strong> 10.1 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 100.00%
+- Corn-notill: 96.18%
+- Corn-mintill: 94.26%
+- Corn: 99.42%
+- Grass-pasture: 95.60%
+- Grass-trees: 96.37%
+- Grass-pasture-mowed: 87.50%
+- Hay-windrowed: 100.00%
+- Oats: 100.00%
+- Soybean-notill: 94.88%
+- Soybean-mintill: 94.11%
+- Soybean-clean: 89.60%
+- Wheat: 100.00%
+- Woods: 98.65%
+- Buildings-Grass-Trees: 90.61%
+- Stone-Steel-Towers: 92.54%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P13_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P13_B256.png" /></p>
+<hr />
+<h3 id="patch-size-15x15-batch-size-32">Patch Size 15x15 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 97.82%
+- <strong>AA (Average Accuracy):</strong> 94.68%
+- <strong>Kappa Coefficient:</strong> 97.52
+- <strong>Train Time:</strong> 16.6 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 76.09%
+- Corn-notill: 98.36%
+- Corn-mintill: 99.24%
+- Corn: 100.00%
+- Grass-pasture: 99.23%
+- Grass-trees: 95.95%
+- Grass-pasture-mowed: 100.00%
+- Hay-windrowed: 100.00%
+- Oats: 71.43%
+- Soybean-notill: 95.58%
+- Soybean-mintill: 98.57%
+- Soybean-clean: 93.83%
+- Wheat: 100.00%
+- Woods: 99.71%
+- Buildings-Grass-Trees: 97.17%
+- Stone-Steel-Towers: 89.74%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P15_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P15_B32.png" /></p>
+<hr />
+<h3 id="patch-size-15x15-batch-size-64">Patch Size 15x15 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 97.26%
+- <strong>AA (Average Accuracy):</strong> 92.59%
+- <strong>Kappa Coefficient:</strong> 96.88
+- <strong>Train Time:</strong> 16.4 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 64.15%
+- Corn-notill: 98.62%
+- Corn-mintill: 98.49%
+- Corn: 100.00%
+- Grass-pasture: 98.97%
+- Grass-trees: 95.66%
+- Grass-pasture-mowed: 100.00%
+- Hay-windrowed: 100.00%
+- Oats: 58.33%
+- Soybean-notill: 95.98%
+- Soybean-mintill: 97.90%
+- Soybean-clean: 93.16%
+- Wheat: 100.00%
+- Woods: 99.22%
+- Buildings-Grass-Trees: 93.37%
+- Stone-Steel-Towers: 87.50%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P15_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P15_B64.png" /></p>
+<hr />
+<h3 id="patch-size-15x15-batch-size-128">Patch Size 15x15 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 96.98%
+- <strong>AA (Average Accuracy):</strong> 92.83%
+- <strong>Kappa Coefficient:</strong> 96.56
+- <strong>Train Time:</strong> 16.3 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 82.61%
+- Corn-notill: 98.16%
+- Corn-mintill: 98.18%
+- Corn: 100.00%
+- Grass-pasture: 97.45%
+- Grass-trees: 97.85%
+- Grass-pasture-mowed: 100.00%
+- Hay-windrowed: 100.00%
+- Oats: 54.55%
+- Soybean-notill: 97.18%
+- Soybean-mintill: 96.87%
+- Soybean-clean: 90.87%
+- Wheat: 100.00%
+- Woods: 98.84%
+- Buildings-Grass-Trees: 93.11%
+- Stone-Steel-Towers: 79.55%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P15_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P15_B128.png" /></p>
+<hr />
+<h3 id="patch-size-15x15-batch-size-256">Patch Size 15x15 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 96.18%
+- <strong>AA (Average Accuracy):</strong> 94.14%
+- <strong>Kappa Coefficient:</strong> 95.64
+- <strong>Train Time:</strong> 14.6 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 100.00%
+- Corn-notill: 98.68%
+- Corn-mintill: 96.95%
+- Corn: 96.83%
+- Grass-pasture: 95.26%
+- Grass-trees: 93.00%
+- Grass-pasture-mowed: 100.00%
+- Hay-windrowed: 99.73%
+- Oats: 66.67%
+- Soybean-notill: 96.59%
+- Soybean-mintill: 95.49%
+- Soybean-clean: 93.57%
+- Wheat: 100.00%
+- Woods: 98.17%
+- Buildings-Grass-Trees: 91.74%
+- Stone-Steel-Towers: 83.54%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P15_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P15_B256.png" /></p>
+<hr />
+<h3 id="patch-size-17x17-batch-size-32">Patch Size 17x17 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 97.75%
+- <strong>AA (Average Accuracy):</strong> 91.40%
+- <strong>Kappa Coefficient:</strong> 97.44
+- <strong>Train Time:</strong> 19.4 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 72.00%
+- Corn-notill: 97.93%
+- Corn-mintill: 98.34%
+- Corn: 100.00%
+- Grass-pasture: 97.48%
+- Grass-trees: 98.32%
+- Grass-pasture-mowed: 84.21%
+- Hay-windrowed: 99.74%
+- Oats: 47.37%
+- Soybean-notill: 97.18%
+- Soybean-mintill: 98.31%
+- Soybean-clean: 97.37%
+- Wheat: 100.00%
+- Woods: 99.80%
+- Buildings-Grass-Trees: 95.69%
+- Stone-Steel-Towers: 78.72%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P17_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P17_B32.png" /></p>
+<hr />
+<h3 id="patch-size-17x17-batch-size-64">Patch Size 17x17 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 97.13%
+- <strong>AA (Average Accuracy):</strong> 90.56%
+- <strong>Kappa Coefficient:</strong> 96.73
+- <strong>Train Time:</strong> 20.5 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 73.91%
+- Corn-notill: 98.33%
+- Corn-mintill: 98.18%
+- Corn: 100.00%
+- Grass-pasture: 98.98%
+- Grass-trees: 98.49%
+- Grass-pasture-mowed: 79.17%
+- Hay-windrowed: 99.73%
+- Oats: 43.75%
+- Soybean-notill: 95.08%
+- Soybean-mintill: 97.22%
+- Soybean-clean: 93.22%
+- Wheat: 100.00%
+- Woods: 99.42%
+- Buildings-Grass-Trees: 95.38%
+- Stone-Steel-Towers: 78.16%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P17_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P17_B64.png" /></p>
+<hr />
+<h3 id="patch-size-17x17-batch-size-128">Patch Size 17x17 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 96.80%
+- <strong>AA (Average Accuracy):</strong> 90.93%
+- <strong>Kappa Coefficient:</strong> 96.35
+- <strong>Train Time:</strong> 17.8 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 91.43%
+- Corn-notill: 98.66%
+- Corn-mintill: 96.87%
+- Corn: 100.00%
+- Grass-pasture: 98.23%
+- Grass-trees: 98.14%
+- Grass-pasture-mowed: 68.97%
+- Hay-windrowed: 100.00%
+- Oats: 44.44%
+- Soybean-notill: 93.25%
+- Soybean-mintill: 96.53%
+- Soybean-clean: 94.58%
+- Wheat: 100.00%
+- Woods: 98.07%
+- Buildings-Grass-Trees: 99.04%
+- Stone-Steel-Towers: 76.74%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P17_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P17_B128.png" /></p>
+<hr />
+<h3 id="patch-size-17x17-batch-size-256">Patch Size 17x17 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 95.52%
+- <strong>AA (Average Accuracy):</strong> 91.08%
+- <strong>Kappa Coefficient:</strong> 94.89
+- <strong>Train Time:</strong> 19.1 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 91.67%
+- Corn-notill: 99.21%
+- Corn-mintill: 92.55%
+- Corn: 100.00%
+- Grass-pasture: 96.18%
+- Grass-trees: 96.79%
+- Grass-pasture-mowed: 76.92%
+- Hay-windrowed: 100.00%
+- Oats: 50.00%
+- Soybean-notill: 92.62%
+- Soybean-mintill: 94.46%
+- Soybean-clean: 92.54%
+- Wheat: 99.36%
+- Woods: 96.96%
+- Buildings-Grass-Trees: 98.06%
+- Stone-Steel-Towers: 80.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P17_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P17_B256.png" /></p>
+<hr />
+<h2 id="pavia-university">Pavia University</h2>
+<h3 id="patch-size-9x9-batch-size-32_1">Patch Size 9x9 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.83%
+- <strong>AA (Average Accuracy):</strong> 99.82%
+- <strong>Kappa Coefficient:</strong> 99.78
+- <strong>Train Time:</strong> 14.1 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.81%
+- Meadows: 99.93%
+- Gravel: 99.88%
+- Trees: 99.31%
+- Painted metal sheets: 100.00%
+- Bare Soil: 99.83%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.62%
+- Shadows: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P9_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P9_B32.png" /></p>
+<hr />
+<h3 id="patch-size-9x9-batch-size-64_1">Patch Size 9x9 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.80%
+- <strong>AA (Average Accuracy):</strong> 99.74%
+- <strong>Kappa Coefficient:</strong> 99.73
+- <strong>Train Time:</strong> 15.2 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.89%
+- Meadows: 99.97%
+- Gravel: 99.70%
+- Trees: 99.31%
+- Painted metal sheets: 100.00%
+- Bare Soil: 99.80%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.08%
+- Shadows: 99.87%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P9_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P9_B64.png" /></p>
+<hr />
+<h3 id="patch-size-9x9-batch-size-128_1">Patch Size 9x9 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.62%
+- <strong>AA (Average Accuracy):</strong> 99.66%
+- <strong>Kappa Coefficient:</strong> 99.50
+- <strong>Train Time:</strong> 15.8 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.39%
+- Meadows: 99.76%
+- Gravel: 100.00%
+- Trees: 99.47%
+- Painted metal sheets: 99.91%
+- Bare Soil: 99.52%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.12%
+- Shadows: 99.73%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P9_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P9_B128.png" /></p>
+<hr />
+<h3 id="patch-size-9x9-batch-size-256_1">Patch Size 9x9 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.42%
+- <strong>AA (Average Accuracy):</strong> 99.44%
+- <strong>Kappa Coefficient:</strong> 99.24
+- <strong>Train Time:</strong> 16.1 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.20%
+- Meadows: 99.66%
+- Gravel: 99.63%
+- Trees: 99.31%
+- Painted metal sheets: 100.00%
+- Bare Soil: 99.60%
+- Bitumen: 99.71%
+- Self-Blocking Bricks: 97.97%
+- Shadows: 99.87%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P9_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P9_B256.png" /></p>
+<hr />
+<h3 id="patch-size-11x11-batch-size-32_1">Patch Size 11x11 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.82%
+- <strong>AA (Average Accuracy):</strong> 99.71%
+- <strong>Kappa Coefficient:</strong> 99.76
+- <strong>Train Time:</strong> 12.9 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.79%
+- Meadows: 100.00%
+- Gravel: 99.76%
+- Trees: 99.39%
+- Painted metal sheets: 100.00%
+- Bare Soil: 99.80%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.32%
+- Shadows: 99.34%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P11_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P11_B32.png" /></p>
+<hr />
+<h3 id="patch-size-11x11-batch-size-64_1">Patch Size 11x11 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.75%
+- <strong>AA (Average Accuracy):</strong> 99.66%
+- <strong>Kappa Coefficient:</strong> 99.68
+- <strong>Train Time:</strong> 19.7 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.72%
+- Meadows: 99.88%
+- Gravel: 100.00%
+- Trees: 99.47%
+- Painted metal sheets: 99.91%
+- Bare Soil: 99.85%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.25%
+- Shadows: 98.82%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P11_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P11_B64.png" /></p>
+<hr />
+<h3 id="patch-size-11x11-batch-size-128_1">Patch Size 11x11 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.76%
+- <strong>AA (Average Accuracy):</strong> 99.70%
+- <strong>Kappa Coefficient:</strong> 99.69
+- <strong>Train Time:</strong> 23.4 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.59%
+- Meadows: 100.00%
+- Gravel: 99.76%
+- Trees: 99.11%
+- Painted metal sheets: 99.91%
+- Bare Soil: 99.80%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.22%
+- Shadows: 99.87%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P11_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P11_B128.png" /></p>
+<hr />
+<h3 id="patch-size-11x11-batch-size-256_1">Patch Size 11x11 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.72%
+- <strong>AA (Average Accuracy):</strong> 99.52%
+- <strong>Kappa Coefficient:</strong> 99.62
+- <strong>Train Time:</strong> 28.3 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.72%
+- Meadows: 99.97%
+- Gravel: 99.88%
+- Trees: 99.19%
+- Painted metal sheets: 99.91%
+- Bare Soil: 99.60%
+- Bitumen: 99.81%
+- Self-Blocking Bricks: 99.18%
+- Shadows: 98.42%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P11_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P11_B256.png" /></p>
+<hr />
+<h3 id="patch-size-13x13-batch-size-32_1">Patch Size 13x13 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.86%
+- <strong>AA (Average Accuracy):</strong> 99.71%
+- <strong>Kappa Coefficient:</strong> 99.82
+- <strong>Train Time:</strong> 25.6 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.98%
+- Meadows: 100.00%
+- Gravel: 100.00%
+- Trees: 99.23%
+- Painted metal sheets: 100.00%
+- Bare Soil: 99.85%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.62%
+- Shadows: 98.69%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P13_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P13_B32.png" /></p>
+<hr />
+<h3 id="patch-size-13x13-batch-size-64_1">Patch Size 13x13 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.86%
+- <strong>AA (Average Accuracy):</strong> 99.70%
+- <strong>Kappa Coefficient:</strong> 99.81
+- <strong>Train Time:</strong> 15.4 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.91%
+- Meadows: 100.00%
+- Gravel: 100.00%
+- Trees: 99.23%
+- Painted metal sheets: 100.00%
+- Bare Soil: 99.90%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.66%
+- Shadows: 98.56%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P13_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P13_B64.png" /></p>
+<hr />
+<h3 id="patch-size-13x13-batch-size-128_1">Patch Size 13x13 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.84%
+- <strong>AA (Average Accuracy):</strong> 99.70%
+- <strong>Kappa Coefficient:</strong> 99.79
+- <strong>Train Time:</strong> 28.2 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.89%
+- Meadows: 100.00%
+- Gravel: 99.88%
+- Trees: 99.39%
+- Painted metal sheets: 100.00%
+- Bare Soil: 99.83%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.49%
+- Shadows: 98.81%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P13_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P13_B128.png" /></p>
+<hr />
+<h3 id="patch-size-13x13-batch-size-256_1">Patch Size 13x13 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.78%
+- <strong>AA (Average Accuracy):</strong> 99.55%
+- <strong>Kappa Coefficient:</strong> 99.70
+- <strong>Train Time:</strong> 24.4 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.89%
+- Meadows: 100.00%
+- Gravel: 99.47%
+- Trees: 98.95%
+- Painted metal sheets: 99.91%
+- Bare Soil: 99.83%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.42%
+- Shadows: 98.54%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P13_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P13_B256.png" /></p>
+<hr />
+<h3 id="patch-size-15x15-batch-size-32_1">Patch Size 15x15 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.84%
+- <strong>AA (Average Accuracy):</strong> 99.65%
+- <strong>Kappa Coefficient:</strong> 99.78
+- <strong>Train Time:</strong> 38.0 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.87%
+- Meadows: 99.97%
+- Gravel: 99.70%
+- Trees: 99.35%
+- Painted metal sheets: 100.00%
+- Bare Soil: 100.00%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.62%
+- Shadows: 98.30%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P15_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P15_B32.png" /></p>
+<hr />
+<h3 id="patch-size-15x15-batch-size-64_1">Patch Size 15x15 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.75%
+- <strong>AA (Average Accuracy):</strong> 99.59%
+- <strong>Kappa Coefficient:</strong> 99.66
+- <strong>Train Time:</strong> 23.6 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.78%
+- Meadows: 99.96%
+- Gravel: 99.64%
+- Trees: 98.99%
+- Painted metal sheets: 99.73%
+- Bare Soil: 99.80%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.32%
+- Shadows: 99.07%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P15_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P15_B64.png" /></p>
+<hr />
+<h3 id="patch-size-15x15-batch-size-128_1">Patch Size 15x15 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.73%
+- <strong>AA (Average Accuracy):</strong> 99.53%
+- <strong>Kappa Coefficient:</strong> 99.64
+- <strong>Train Time:</strong> 29.6 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.85%
+- Meadows: 99.93%
+- Gravel: 99.17%
+- Trees: 99.07%
+- Painted metal sheets: 99.63%
+- Bare Soil: 99.75%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.42%
+- Shadows: 98.93%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P15_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P15_B128.png" /></p>
+<hr />
+<h3 id="patch-size-15x15-batch-size-256_1">Patch Size 15x15 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.72%
+- <strong>AA (Average Accuracy):</strong> 99.54%
+- <strong>Kappa Coefficient:</strong> 99.62
+- <strong>Train Time:</strong> 44.4 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.76%
+- Meadows: 99.94%
+- Gravel: 99.59%
+- Trees: 99.10%
+- Painted metal sheets: 100.00%
+- Bare Soil: 99.85%
+- Bitumen: 99.91%
+- Self-Blocking Bricks: 99.01%
+- Shadows: 98.68%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P15_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P15_B256.png" /></p>
+<hr />
+<h3 id="patch-size-17x17-batch-size-32_1">Patch Size 17x17 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.72%
+- <strong>AA (Average Accuracy):</strong> 99.31%
+- <strong>Kappa Coefficient:</strong> 99.62
+- <strong>Train Time:</strong> 24.0 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.74%
+- Meadows: 99.95%
+- Gravel: 99.70%
+- Trees: 98.94%
+- Painted metal sheets: 100.00%
+- Bare Soil: 100.00%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.56%
+- Shadows: 95.92%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P17_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P17_B32.png" /></p>
+<hr />
+<h3 id="patch-size-17x17-batch-size-64_1">Patch Size 17x17 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.70%
+- <strong>AA (Average Accuracy):</strong> 99.50%
+- <strong>Kappa Coefficient:</strong> 99.60
+- <strong>Train Time:</strong> 32.1 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.57%
+- Meadows: 99.91%
+- Gravel: 99.70%
+- Trees: 98.98%
+- Painted metal sheets: 99.63%
+- Bare Soil: 100.00%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.29%
+- Shadows: 98.42%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P17_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P17_B64.png" /></p>
+<hr />
+<h3 id="patch-size-17x17-batch-size-128_1">Patch Size 17x17 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.71%
+- <strong>AA (Average Accuracy):</strong> 99.46%
+- <strong>Kappa Coefficient:</strong> 99.62
+- <strong>Train Time:</strong> 41.2 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.68%
+- Meadows: 99.94%
+- Gravel: 99.06%
+- Trees: 99.34%
+- Painted metal sheets: 99.63%
+- Bare Soil: 100.00%
+- Bitumen: 100.00%
+- Self-Blocking Bricks: 99.22%
+- Shadows: 98.26%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P17_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P17_B128.png" /></p>
+<hr />
+<h3 id="patch-size-17x17-batch-size-256_1">Patch Size 17x17 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.63%
+- <strong>AA (Average Accuracy):</strong> 99.19%
+- <strong>Kappa Coefficient:</strong> 99.52
+- <strong>Train Time:</strong> 38.2 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.68%
+- Meadows: 99.96%
+- Gravel: 99.47%
+- Trees: 98.54%
+- Painted metal sheets: 99.82%
+- Bare Soil: 99.93%
+- Bitumen: 99.81%
+- Self-Blocking Bricks: 99.28%
+- Shadows: 96.23%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/pred_P17_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Pavia_University/Visualizations_PNG/loss_P17_B256.png" /></p>
+<hr />
+<h2 id="salinas-valley">Salinas Valley</h2>
+<h3 id="patch-size-9x9-batch-size-32_2">Patch Size 9x9 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.83%
+- <strong>AA (Average Accuracy):</strong> 99.87%
+- <strong>Kappa Coefficient:</strong> 99.81
+- <strong>Train Time:</strong> 39.8 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.38%
+- Fallow_smooth: 100.00%
+- Stubble: 100.00%
+- Celery: 100.00%
+- Grapes_untrained: 99.84%
+- Soil_vinyard_develop: 99.90%
+- Corn_senesced_green_weeds: 99.43%
+- Lettuce_romaine_4wk: 99.88%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 99.86%
+- Lettuce_romaine_7wk: 99.88%
+- Vinyard_untrained: 98.86%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P9_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P9_B32.png" /></p>
+<hr />
+<h3 id="patch-size-9x9-batch-size-64_2">Patch Size 9x9 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.76%
+- <strong>AA (Average Accuracy):</strong> 99.81%
+- <strong>Kappa Coefficient:</strong> 99.74
+- <strong>Train Time:</strong> 40.4 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.64%
+- Fallow_smooth: 100.00%
+- Stubble: 99.97%
+- Celery: 100.00%
+- Grapes_untrained: 99.92%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.43%
+- Lettuce_romaine_4wk: 98.96%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 99.73%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 99.32%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P9_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P9_B64.png" /></p>
+<hr />
+<h3 id="patch-size-9x9-batch-size-128_2">Patch Size 9x9 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.83%
+- <strong>AA (Average Accuracy):</strong> 99.82%
+- <strong>Kappa Coefficient:</strong> 99.81
+- <strong>Train Time:</strong> 49.7 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 98.94%
+- Fallow_smooth: 99.95%
+- Stubble: 100.00%
+- Celery: 100.00%
+- Grapes_untrained: 99.82%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.47%
+- Lettuce_romaine_4wk: 99.53%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 100.00%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 99.62%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P9_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P9_B128.png" /></p>
+<hr />
+<h3 id="patch-size-9x9-batch-size-256_2">Patch Size 9x9 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.60%
+- <strong>AA (Average Accuracy):</strong> 99.73%
+- <strong>Kappa Coefficient:</strong> 99.56
+- <strong>Train Time:</strong> 54.5 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.56%
+- Fallow_smooth: 99.63%
+- Stubble: 100.00%
+- Celery: 100.00%
+- Grapes_untrained: 99.67%
+- Soil_vinyard_develop: 99.88%
+- Corn_senesced_green_weeds: 99.32%
+- Lettuce_romaine_4wk: 100.00%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 100.00%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 98.50%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P9_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P9_B256.png" /></p>
+<hr />
+<h3 id="patch-size-11x11-batch-size-32_2">Patch Size 11x11 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.92%
+- <strong>AA (Average Accuracy):</strong> 99.92%
+- <strong>Kappa Coefficient:</strong> 99.91
+- <strong>Train Time:</strong> 57.7 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.64%
+- Fallow_smooth: 100.00%
+- Stubble: 100.00%
+- Celery: 99.93%
+- Grapes_untrained: 99.92%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 100.00%
+- Lettuce_romaine_4wk: 99.65%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 99.73%
+- Lettuce_romaine_7wk: 99.88%
+- Vinyard_untrained: 99.73%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P11_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P11_B32.png" /></p>
+<hr />
+<h3 id="patch-size-11x11-batch-size-64_2">Patch Size 11x11 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.92%
+- <strong>AA (Average Accuracy):</strong> 99.92%
+- <strong>Kappa Coefficient:</strong> 99.91
+- <strong>Train Time:</strong> 69.7 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 100.00%
+- Fallow_smooth: 100.00%
+- Stubble: 100.00%
+- Celery: 100.00%
+- Grapes_untrained: 99.93%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.81%
+- Lettuce_romaine_4wk: 99.42%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 99.86%
+- Lettuce_romaine_7wk: 99.88%
+- Vinyard_untrained: 99.62%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P11_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P11_B64.png" /></p>
+<hr />
+<h3 id="patch-size-11x11-batch-size-128_2">Patch Size 11x11 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.87%
+- <strong>AA (Average Accuracy):</strong> 99.89%
+- <strong>Kappa Coefficient:</strong> 99.85
+- <strong>Train Time:</strong> 65.4 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 99.94%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.47%
+- Fallow_smooth: 100.00%
+- Stubble: 99.97%
+- Celery: 100.00%
+- Grapes_untrained: 99.97%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.81%
+- Lettuce_romaine_4wk: 99.65%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 99.86%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 99.55%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P11_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P11_B128.png" /></p>
+<hr />
+<h3 id="patch-size-11x11-batch-size-256_2">Patch Size 11x11 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.91%
+- <strong>AA (Average Accuracy):</strong> 99.93%
+- <strong>Kappa Coefficient:</strong> 99.90
+- <strong>Train Time:</strong> 79.5 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 99.94%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.73%
+- Fallow_smooth: 100.00%
+- Stubble: 100.00%
+- Celery: 99.97%
+- Grapes_untrained: 99.99%
+- Soil_vinyard_develop: 99.98%
+- Corn_senesced_green_weeds: 99.62%
+- Lettuce_romaine_4wk: 100.00%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 100.00%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 99.66%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P11_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P11_B256.png" /></p>
+<hr />
+<h3 id="patch-size-13x13-batch-size-32_2">Patch Size 13x13 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.92%
+- <strong>AA (Average Accuracy):</strong> 99.92%
+- <strong>Kappa Coefficient:</strong> 99.91
+- <strong>Train Time:</strong> 43.4 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.47%
+- Fallow_smooth: 100.00%
+- Stubble: 99.94%
+- Celery: 100.00%
+- Grapes_untrained: 100.00%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.92%
+- Lettuce_romaine_4wk: 100.00%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 99.86%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 99.61%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P13_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P13_B32.png" /></p>
+<hr />
+<h3 id="patch-size-13x13-batch-size-64_2">Patch Size 13x13 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.97%
+- <strong>AA (Average Accuracy):</strong> 99.96%
+- <strong>Kappa Coefficient:</strong> 99.97
+- <strong>Train Time:</strong> 57.3 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.82%
+- Fallow_smooth: 100.00%
+- Stubble: 99.97%
+- Celery: 99.97%
+- Grapes_untrained: 100.00%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.85%
+- Lettuce_romaine_4wk: 100.00%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 99.86%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 99.93%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P13_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P13_B64.png" /></p>
+<hr />
+<h3 id="patch-size-13x13-batch-size-128_2">Patch Size 13x13 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.95%
+- <strong>AA (Average Accuracy):</strong> 99.93%
+- <strong>Kappa Coefficient:</strong> 99.94
+- <strong>Train Time:</strong> 67.0 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.38%
+- Fallow_smooth: 100.00%
+- Stubble: 99.97%
+- Celery: 100.00%
+- Grapes_untrained: 100.00%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.89%
+- Lettuce_romaine_4wk: 99.77%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 100.00%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 99.85%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P13_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P13_B128.png" /></p>
+<hr />
+<h3 id="patch-size-13x13-batch-size-256_2">Patch Size 13x13 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.88%
+- <strong>AA (Average Accuracy):</strong> 99.86%
+- <strong>Kappa Coefficient:</strong> 99.86
+- <strong>Train Time:</strong> 59.5 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 99.75%
+- Fallow_rough_plow: 98.94%
+- Fallow_smooth: 99.95%
+- Stubble: 99.97%
+- Celery: 100.00%
+- Grapes_untrained: 99.98%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.70%
+- Lettuce_romaine_4wk: 99.88%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 100.00%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 99.59%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P13_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P13_B256.png" /></p>
+<hr />
+<h3 id="patch-size-15x15-batch-size-32_2">Patch Size 15x15 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.97%
+- <strong>AA (Average Accuracy):</strong> 99.94%
+- <strong>Kappa Coefficient:</strong> 99.96
+- <strong>Train Time:</strong> 63.5 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 99.94%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.64%
+- Fallow_smooth: 99.86%
+- Stubble: 99.97%
+- Celery: 100.00%
+- Grapes_untrained: 100.00%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.96%
+- Lettuce_romaine_4wk: 99.77%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 100.00%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 99.97%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P15_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P15_B32.png" /></p>
+<hr />
+<h3 id="patch-size-15x15-batch-size-64_2">Patch Size 15x15 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.98%
+- <strong>AA (Average Accuracy):</strong> 99.97%
+- <strong>Kappa Coefficient:</strong> 99.98
+- <strong>Train Time:</strong> 93.9 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.91%
+- Fallow_smooth: 99.95%
+- Stubble: 100.00%
+- Celery: 100.00%
+- Grapes_untrained: 100.00%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.81%
+- Lettuce_romaine_4wk: 100.00%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 99.86%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 100.00%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P15_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P15_B64.png" /></p>
+<hr />
+<h3 id="patch-size-15x15-batch-size-128_2">Patch Size 15x15 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.96%
+- <strong>AA (Average Accuracy):</strong> 99.93%
+- <strong>Kappa Coefficient:</strong> 99.96
+- <strong>Train Time:</strong> 95.1 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.64%
+- Fallow_smooth: 99.95%
+- Stubble: 100.00%
+- Celery: 100.00%
+- Grapes_untrained: 100.00%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.73%
+- Lettuce_romaine_4wk: 100.00%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 99.59%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 99.97%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/pred_P15_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Salinas_Valley/Visualizations_PNG/loss_P15_B128.png" /></p>
+<hr />
+<h3 id="patch-size-15x15-batch-size-256_2">Patch Size 15x15 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.92%
+- <strong>AA (Average Accuracy):</strong> 99.82%
+- <strong>Kappa Coefficient:</strong> 99.91
+- <strong>Train Time:</strong> 74.6 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.73%
+- Fallow_smooth: 99.91%
+- Stubble: 100.00%
+- Celery: 99.97%
+- Grapes_untrained: 99.99%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.62%
+- Lettuce_romaine_4wk: 98.96%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 98.92%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 99.98%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/results_from_kaggle_final/plots/pred_P15_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/results_from_kaggle_final/plots/loss_P15_B256.png" /></p>
+<hr />
+<h3 id="patch-size-17x17-batch-size-32_2">Patch Size 17x17 | Batch Size 32</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 100.00%
+- <strong>AA (Average Accuracy):</strong> 100.00%
+- <strong>Kappa Coefficient:</strong> 100.00
+- <strong>Train Time:</strong> 116.8 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 100.00%
+- Fallow_smooth: 99.95%
+- Stubble: 100.00%
+- Celery: 100.00%
+- Grapes_untrained: 100.00%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 100.00%
+- Lettuce_romaine_4wk: 100.00%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 100.00%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 100.00%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/results_from_kaggle_final/plots/pred_P17_B32.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/results_from_kaggle_final/plots/loss_P17_B32.png" /></p>
+<hr />
+<h3 id="patch-size-17x17-batch-size-64_2">Patch Size 17x17 | Batch Size 64</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 100.00%
+- <strong>AA (Average Accuracy):</strong> 99.99%
+- <strong>Kappa Coefficient:</strong> 100.00
+- <strong>Train Time:</strong> 115.4 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.91%
+- Fallow_smooth: 100.00%
+- Stubble: 100.00%
+- Celery: 100.00%
+- Grapes_untrained: 100.00%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 100.00%
+- Lettuce_romaine_4wk: 100.00%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 100.00%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 100.00%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/results_from_kaggle_final/plots/pred_P17_B64.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/results_from_kaggle_final/plots/loss_P17_B64.png" /></p>
+<hr />
+<h3 id="patch-size-17x17-batch-size-128_2">Patch Size 17x17 | Batch Size 128</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.97%
+- <strong>AA (Average Accuracy):</strong> 99.94%
+- <strong>Kappa Coefficient:</strong> 99.97
+- <strong>Train Time:</strong> 94.2 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.64%
+- Fallow_smooth: 99.95%
+- Stubble: 100.00%
+- Celery: 100.00%
+- Grapes_untrained: 100.00%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 100.00%
+- Lettuce_romaine_4wk: 99.65%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 99.86%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 99.97%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/results_from_kaggle_final/plots/pred_P17_B128.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/results_from_kaggle_final/plots/loss_P17_B128.png" /></p>
+<hr />
+<h3 id="patch-size-17x17-batch-size-256_2">Patch Size 17x17 | Batch Size 256</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.97%
+- <strong>AA (Average Accuracy):</strong> 99.94%
+- <strong>Kappa Coefficient:</strong> 99.97
+- <strong>Train Time:</strong> 111.0 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.12%
+- Fallow_smooth: 100.00%
+- Stubble: 100.00%
+- Celery: 100.00%
+- Grapes_untrained: 99.99%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 100.00%
+- Lettuce_romaine_4wk: 100.00%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 99.86%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 100.00%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/results_from_kaggle_final/plots/pred_P17_B256.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/results_from_kaggle_final/plots/loss_P17_B256.png" /></p>
+<hr />
+<h1 id="part-2-train-ratio-experiments-data-scarcity">PART 2: Train Ratio Experiments (Data Scarcity)</h1>
+<h2 id="indian-pines-train-ratio-experiment">Indian Pines (Train Ratio Experiment)</h2>
+<h3 id="training-ratio-1">Training Ratio: 1%</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 70.12%
+- <strong>AA (Average Accuracy):</strong> 66.23%
+- <strong>Kappa Coefficient:</strong> 66.07
+- <strong>Train Time:</strong> 1.2 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 25.00%
+- Corn-notill: 52.37%
+- Corn-mintill: 52.90%
+- Corn: 92.11%
+- Grass-pasture: 86.49%
+- Grass-trees: 84.18%
+- Grass-pasture-mowed: 8.66%
+- Hay-windrowed: 99.27%
+- Oats: 7.66%
+- Soybean-notill: 73.27%
+- Soybean-mintill: 87.10%
+- Soybean-clean: 94.89%
+- Wheat: 71.84%
+- Woods: 86.45%
+- Buildings-Grass-Trees: 63.87%
+- Stone-Steel-Towers: 73.68%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/pred_IN_Ratio1pct.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/loss_IN_Ratio1pct.png" /></p>
+<hr />
+<h3 id="training-ratio-2">Training Ratio: 2%</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 81.55%
+- <strong>AA (Average Accuracy):</strong> 76.57%
+- <strong>Kappa Coefficient:</strong> 78.86
+- <strong>Train Time:</strong> 2.4 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 52.44%
+- Corn-notill: 67.29%
+- Corn-mintill: 87.23%
+- Corn: 80.51%
+- Grass-pasture: 91.56%
+- Grass-trees: 91.05%
+- Grass-pasture-mowed: 26.51%
+- Hay-windrowed: 99.75%
+- Oats: 10.94%
+- Soybean-notill: 79.98%
+- Soybean-mintill: 82.19%
+- Soybean-clean: 86.34%
+- Wheat: 96.74%
+- Woods: 87.36%
+- Buildings-Grass-Trees: 96.64%
+- Stone-Steel-Towers: 88.64%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/pred_IN_Ratio2pct.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/loss_IN_Ratio2pct.png" /></p>
+<hr />
+<h3 id="training-ratio-5">Training Ratio: 5%</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 93.91%
+- <strong>AA (Average Accuracy):</strong> 86.65%
+- <strong>Kappa Coefficient:</strong> 93.06
+- <strong>Train Time:</strong> 5.8 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 73.68%
+- Corn-notill: 94.41%
+- Corn-mintill: 91.75%
+- Corn: 97.03%
+- Grass-pasture: 98.23%
+- Grass-trees: 96.31%
+- Grass-pasture-mowed: 47.06%
+- Hay-windrowed: 96.75%
+- Oats: 42.86%
+- Soybean-notill: 87.79%
+- Soybean-mintill: 95.74%
+- Soybean-clean: 93.33%
+- Wheat: 97.27%
+- Woods: 95.57%
+- Buildings-Grass-Trees: 95.17%
+- Stone-Steel-Towers: 83.51%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/pred_IN_Ratio5pct.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/loss_IN_Ratio5pct.png" /></p>
+<hr />
+<h3 id="training-ratio-10">Training Ratio: 10%</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 97.84%
+- <strong>AA (Average Accuracy):</strong> 93.43%
+- <strong>Kappa Coefficient:</strong> 97.55
+- <strong>Train Time:</strong> 9.5 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Alfalfa: 92.50%
+- Corn-notill: 98.10%
+- Corn-mintill: 96.97%
+- Corn: 100.00%
+- Grass-pasture: 99.22%
+- Grass-trees: 98.84%
+- Grass-pasture-mowed: 90.91%
+- Hay-windrowed: 100.00%
+- Oats: 45.16%
+- Soybean-notill: 98.47%
+- Soybean-mintill: 98.42%
+- Soybean-clean: 94.26%
+- Wheat: 99.39%
+- Woods: 98.27%
+- Buildings-Grass-Trees: 99.01%
+- Stone-Steel-Towers: 85.37%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/pred_IN_Ratio10pct.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/loss_IN_Ratio10pct.png" /></p>
+<hr />
+<h2 id="pavia-university-train-ratio-experiment">Pavia University (Train Ratio Experiment)</h2>
+<h3 id="training-ratio-1_1">Training Ratio: 1%</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 95.41%
+- <strong>AA (Average Accuracy):</strong> 94.48%
+- <strong>Kappa Coefficient:</strong> 93.90
+- <strong>Train Time:</strong> 2.1 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 95.54%
+- Meadows: 98.13%
+- Gravel: 89.42%
+- Trees: 95.14%
+- Painted metal sheets: 99.62%
+- Bare Soil: 94.27%
+- Bitumen: 95.80%
+- Self-Blocking Bricks: 84.70%
+- Shadows: 97.66%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/pred_UP_Ratio1pct.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/loss_UP_Ratio1pct.png" /></p>
+<hr />
+<h3 id="training-ratio-2_1">Training Ratio: 2%</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 98.04%
+- <strong>AA (Average Accuracy):</strong> 96.85%
+- <strong>Kappa Coefficient:</strong> 97.40
+- <strong>Train Time:</strong> 3.9 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 98.04%
+- Meadows: 99.53%
+- Gravel: 96.83%
+- Trees: 98.68%
+- Painted metal sheets: 99.54%
+- Bare Soil: 98.98%
+- Bitumen: 89.08%
+- Self-Blocking Bricks: 92.32%
+- Shadows: 98.69%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/pred_UP_Ratio2pct.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/loss_UP_Ratio2pct.png" /></p>
+<hr />
+<h3 id="training-ratio-5_1">Training Ratio: 5%</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.51%
+- <strong>AA (Average Accuracy):</strong> 99.09%
+- <strong>Kappa Coefficient:</strong> 99.35
+- <strong>Train Time:</strong> 10.7 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.50%
+- Meadows: 99.98%
+- Gravel: 99.08%
+- Trees: 99.13%
+- Painted metal sheets: 99.92%
+- Bare Soil: 99.91%
+- Bitumen: 97.46%
+- Self-Blocking Bricks: 97.90%
+- Shadows: 98.96%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/pred_UP_Ratio5pct.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/loss_UP_Ratio5pct.png" /></p>
+<hr />
+<h3 id="training-ratio-10_1">Training Ratio: 10%</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.83%
+- <strong>AA (Average Accuracy):</strong> 99.73%
+- <strong>Kappa Coefficient:</strong> 99.78
+- <strong>Train Time:</strong> 15.2 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Asphalt: 99.79%
+- Meadows: 100.00%
+- Gravel: 99.82%
+- Trees: 99.35%
+- Painted metal sheets: 100.00%
+- Bare Soil: 99.93%
+- Bitumen: 99.72%
+- Self-Blocking Bricks: 99.39%
+- Shadows: 99.61%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/pred_UP_Ratio10pct.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/loss_UP_Ratio10pct.png" /></p>
+<hr />
+<h2 id="salinas-valley-train-ratio-experiment">Salinas Valley (Train Ratio Experiment)</h2>
+<h3 id="training-ratio-1_2">Training Ratio: 1%</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 97.73%
+- <strong>AA (Average Accuracy):</strong> 98.03%
+- <strong>Kappa Coefficient:</strong> 97.48
+- <strong>Train Time:</strong> 5.7 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 99.39%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 89.47%
+- Fallow_rough_plow: 96.31%
+- Fallow_smooth: 98.85%
+- Stubble: 99.87%
+- Celery: 98.26%
+- Grapes_untrained: 96.29%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 98.07%
+- Lettuce_romaine_4wk: 99.81%
+- Lettuce_romaine_5wk: 96.81%
+- Lettuce_romaine_6wk: 100.00%
+- Lettuce_romaine_7wk: 99.23%
+- Vinyard_untrained: 96.10%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/pred_SV_Ratio1pct.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/loss_SV_Ratio1pct.png" /></p>
+<hr />
+<h3 id="training-ratio-2_2">Training Ratio: 2%</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.11%
+- <strong>AA (Average Accuracy):</strong> 99.19%
+- <strong>Kappa Coefficient:</strong> 99.00
+- <strong>Train Time:</strong> 12.4 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 99.97%
+- Fallow: 99.89%
+- Fallow_rough_plow: 97.59%
+- Fallow_smooth: 100.00%
+- Stubble: 99.82%
+- Celery: 100.00%
+- Grapes_untrained: 98.62%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 98.27%
+- Lettuce_romaine_4wk: 98.18%
+- Lettuce_romaine_5wk: 99.57%
+- Lettuce_romaine_6wk: 98.31%
+- Lettuce_romaine_7wk: 99.70%
+- Vinyard_untrained: 97.67%
+- Vinyard_vertical_trellis: 99.48%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/pred_SV_Ratio2pct.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/loss_SV_Ratio2pct.png" /></p>
+<hr />
+<h3 id="training-ratio-5_2">Training Ratio: 5%</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.79%
+- <strong>AA (Average Accuracy):</strong> 99.77%
+- <strong>Kappa Coefficient:</strong> 99.76
+- <strong>Train Time:</strong> 31.5 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 99.89%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.77%
+- Fallow_smooth: 100.00%
+- Stubble: 100.00%
+- Celery: 100.00%
+- Grapes_untrained: 99.70%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.49%
+- Lettuce_romaine_4wk: 98.67%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 100.00%
+- Lettuce_romaine_7wk: 99.38%
+- Vinyard_untrained: 99.50%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/pred_SV_Ratio5pct.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/loss_SV_Ratio5pct.png" /></p>
+<hr />
+<h3 id="training-ratio-10_2">Training Ratio: 10%</h3>
+<p><strong>Overall Metrics:</strong>
+- <strong>OA (Overall Accuracy):</strong> 99.93%
+- <strong>AA (Average Accuracy):</strong> 99.93%
+- <strong>Kappa Coefficient:</strong> 99.92
+- <strong>Train Time:</strong> 57.8 min</p>
+<p><strong>Class-wise Accuracy:</strong>
+- Brocoli_green_weeds_1: 100.00%
+- Brocoli_green_weeds_2: 100.00%
+- Fallow: 100.00%
+- Fallow_rough_plow: 99.38%
+- Fallow_smooth: 100.00%
+- Stubble: 100.00%
+- Celery: 100.00%
+- Grapes_untrained: 99.94%
+- Soil_vinyard_develop: 100.00%
+- Corn_senesced_green_weeds: 99.96%
+- Lettuce_romaine_4wk: 99.88%
+- Lettuce_romaine_5wk: 100.00%
+- Lettuce_romaine_6wk: 100.00%
+- Lettuce_romaine_7wk: 100.00%
+- Vinyard_untrained: 99.71%
+- Vinyard_vertical_trellis: 100.00%</p>
+<p><strong>Visualizations:</strong>
+<img alt="Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/pred_SV_Ratio10pct.png" /> <img alt="Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/ratio_final_results/plots/loss_SV_Ratio10pct.png" /></p>
+<hr />
+</body>
+</html>

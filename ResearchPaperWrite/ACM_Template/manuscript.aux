@@ -1,0 +1,340 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{bioucas2012hyperspectral,plaza2009recent}
+\citation{fauvel2012advances,ghamisi2017advanced}
+\@writefile{toc}{\contentsline {section}{Abstract}{1}{section*.1}\protected@file@percent }
+\citation{chen2014deep,zhao2016spectral}
+\citation{zhong2017spectral}
+\citation{roy2020hybridsn}
+\citation{ben2018deep}
+\citation{he2016deep}
+\citation{he2018multi}
+\citation{zhang2018diverse}
+\citation{dosovitskiy2020image}
+\citation{sun2022spectral}
+\citation{he2021spatial}
+\citation{yang2022hyperspectral}
+\citation{roy2023morphformer}
+\citation{gu2023mamba}
+\citation{woo2018cbam}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{2}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{2}{Introduction}{section.1}{}}
+\citation{sabour2018matrix}
+\citation{lin2017focal}
+\citation{cao2019learning,haut2021generative}
+\citation{melgani2004classification}
+\citation{camps2005kernel}
+\citation{chen2014deep,chen2016deep}
+\citation{chen2014deep,hu2015deep}
+\citation{zhao2016spectral}
+\citation{ben2018deep}
+\citation{zhong2017spectral}
+\citation{roy2020hybridsn}
+\citation{he2018multi}
+\citation{zhang2018diverse}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{3}{section.2}\protected@file@percent }
+\newlabel{sec:related_work}{{2}{3}{Related Work}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Convolutional Neural Networks for Hyperspectral Classification}{3}{subsection.2.1}\protected@file@percent }
+\citation{hu2018squeeze}
+\citation{woo2018cbam}
+\citation{wang2020eca}
+\citation{sun2019spectral}
+\citation{hang2021hyperspectral}
+\citation{zhu2021residual}
+\citation{guo2022feature}
+\citation{mou2022deep}
+\citation{roy2020attention}
+\citation{li2020double}
+\citation{wang2023cscanet}
+\citation{dosovitskiy2020image}
+\citation{sun2022spectral}
+\citation{hong2021spectralformer}
+\citation{he2021spatial}
+\citation{yang2022hyperspectral}
+\citation{roy2023morphformer}
+\citation{qing2021improved}
+\citation{gu2023mamba}
+\citation{li2024mambahsi}
+\citation{lin2015bilinear}
+\citation{gao2019global,li2018towards}
+\citation{fang2018new}
+\citation{he2019feature}
+\citation{xue2021attention}
+\citation{zheng2021hyperspectral}
+\citation{paoletti2018capsule}
+\citation{wang2021deep}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Attention Mechanisms, Vision Transformers, and State-Space Models}{4}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Second-Order Covariance Representations and Class Imbalance}{4}{subsection.2.3}\protected@file@percent }
+\citation{lin2017focal}
+\citation{cui2019class}
+\citation{sabour2018matrix}
+\citation{cao2019learning}
+\citation{haut2021generative}
+\citation{su2023spectral}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Methodology}{5}{section.3}\protected@file@percent }
+\newlabel{sec:methodology}{{3}{5}{Methodology}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Overall Pipeline and Problem Formulation}{5}{subsection.3.1}\protected@file@percent }
+\newlabel{subsec:pipeline}{{3.1}{5}{Overall Pipeline and Problem Formulation}{subsection.3.1}{}}
+\newlabel{eq:input_tensor}{{1}{5}{Overall Pipeline and Problem Formulation}{equation.1}{}}
+\citation{hu2018squeeze}
+\citation{woo2018cbam}
+\citation{mou2022deep}
+\citation{guo2022feature}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces End-to-end architectural workflow of the proposed Spectral-Guided Spatial Cross-Attention Fusion Network (SGSCF-Net). The model processes raw hyperspectral cubes through two coordinated stages: Stage\nonbreakingspace I executes input-level spectral gating (SBAM) on raw patches and orthogonal dual-branch feature learning (CBSA) across spectral residual blocks; Stage\nonbreakingspace II performs spectral-to-spatial compression, second-order spatial-channel covariance fusion (SCFG), and spatial residual learning, concluding with Global Average Pooling (GAP) and minority-aware hybrid loss supervision.}}{6}{figure.caption.2}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:sgscf_overall}{{1}{6}{End-to-end architectural workflow of the proposed Spectral-Guided Spatial Cross-Attention Fusion Network (SGSCF-Net). The model processes raw hyperspectral cubes through two coordinated stages: Stage~I executes input-level spectral gating (SBAM) on raw patches and orthogonal dual-branch feature learning (CBSA) across spectral residual blocks; Stage~II performs spectral-to-spatial compression, second-order spatial-channel covariance fusion (SCFG), and spatial residual learning, concluding with Global Average Pooling (GAP) and minority-aware hybrid loss supervision}{figure.caption.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Spectral Band Attention Module (SBAM)}{6}{subsection.3.2}\protected@file@percent }
+\newlabel{subsec:sbam}{{3.2}{6}{Spectral Band Attention Module (SBAM)}{subsection.3.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Detailed architectural topologies of the three proposed algorithmic modules: (a) Spectral Band Attention Module (SBAM) dynamically attenuating noisy atmospheric absorption bands on raw input cubes, (b) Complementary Branch Spectral Attention (CBSA) enforcing orthogonal specialization between dual 3D convolutional streams, and (c) Second-Order Covariance Fusion Gate (SCFG) capturing localized spatial-channel co-activation statistics.}}{7}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:proposed_modules}{{2}{7}{Detailed architectural topologies of the three proposed algorithmic modules: (a) Spectral Band Attention Module (SBAM) dynamically attenuating noisy atmospheric absorption bands on raw input cubes, (b) Complementary Branch Spectral Attention (CBSA) enforcing orthogonal specialization between dual 3D convolutional streams, and (c) Second-Order Covariance Fusion Gate (SCFG) capturing localized spatial-channel co-activation statistics}{figure.caption.3}{}}
+\newlabel{eq:sbam_pool}{{2}{7}{Spectral Band Attention Module (SBAM)}{equation.2}{}}
+\newlabel{eq:sbam_fc}{{3}{7}{Spectral Band Attention Module (SBAM)}{equation.3}{}}
+\newlabel{eq:sbam_recal}{{4}{7}{Spectral Band Attention Module (SBAM)}{equation.4}{}}
+\citation{roy2020attention}
+\citation{li2020double}
+\citation{wang2023cscanet}
+\citation{wang2020eca}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Complementary Branch Spectral Attention (CBSA)}{8}{subsection.3.3}\protected@file@percent }
+\newlabel{subsec:cbsa}{{3.3}{8}{Complementary Branch Spectral Attention (CBSA)}{subsection.3.3}{}}
+\newlabel{eq:cbsa_a}{{5}{8}{Complementary Branch Spectral Attention (CBSA)}{equation.5}{}}
+\newlabel{eq:cbsa_b}{{6}{8}{Complementary Branch Spectral Attention (CBSA)}{equation.6}{}}
+\newlabel{eq:cbsa_u}{{7}{8}{Complementary Branch Spectral Attention (CBSA)}{equation.7}{}}
+\newlabel{eq:cbsa_alpha}{{8}{8}{Complementary Branch Spectral Attention (CBSA)}{equation.8}{}}
+\newlabel{eq:cbsa_fuse}{{9}{8}{Complementary Branch Spectral Attention (CBSA)}{equation.9}{}}
+\newlabel{eq:spec_res}{{10}{8}{Complementary Branch Spectral Attention (CBSA)}{equation.10}{}}
+\citation{lin2015bilinear}
+\citation{lin2015bilinear,gao2019global}
+\citation{fang2018new,he2019feature,xue2021attention,zheng2021hyperspectral}
+\citation{li2018towards}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Second-Order Covariance Fusion Gate (SCFG)}{9}{subsection.3.4}\protected@file@percent }
+\newlabel{subsec:scfg}{{3.4}{9}{Second-Order Covariance Fusion Gate (SCFG)}{subsection.3.4}{}}
+\newlabel{eq:scfg_pool}{{11}{9}{Second-Order Covariance Fusion Gate (SCFG)}{equation.11}{}}
+\newlabel{eq:scfg_expand}{{12}{9}{Second-Order Covariance Fusion Gate (SCFG)}{equation.12}{}}
+\newlabel{eq:scfg_descriptors}{{13}{9}{Second-Order Covariance Fusion Gate (SCFG)}{equation.13}{}}
+\newlabel{eq:scfg_g}{{14}{9}{Second-Order Covariance Fusion Gate (SCFG)}{equation.14}{}}
+\newlabel{eq:scfg_frob}{{15}{9}{Second-Order Covariance Fusion Gate (SCFG)}{equation.15}{}}
+\newlabel{eq:scfg_gate}{{16}{9}{Second-Order Covariance Fusion Gate (SCFG)}{equation.16}{}}
+\newlabel{eq:scfg_mod}{{17}{9}{Second-Order Covariance Fusion Gate (SCFG)}{equation.17}{}}
+\newlabel{eq:spat_entry}{{18}{9}{Second-Order Covariance Fusion Gate (SCFG)}{equation.18}{}}
+\citation{sabour2018matrix}
+\citation{lin2017focal}
+\citation{cui2019class,cao2019learning,haut2021generative}
+\newlabel{eq:spat_res}{{19}{10}{Second-Order Covariance Fusion Gate (SCFG)}{equation.19}{}}
+\newlabel{eq:global_pool}{{20}{10}{Second-Order Covariance Fusion Gate (SCFG)}{equation.20}{}}
+\newlabel{eq:fc_out}{{21}{10}{Second-Order Covariance Fusion Gate (SCFG)}{equation.21}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Minority-Aware Hybrid Loss Formulation}{10}{subsection.3.5}\protected@file@percent }
+\newlabel{subsec:loss}{{3.5}{10}{Minority-Aware Hybrid Loss Formulation}{subsection.3.5}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.5.1}Dynamic Margin-Scheduled Spread Loss}{10}{subsubsection.3.5.1}\protected@file@percent }
+\newlabel{eq:spread_loss}{{22}{10}{Dynamic Margin-Scheduled Spread Loss}{equation.22}{}}
+\newlabel{eq:margin_sched}{{23}{10}{Dynamic Margin-Scheduled Spread Loss}{equation.23}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.5.2}Inverse-Frequency Class-Weighted Focal Loss}{10}{subsubsection.3.5.2}\protected@file@percent }
+\newlabel{eq:focal_loss}{{24}{10}{Inverse-Frequency Class-Weighted Focal Loss}{equation.24}{}}
+\newlabel{eq:class_weights}{{25}{10}{Inverse-Frequency Class-Weighted Focal Loss}{equation.25}{}}
+\citation{green1998imaging}
+\citation{fauvel2008spectral}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Benchmark Hyperspectral Dataset Characteristics and Sample Allocations (10\% Train / 10\% Val / 80\% Test Split).}}{11}{table.caption.4}\protected@file@percent }
+\newlabel{tab:dataset_summary}{{1}{11}{Benchmark Hyperspectral Dataset Characteristics and Sample Allocations (10\% Train / 10\% Val / 80\% Test Split)}{table.caption.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.5.3}Combined Optimization Objective}{11}{subsubsection.3.5.3}\protected@file@percent }
+\newlabel{eq:total_loss}{{26}{11}{Combined Optimization Objective}{equation.26}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Experiments and Comparative Analysis}{11}{section.4}\protected@file@percent }
+\newlabel{sec:experiments}{{4}{11}{Experiments and Comparative Analysis}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Dataset Description}{11}{subsection.4.1}\protected@file@percent }
+\newlabel{subsec:datasets}{{4.1}{11}{Dataset Description}{subsection.4.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Indian Pines}{11}{subsubsection.4.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}University of Pavia}{11}{subsubsection.4.1.2}\protected@file@percent }
+\citation{green1998imaging}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Category Information of the Indian Pines Dataset. Train/Val/Test counts follow a stratified 10\%/10\%/80\% split per class.}}{12}{table.caption.5}\protected@file@percent }
+\newlabel{tab:cat_ip}{{2}{12}{Category Information of the Indian Pines Dataset. Train/Val/Test counts follow a stratified 10\%/10\%/80\% split per class}{table.caption.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Category Information of the University of Pavia Dataset. Train/Val/Test counts follow a stratified 10\%/10\%/80\% split per class.}}{12}{table.caption.6}\protected@file@percent }
+\newlabel{tab:cat_pu}{{3}{12}{Category Information of the University of Pavia Dataset. Train/Val/Test counts follow a stratified 10\%/10\%/80\% split per class}{table.caption.6}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Salinas Valley}{12}{subsubsection.4.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Implementation Details}{12}{subsection.4.2}\protected@file@percent }
+\newlabel{subsec:implementation}{{4.2}{12}{Implementation Details}{subsection.4.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Compared Methods}{12}{subsubsection.4.2.1}\protected@file@percent }
+\citation{zhong2017spectral}
+\citation{roy2020attention}
+\citation{sun2019spectral}
+\citation{dosovitskiy2020image}
+\citation{sun2022spectral}
+\citation{khan2025hyperrope}
+\citation{alalimi2022compression}
+\citation{wang2021deep}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Category Information of the Salinas Valley Dataset. Train/Val/Test counts follow a stratified 10\%/10\%/80\% split per class.}}{13}{table.caption.7}\protected@file@percent }
+\newlabel{tab:cat_sv}{{4}{13}{Category Information of the Salinas Valley Dataset. Train/Val/Test counts follow a stratified 10\%/10\%/80\% split per class}{table.caption.7}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Evaluation Metrics}{13}{subsubsection.4.2.2}\protected@file@percent }
+\newlabel{eq:oa}{{27}{13}{Evaluation Metrics}{equation.27}{}}
+\citation{dosovitskiy2020image}
+\citation{sun2022spectral}
+\citation{zhong2017spectral}
+\citation{sun2019spectral}
+\citation{roy2020attention}
+\citation{alalimi2022compression}
+\citation{khan2025hyperrope}
+\citation{wang2021deep}
+\citation{zhang2018diverse}
+\newlabel{eq:aa}{{28}{14}{Evaluation Metrics}{equation.28}{}}
+\newlabel{eq:kappa}{{29}{14}{Evaluation Metrics}{equation.29}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}Experimental Configuration}{14}{subsubsection.4.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Comparative Study on Indian Pines}{14}{subsection.4.3}\protected@file@percent }
+\newlabel{subsec:comparative_study}{{4.3}{14}{Comparative Study on Indian Pines}{subsection.4.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Classification maps of different methods for the Indian Pines dataset under standardized 10\% training ratio. (a) Ground truth. (b) ViT (OA: 90.33\%). (c) HSI-SSFTT (OA: 98.45\%). (d) SSRN (OA: 98.52\%). (e) SSAN (OA: 64.19\%). (f) A2S2K-ResNet (OA: 98.11\%). (g) CRV-MHDL (OA: 67.20\%). (h) HyperRoPE-HiT (OA: 94.07\%). (i) DMC (OA: 82.55\%). (j) SGSCF-Net (Ours, OA: 98.05\%).}}{15}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:indian_pines_maps}{{3}{15}{Classification maps of different methods for the Indian Pines dataset under standardized 10\% training ratio. (a) Ground truth. (b) ViT (OA: 90.33\%). (c) HSI-SSFTT (OA: 98.45\%). (d) SSRN (OA: 98.52\%). (e) SSAN (OA: 64.19\%). (f) A2S2K-ResNet (OA: 98.11\%). (g) CRV-MHDL (OA: 67.20\%). (h) HyperRoPE-HiT (OA: 94.07\%). (i) DMC (OA: 82.55\%). (j) SGSCF-Net (Ours, OA: 98.05\%)}{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Comparative Study on University of Pavia}{15}{subsection.4.4}\protected@file@percent }
+\newlabel{subsec:pavia_study}{{4.4}{15}{Comparative Study on University of Pavia}{subsection.4.4}{}}
+\citation{dosovitskiy2020image}
+\citation{sun2022spectral}
+\citation{zhong2017spectral}
+\citation{sun2019spectral}
+\citation{roy2020attention}
+\citation{alalimi2022compression}
+\citation{khan2025hyperrope}
+\citation{wang2021deep}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Per-Class Classification Accuracy (\%) of SGSCF-Net and Eight Baseline Models on the Indian Pines Test Set (10\% Train / 10\% Val / 80\% Test, Patch 11$\times $11, Batch 32, 200 Epochs). Overall Accuracy (OA), Average Accuracy (AA), Kappa ($\kappa \times 100$), and training time are reported in the final rows. Best OA/AA/$\kappa $ in bold.}}{16}{table.caption.9}\protected@file@percent }
+\newlabel{tab:perclass_ip}{{5}{16}{Per-Class Classification Accuracy (\%) of SGSCF-Net and Eight Baseline Models on the Indian Pines Test Set (10\% Train / 10\% Val / 80\% Test, Patch 11$\times $11, Batch 32, 200 Epochs). Overall Accuracy (OA), Average Accuracy (AA), Kappa ($\kappa \times 100$), and training time are reported in the final rows. Best OA/AA/$\kappa $ in bold}{table.caption.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Classification maps of different methods for the University of Pavia dataset under standardized 10\% training ratio. (a) Ground truth. (b) ViT (OA: 99.05\%). (c) HSI-SSFTT (OA: 99.72\%). (d) SSRN (OA: 99.87\%). (e) SSAN (OA: 76.82\%). (f) A2S2K-ResNet (OA: 99.83\%). (g) CRV-MHDL (OA: 98.40\%). (h) HyperRoPE-SST (OA: 99.83\%). (i) DMC (OA: 99.34\%). (j) SGSCF-Net (Ours, OA: 99.82\%).}}{17}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:pavia_maps}{{4}{17}{Classification maps of different methods for the University of Pavia dataset under standardized 10\% training ratio. (a) Ground truth. (b) ViT (OA: 99.05\%). (c) HSI-SSFTT (OA: 99.72\%). (d) SSRN (OA: 99.87\%). (e) SSAN (OA: 76.82\%). (f) A2S2K-ResNet (OA: 99.83\%). (g) CRV-MHDL (OA: 98.40\%). (h) HyperRoPE-SST (OA: 99.83\%). (i) DMC (OA: 99.34\%). (j) SGSCF-Net (Ours, OA: 99.82\%)}{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Comparative Study on Salinas Valley}{17}{subsection.4.5}\protected@file@percent }
+\newlabel{subsec:salinas_study}{{4.5}{17}{Comparative Study on Salinas Valley}{subsection.4.5}{}}
+\citation{dosovitskiy2020image}
+\citation{sun2022spectral}
+\citation{zhong2017spectral}
+\citation{sun2019spectral}
+\citation{roy2020attention}
+\citation{alalimi2022compression}
+\citation{khan2025hyperrope}
+\citation{wang2021deep}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Per-Class Classification Accuracy (\%) of SGSCF-Net and Eight Baseline Models on the University of Pavia Test Set (10\% Train / 10\% Val / 80\% Test, Patch 11$\times $11, Batch 32, 200 Epochs). Overall Accuracy (OA), Average Accuracy (AA), Kappa ($\kappa \times 100$), and training time are reported in the final rows. Best OA/AA/$\kappa $ in bold.}}{18}{table.caption.11}\protected@file@percent }
+\newlabel{tab:perclass_pu}{{6}{18}{Per-Class Classification Accuracy (\%) of SGSCF-Net and Eight Baseline Models on the University of Pavia Test Set (10\% Train / 10\% Val / 80\% Test, Patch 11$\times $11, Batch 32, 200 Epochs). Overall Accuracy (OA), Average Accuracy (AA), Kappa ($\kappa \times 100$), and training time are reported in the final rows. Best OA/AA/$\kappa $ in bold}{table.caption.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Cross-Dataset Summary}{18}{subsection.4.6}\protected@file@percent }
+\newlabel{subsec:cross_summary}{{4.6}{18}{Cross-Dataset Summary}{subsection.4.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Classification maps of different methods for the Salinas Valley dataset under standardized 10\% training ratio. (a) Ground truth. (b) ViT (OA: 98.34\%). (c) HSI-SSFTT (OA: 99.90\%). (d) SSRN (OA: 99.96\%). (e) SSAN (OA: 88.20\%). (f) A2S2K-ResNet (OA: 100.00\%). (g) CRV-MHDL (OA: 96.30\%). (h) HyperRoPE-SST (OA: 99.85\%). (i) DMC (OA: 99.90\%). (j) SGSCF-Net (Ours, OA: 99.92\%).}}{19}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:salinas_maps}{{5}{19}{Classification maps of different methods for the Salinas Valley dataset under standardized 10\% training ratio. (a) Ground truth. (b) ViT (OA: 98.34\%). (c) HSI-SSFTT (OA: 99.90\%). (d) SSRN (OA: 99.96\%). (e) SSAN (OA: 88.20\%). (f) A2S2K-ResNet (OA: 100.00\%). (g) CRV-MHDL (OA: 96.30\%). (h) HyperRoPE-SST (OA: 99.85\%). (i) DMC (OA: 99.90\%). (j) SGSCF-Net (Ours, OA: 99.92\%)}{figure.caption.12}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Computational Complexity and Efficiency Analysis}{19}{subsection.4.7}\protected@file@percent }
+\newlabel{subsec:complexity_analysis}{{4.7}{19}{Computational Complexity and Efficiency Analysis}{subsection.4.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Per-Class Classification Accuracy (\%) of SGSCF-Net and Eight Baseline Models on the Salinas Valley Test Set (10\% Train / 10\% Val / 80\% Test, Patch 11$\times $11, Batch 32, 200 Epochs). Overall Accuracy (OA), Average Accuracy (AA), Kappa ($\kappa \times 100$), and training time are reported in the final rows. Best OA/AA/$\kappa $ in bold.}}{20}{table.caption.13}\protected@file@percent }
+\newlabel{tab:perclass_sv}{{7}{20}{Per-Class Classification Accuracy (\%) of SGSCF-Net and Eight Baseline Models on the Salinas Valley Test Set (10\% Train / 10\% Val / 80\% Test, Patch 11$\times $11, Batch 32, 200 Epochs). Overall Accuracy (OA), Average Accuracy (AA), Kappa ($\kappa \times 100$), and training time are reported in the final rows. Best OA/AA/$\kappa $ in bold}{table.caption.13}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces SGSCF-Net Performance Summary Across Three Benchmark Datasets (Patch 11$\times $11, Batch 32, 200 Epochs).}}{20}{table.caption.14}\protected@file@percent }
+\newlabel{tab:cross_dataset}{{8}{20}{SGSCF-Net Performance Summary Across Three Benchmark Datasets (Patch 11$\times $11, Batch 32, 200 Epochs)}{table.caption.14}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion and Ablation Analysis}{20}{section.5}\protected@file@percent }
+\newlabel{sec:discussion}{{5}{20}{Discussion and Ablation Analysis}{section.5}{}}
+\citation{dosovitskiy2020image}
+\citation{khan2025hyperrope}
+\citation{sun2019spectral}
+\citation{alalimi2022compression}
+\citation{roy2020attention}
+\citation{wang2023cscanet}
+\citation{paoletti2018capsule,wang2021deep}
+\citation{dosovitskiy2020image}
+\citation{sun2022spectral}
+\citation{zhong2017spectral}
+\citation{sun2019spectral}
+\citation{roy2020attention}
+\citation{alalimi2022compression}
+\citation{khan2025hyperrope}
+\citation{wang2021deep}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Analysis of Model Parameter Quantities and Computational Efficiency}{21}{subsection.5.1}\protected@file@percent }
+\newlabel{subsec:param_analysis}{{5.1}{21}{Analysis of Model Parameter Quantities and Computational Efficiency}{subsection.5.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Comparative Analysis of Model Parameter Quantities, Checkpoint Sizes, Training Wall-Clock Latency, and Classification Accuracy on the Indian Pines Benchmark (10\% Training / 10\% Validation / 80\% Testing Split, 200 Epochs).}}{22}{table.caption.15}\protected@file@percent }
+\newlabel{tab:model_param_comparison}{{9}{22}{Comparative Analysis of Model Parameter Quantities, Checkpoint Sizes, Training Wall-Clock Latency, and Classification Accuracy on the Indian Pines Benchmark (10\% Training / 10\% Validation / 80\% Testing Split, 200 Epochs)}{table.caption.15}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Architectural Layer-Wise Parameter Breakdown of SGSCF-Net on the Indian Pines Benchmark (200 Spectral Bands, 16 Classes, Spatial Patch $11 \times 11$).}}{22}{table.caption.16}\protected@file@percent }
+\newlabel{tab:layer_param_breakdown}{{10}{22}{Architectural Layer-Wise Parameter Breakdown of SGSCF-Net on the Indian Pines Benchmark (200 Spectral Bands, 16 Classes, Spatial Patch $11 \times 11$)}{table.caption.16}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Architectural Component Ablation and Layer Depth Sensitivity}{22}{subsection.5.2}\protected@file@percent }
+\newlabel{subsec:ablation_analysis}{{5.2}{22}{Architectural Component Ablation and Layer Depth Sensitivity}{subsection.5.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Ablation Study Isolating the Contributions of SBAM, CBSA, SCFG, and Minority-Aware Hybrid Loss on the Indian Pines Dataset (Patch $11 \times 11$, Batch 32, 200 Epochs; Optimal Results in Bold).}}{23}{table.caption.17}\protected@file@percent }
+\newlabel{tab:component_ablation}{{11}{23}{Ablation Study Isolating the Contributions of SBAM, CBSA, SCFG, and Minority-Aware Hybrid Loss on the Indian Pines Dataset (Patch $11 \times 11$, Batch 32, 200 Epochs; Optimal Results in Bold)}{table.caption.17}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Sensitivity Analysis of 3D Residual Block Depth ($D$) on Indian Pines (Patch $11 \times 11$, Batch 32, 200 Epochs).}}{23}{table.caption.18}\protected@file@percent }
+\newlabel{tab:depth_ablation}{{12}{23}{Sensitivity Analysis of 3D Residual Block Depth ($D$) on Indian Pines (Patch $11 \times 11$, Batch 32, 200 Epochs)}{table.caption.18}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Spatial Patch and Batch Size Grid Search Analysis}{23}{subsection.5.3}\protected@file@percent }
+\newlabel{subsec:grid_search}{{5.3}{23}{Spatial Patch and Batch Size Grid Search Analysis}{subsection.5.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Hyperparameter sensitivity heatmaps displaying Overall Accuracy (\%) across spatial patch sizes ($P \in \{9, 11, 13, 15, 17\}$) and mini-batch sizes ($B \in \{32, 64, 128, 256\}$) across 60 exhaustive training runs (20 runs per benchmark). (a) Indian Pines. (b) University of Pavia. (c) Salinas Valley.}}{24}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:hyperparameter_heatmaps}{{6}{24}{Hyperparameter sensitivity heatmaps displaying Overall Accuracy (\%) across spatial patch sizes ($P \in \{9, 11, 13, 15, 17\}$) and mini-batch sizes ($B \in \{32, 64, 128, 256\}$) across 60 exhaustive training runs (20 runs per benchmark). (a) Indian Pines. (b) University of Pavia. (c) Salinas Valley}{figure.caption.19}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Three-dimensional response surface landscapes of Overall Accuracy (\%) across spatial patch sizes ($P \in \{9, 11, 13, 15, 17\}$) and mini-batch sizes ($B \in \{32, 64, 128, 256\}$) across 60 exhaustive training runs (20 runs per benchmark) for: (a) Indian Pines, (b) Pavia University, and (c) Salinas Valley.}}{24}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:hyperparameter_surfaces}{{7}{24}{Three-dimensional response surface landscapes of Overall Accuracy (\%) across spatial patch sizes ($P \in \{9, 11, 13, 15, 17\}$) and mini-batch sizes ($B \in \{32, 64, 128, 256\}$) across 60 exhaustive training runs (20 runs per benchmark) for: (a) Indian Pines, (b) Pavia University, and (c) Salinas Valley}{figure.caption.20}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces Ranked Performance Summary of Representative Grid Search Configurations on Indian Pines (Evaluated Across 20 Full Runs per Dataset, 200 Epochs).}}{25}{table.caption.21}\protected@file@percent }
+\newlabel{tab:grid_search_summary}{{13}{25}{Ranked Performance Summary of Representative Grid Search Configurations on Indian Pines (Evaluated Across 20 Full Runs per Dataset, 200 Epochs)}{table.caption.21}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {14}{\ignorespaces Complete 20-Run Grid Search Ranking of SGSCF-Net on University of Pavia (200 Epochs). The adopted $11 \times 11$ / batch-32 configuration is in bold.}}{25}{table.caption.22}\protected@file@percent }
+\newlabel{tab:grid_search_pu}{{14}{25}{Complete 20-Run Grid Search Ranking of SGSCF-Net on University of Pavia (200 Epochs). The adopted $11 \times 11$ / batch-32 configuration is in bold}{table.caption.22}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {15}{\ignorespaces Complete 20-Run Grid Search Ranking of SGSCF-Net on Salinas Valley (200 Epochs). The adopted $11 \times 11$ / batch-32 configuration is in bold.}}{26}{table.caption.23}\protected@file@percent }
+\newlabel{tab:grid_search_sv}{{15}{26}{Complete 20-Run Grid Search Ranking of SGSCF-Net on Salinas Valley (200 Epochs). The adopted $11 \times 11$ / batch-32 configuration is in bold}{table.caption.23}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Performance degradation dynamics of SGSCF-Net under data scarcity stress testing across training ratios of 1\%, 2\%, 5\%, and 10\% on Indian Pines, Pavia University, and Salinas Valley. (a) Indian Pines. (b) Pavia University. (c) Salinas Valley.}}{26}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:data_scarcity_degradation}{{8}{26}{Performance degradation dynamics of SGSCF-Net under data scarcity stress testing across training ratios of 1\%, 2\%, 5\%, and 10\% on Indian Pines, Pavia University, and Salinas Valley. (a) Indian Pines. (b) Pavia University. (c) Salinas Valley}{figure.caption.24}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Data Scarcity Stress Testing and Degradation Dynamics}{26}{subsection.5.4}\protected@file@percent }
+\newlabel{subsec:scarcity_analysis}{{5.4}{26}{Data Scarcity Stress Testing and Degradation Dynamics}{subsection.5.4}{}}
+\citation{cui2019class}
+\citation{cui2019class,haut2021generative,su2023spectral}
+\@writefile{lot}{\contentsline {table}{\numberline {16}{\ignorespaces Performance Degradation Analysis Under Data Scarcity Stress Testing Across Three Benchmarks (Patch $11 \times 11$, Batch 32, 200 Epochs).}}{27}{table.caption.25}\protected@file@percent }
+\newlabel{tab:scarcity_table}{{16}{27}{Performance Degradation Analysis Under Data Scarcity Stress Testing Across Three Benchmarks (Patch $11 \times 11$, Batch 32, 200 Epochs)}{table.caption.25}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {17}{\ignorespaces Class-Level Performance Extremes Under Extreme 1\% Training Scarcity.}}{27}{table.caption.26}\protected@file@percent }
+\newlabel{tab:class_extremes_1percent}{{17}{27}{Class-Level Performance Extremes Under Extreme 1\% Training Scarcity}{table.caption.26}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion and Future Work}{27}{section.6}\protected@file@percent }
+\newlabel{sec:conclusion}{{6}{27}{Conclusion and Future Work}{section.6}{}}
+\bibstyle{ACM-Reference-Format}
+\bibdata{sample-base}
+\bibcite{alalimi2022compression}{{1}{2022}{{Al-Alimi et~al\mbox  {.}}}{{}}}
+\bibcite{ben2018deep}{{2}{2018}{{Ben~Hamida et~al\mbox  {.}}}{{}}}
+\bibcite{bioucas2012hyperspectral}{{3}{2013}{{Bioucas-Dias et~al\mbox  {.}}}{{}}}
+\bibcite{camps2005kernel}{{4}{2005}{{Camps-Valls and Bruzzone}}{{}}}
+\bibcite{cao2019learning}{{5}{2019}{{Cao et~al\mbox  {.}}}{{}}}
+\bibcite{chen2016deep}{{6}{2016}{{Chen et~al\mbox  {.}}}{{}}}
+\bibcite{chen2014deep}{{7}{2014}{{Chen et~al\mbox  {.}}}{{}}}
+\bibcite{cui2019class}{{8}{2019}{{Cui et~al\mbox  {.}}}{{}}}
+\bibcite{dosovitskiy2020image}{{9}{2021}{{Dosovitskiy et~al\mbox  {.}}}{{}}}
+\bibcite{fang2018new}{{10}{2018}{{Fang et~al\mbox  {.}}}{{}}}
+\bibcite{fauvel2008spectral}{{11}{2008}{{Fauvel et~al\mbox  {.}}}{{}}}
+\bibcite{fauvel2012advances}{{12}{2013}{{Fauvel et~al\mbox  {.}}}{{}}}
+\bibcite{gao2019global}{{13}{2019}{{Gao et~al\mbox  {.}}}{{}}}
+\bibcite{ghamisi2017advanced}{{14}{2017}{{Ghamisi et~al\mbox  {.}}}{{}}}
+\@writefile{toc}{\contentsline {section}{Acknowledgments}{28}{section*.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{28}{section*.30}\protected@file@percent }
+\bibcite{green1998imaging}{{15}{1998}{{Green et~al\mbox  {.}}}{{}}}
+\bibcite{gu2023mamba}{{16}{2023}{{Gu and Dao}}{{}}}
+\bibcite{guo2022feature}{{17}{2022}{{Guo et~al\mbox  {.}}}{{}}}
+\bibcite{hang2021hyperspectral}{{18}{2021}{{Hang et~al\mbox  {.}}}{{}}}
+\bibcite{haut2021generative}{{19}{2022}{{Haut et~al\mbox  {.}}}{{}}}
+\bibcite{he2016deep}{{20}{2016}{{He et~al\mbox  {.}}}{{}}}
+\bibcite{he2018multi}{{21}{2018}{{He et~al\mbox  {.}}}{{}}}
+\bibcite{he2019feature}{{22}{2019}{{He et~al\mbox  {.}}}{{}}}
+\bibcite{he2021spatial}{{23}{2021}{{He et~al\mbox  {.}}}{{}}}
+\bibcite{hong2021spectralformer}{{24}{2022}{{Hong et~al\mbox  {.}}}{{}}}
+\bibcite{hu2018squeeze}{{25}{2018}{{Hu et~al\mbox  {.}}}{{}}}
+\bibcite{hu2015deep}{{26}{2015}{{Hu et~al\mbox  {.}}}{{}}}
+\bibcite{khan2025hyperrope}{{27}{2025}{{Khan et~al\mbox  {.}}}{{}}}
+\bibcite{li2018towards}{{28}{2018}{{Li et~al\mbox  {.}}}{{}}}
+\bibcite{li2020double}{{29}{2020}{{Li et~al\mbox  {.}}}{{}}}
+\bibcite{li2024mambahsi}{{30}{2024}{{Li et~al\mbox  {.}}}{{}}}
+\bibcite{lin2017focal}{{31}{2017}{{Lin et~al\mbox  {.}}}{{}}}
+\bibcite{lin2015bilinear}{{32}{2015}{{Lin et~al\mbox  {.}}}{{}}}
+\bibcite{melgani2004classification}{{33}{2004}{{Melgani and Bruzzone}}{{}}}
+\bibcite{mou2022deep}{{34}{2022}{{Mou et~al\mbox  {.}}}{{}}}
+\bibcite{paoletti2018capsule}{{35}{2018}{{Paoletti et~al\mbox  {.}}}{{}}}
+\bibcite{plaza2009recent}{{36}{2009}{{Plaza et~al\mbox  {.}}}{{}}}
+\bibcite{qing2021improved}{{37}{2021}{{Qing et~al\mbox  {.}}}{{}}}
+\bibcite{roy2023morphformer}{{38}{2023}{{Roy et~al\mbox  {.}}}{{}}}
+\bibcite{roy2020hybridsn}{{39}{2020a}{{Roy et~al\mbox  {.}}}{{}}}
+\bibcite{roy2020attention}{{40}{2020b}{{Roy et~al\mbox  {.}}}{{}}}
+\bibcite{sabour2018matrix}{{41}{2018}{{Sabour et~al\mbox  {.}}}{{}}}
+\bibcite{su2023spectral}{{42}{2023}{{Su et~al\mbox  {.}}}{{}}}
+\bibcite{sun2019spectral}{{43}{2019}{{Sun et~al\mbox  {.}}}{{}}}
+\bibcite{sun2022spectral}{{44}{2022}{{Sun et~al\mbox  {.}}}{{}}}
+\bibcite{wang2023cscanet}{{45}{2023}{{Wang et~al\mbox  {.}}}{{}}}
+\bibcite{wang2020eca}{{46}{2020}{{Wang et~al\mbox  {.}}}{{}}}
+\bibcite{wang2021deep}{{47}{2021}{{Wang et~al\mbox  {.}}}{{}}}
+\bibcite{woo2018cbam}{{48}{2018}{{Woo et~al\mbox  {.}}}{{}}}
+\bibcite{xue2021attention}{{49}{2021}{{Xue et~al\mbox  {.}}}{{}}}
+\bibcite{yang2022hyperspectral}{{50}{2022}{{Yang et~al\mbox  {.}}}{{}}}
+\bibcite{zhang2018diverse}{{51}{2018}{{Zhang et~al\mbox  {.}}}{{}}}
+\bibcite{zhao2016spectral}{{52}{2016}{{Zhao and Du}}{{}}}
+\bibcite{zheng2021hyperspectral}{{53}{2021}{{Zheng et~al\mbox  {.}}}{{}}}
+\bibcite{zhong2017spectral}{{54}{2017}{{Zhong et~al\mbox  {.}}}{{}}}
+\bibcite{zhu2021residual}{{55}{2021}{{Zhu et~al\mbox  {.}}}{{}}}
+\newlabel{tocindent-1}{0pt}
+\newlabel{tocindent0}{0pt}
+\newlabel{tocindent1}{4.185pt}
+\newlabel{tocindent2}{10.34999pt}
+\newlabel{tocindent3}{16.51498pt}
+\newlabel{tocindent4}{0pt}
+\newlabel{tocindent5}{0pt}
+\newlabel{TotPages}{{30}{30}{}{page.30}{}}
+\gdef \@abspage@last{30}

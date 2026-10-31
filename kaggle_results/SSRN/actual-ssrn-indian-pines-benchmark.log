@@ -1,0 +1,65 @@
+[{"stream_name":"stderr","time":11.524726779,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":11.524782209,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":11.524789373,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":11.524793253,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":12.321234755,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":12.321266176,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":12.321270885,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":12.321274506,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":14.645797688,"data":"Found model at: /kaggle/input/datasets/tejassurya2004/actual-baseline-models-hsi/SSRN\n"}
+,{"stream_name":"stdout","time":15.241594514,"data":"Copied.\n"}
+,{"stream_name":"stdout","time":15.255506198,"data":"Wrote common_data.py\n"}
+,{"stream_name":"stdout","time":15.255525894,"data":"Patched SSRN_IN.py\n"}
+,{"stream_name":"stdout","time":15.255530175,"data":"Fixed TRAIN_SIZE dynamic reallocation\n"}
+,{"stream_name":"stdout","time":50.477880738,"data":"(145, 145, 200)\n"}
+,{"stream_name":"stdout","time":50.477927235,"data":"# 1 Iteration\n"}
+,{"stream_name":"stderr","time":50.478733986,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":50.479268468,"data":"  File \"/kaggle/working/SSRN/SSRN_IN.py\", line 192, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":50.479282134,"data":"    model_res4_SS_BN = res4_model_ss()\n"}
+,{"stream_name":"stderr","time":50.479287427,"data":"  File \"/kaggle/working/SSRN/SSRN_IN.py\", line 63, in res4_model_ss\n"}
+,{"stream_name":"stderr","time":50.479294275,"data":"    model_res4 = ssrn_SS_IN.ResnetBuilder.build_resnet_8((1, img_rows, img_cols, img_channels), nb_classes)\n"}
+,{"stream_name":"stderr","time":50.479301999,"data":"  File \"/kaggle/working/SSRN/Utils/ssrn_SS_IN.py\", line 409, in build_resnet_8\n"}
+,{"stream_name":"stderr","time":50.479305494,"data":"    return ResnetBuilder.build(input_shape, num_outputs, basic_block_spc, basic_block, [1],[1])      #[2, 2, 2, 2]\n"}
+,{"stream_name":"stderr","time":50.47930861,"data":"           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":50.479311821,"data":"  File \"/kaggle/working/SSRN/Utils/ssrn_SS_IN.py\", line 354, in build\n"}
+,{"stream_name":"stderr","time":50.47931483,"data":"    print(\"input shape:\", K.int_shape(input)[3])\n"}
+,{"stream_name":"stderr","time":50.479317889,"data":"                          ^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":50.479320811,"data":"AttributeError: module 'keras.backend' has no attribute 'int_shape'\n"}
+,{"stream_name":"stdout","time":50.68350186,"data":"(145, 145, 200)\n"}
+,{"stream_name":"stdout","time":50.683532144,"data":"# 1 Iteration\n"}
+,{"stream_name":"stderr","time":50.684571717,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":50.684586691,"data":"  File \"/kaggle/working/SSRN/SSRN_IN.py\", line 192, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":50.684594029,"data":"    model_res4_SS_BN = res4_model_ss()\n"}
+,{"stream_name":"stderr","time":50.684599514,"data":"  File \"/kaggle/working/SSRN/SSRN_IN.py\", line 63, in res4_model_ss\n"}
+,{"stream_name":"stderr","time":50.684629,"data":"    model_res4 = ssrn_SS_IN.ResnetBuilder.build_resnet_8((1, img_rows, img_cols, img_channels), nb_classes)\n"}
+,{"stream_name":"stderr","time":50.684633032,"data":"  File \"/kaggle/working/SSRN/Utils/ssrn_SS_IN.py\", line 409, in build_resnet_8\n"}
+,{"stream_name":"stderr","time":50.684642111,"data":"    return ResnetBuilder.build(input_shape, num_outputs, basic_block_spc, basic_block, [1],[1])      #[2, 2, 2, 2]\n"}
+,{"stream_name":"stderr","time":50.684645177,"data":"           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":50.684647563,"data":"  File \"/kaggle/working/SSRN/Utils/ssrn_SS_IN.py\", line 354, in build\n"}
+,{"stream_name":"stderr","time":50.684649807,"data":"    print(\"input shape:\", K.int_shape(input)[3])\n"}
+,{"stream_name":"stderr","time":50.684652315,"data":"                          ^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":50.684654461,"data":"AttributeError: module 'keras.backend' has no attribute 'int_shape'\n"}
+,{"stream_name":"stderr","time":50.684656735,"data":"\n"}
+,{"stream_name":"stderr","time":50.684658796,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":50.684661003,"data":"  File \"/kaggle/working/SSRN/SSRN_IN.py\", line 192, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":50.684663545,"data":"    model_res4_SS_BN = res4_model_ss()\n"}
+,{"stream_name":"stderr","time":50.684665753,"data":"  File \"/kaggle/working/SSRN/SSRN_IN.py\", line 63, in res4_model_ss\n"}
+,{"stream_name":"stderr","time":50.684668121,"data":"    model_res4 = ssrn_SS_IN.ResnetBuilder.build_resnet_8((1, img_rows, img_cols, img_channels), nb_classes)\n"}
+,{"stream_name":"stderr","time":50.684670338,"data":"  File \"/kaggle/working/SSRN/Utils/ssrn_SS_IN.py\", line 409, in build_resnet_8\n"}
+,{"stream_name":"stderr","time":50.6846731,"data":"    return ResnetBuilder.build(input_shape, num_outputs, basic_block_spc, basic_block, [1],[1])      #[2, 2, 2, 2]\n"}
+,{"stream_name":"stderr","time":50.684689777,"data":"           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":50.68469426,"data":"  File \"/kaggle/working/SSRN/Utils/ssrn_SS_IN.py\", line 354, in build\n"}
+,{"stream_name":"stderr","time":50.684698205,"data":"    print(\"input shape:\", K.int_shape(input)[3])\n"}
+,{"stream_name":"stderr","time":50.68470229,"data":"                          ^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":50.684706259,"data":"AttributeError: module 'keras.backend' has no attribute 'int_shape'\n"}
+,{"stream_name":"stdout","time":51.794957973,"data":"Done in 0.6 min | rc=1\n"}
+,{"stream_name":"stdout","time":51.809626537,"data":"Outputs: ['metrics_SSRN.csv']\n"}
+,{"stream_name":"stderr","time":54.197819666,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":54.197850071,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":54.394268789,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":54.394290898,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":55.191189372,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":55.266368717,"data":"[NbConvertApp] Writing 10747 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":57.758697154000004,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":58.293783986,"data":"[NbConvertApp] Writing 296512 bytes to __results__.html\n"}
+]

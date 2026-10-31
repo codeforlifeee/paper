@@ -1,0 +1,2 @@
+Model,OA,AA,Kappa,TrainTime_min
+HiT,9442.2743,9211.7557,9363.5199,37.74

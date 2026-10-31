@@ -1,0 +1,86 @@
+This is BibTeX, Version 0.99e
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: manuscript.aux
+Reallocating 'name_of_file' (item size: 1) to 21 items.
+The style file: ACM-Reference-Format.bst
+Reallocating 'name_of_file' (item size: 1) to 12 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Database file #1: sample-base.bib
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Reallocating 'glb_str_end' (item size: 4) to 20 items.
+Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
+Reallocating 'global_strs' (item size: 1) to 4000000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Warning--empty publisher in cao2019learning
+Warning--empty address in cao2019learning
+Warning--empty publisher in cui2019class
+Warning--empty address in cui2019class
+Warning--empty publisher in dosovitskiy2020image
+Warning--empty address in dosovitskiy2020image
+Warning--page numbers missing in both pages and numpages fields in dosovitskiy2020image
+Warning--empty publisher in gao2019global
+Warning--empty address in gao2019global
+Warning--no number and no volume in gu2023mamba
+Warning--page numbers missing in both pages and numpages fields in gu2023mamba
+Warning--no journal in he2016deep
+Warning--no number and no volume in he2016deep
+Warning--empty publisher in hu2018squeeze
+Warning--empty address in hu2018squeeze
+Warning--empty publisher in li2018towards
+Warning--empty address in li2018towards
+Warning--empty publisher in lin2017focal
+Warning--empty address in lin2017focal
+Warning--empty publisher in lin2015bilinear
+Warning--empty address in lin2015bilinear
+Warning--empty publisher in sabour2018matrix
+Warning--empty address in sabour2018matrix
+Warning--page numbers missing in both pages and numpages fields in sabour2018matrix
+Warning--empty publisher in wang2020eca
+Warning--empty address in wang2020eca
+Warning--empty publisher in woo2018cbam
+Warning--empty address in woo2018cbam
+You've used 55 entries,
+            6273 wiz_defined-function locations,
+            1788 strings with 29113 characters,
+and the built_in function-call counts, 71295 in all, are:
+= -- 10314
+> -- 2504
+< -- 0
++ -- 861
+- -- 815
+* -- 5221
+:= -- 6656
+add.period$ -- 273
+call.type$ -- 55
+change.case$ -- 481
+chr.to.int$ -- 54
+cite$ -- 83
+duplicate$ -- 5817
+empty$ -- 4100
+format.name$ -- 1034
+if$ -- 18302
+int.to.chr$ -- 3
+int.to.str$ -- 1
+missing$ -- 231
+newline$ -- 468
+num.names$ -- 384
+pop$ -- 2277
+preamble$ -- 1
+purify$ -- 919
+quote$ -- 0
+skip$ -- 2027
+stack$ -- 0
+substring$ -- 5314
+swap$ -- 642
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 1031
+warning$ -- 28
+while$ -- 329
+width$ -- 0
+write$ -- 1070
+(There were 28 warnings)

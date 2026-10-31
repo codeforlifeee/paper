@@ -1,0 +1,28 @@
+\documentclass[sigconf]{acmart}
+\usepackage{booktabs}
+\usepackage{multirow}
+\pagestyle{empty}
+\begin{document}
+
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\caption{Ablation Study Isolating the Contributions of SBAM, CBSA, SCFG, and Minority-Aware Hybrid Loss on the Indian Pines Dataset (Patch  \times 11$, Batch 32, 200 Epochs; Optimal Results in Bold).}
+\label{tab:component_ablation}
+\begin{tabular}{|c|cccc|cccc|}
+\hline
+\multirow{2}{*}{\textbf{Case}} & \multicolumn{4}{c|}{\textbf{Component}} & \multicolumn{4}{c|}{\textbf{Indicators}} \\
+\cline{2-9}
+& \textbf{SBAM} & \textbf{CBSA} & \textbf{SCFG} & \textbf{Loss} & \textbf{OA (\%)} & \textbf{AA (\%)} & \textbf{Kappa ($\kappa$)} & \textbf{$\Delta$ OA (\%)} \\
+\hline
+1 & $\times$ & $\times$ & $\times$ & $\times$ & 93.65 & 89.24 & 92.74 & -- \\
+2 & $\checkmark$ & $\times$ & $\times$ & $\times$ & 95.18 & 91.80 & 94.48 & +1.53 \\
+3 & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & 96.44 & 93.05 & 95.94 & +1.26 \\
+4 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\times$ & 97.26 & 93.78 & 96.88 & +0.82 \\
+5 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & \textbf{98.05} & \textbf{94.82} & \textbf{97.78} & \textbf{+0.79} \\
+\hline
+\end{tabular}
+\end{table}
+
+\end{document}

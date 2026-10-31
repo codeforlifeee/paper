@@ -1,0 +1,300 @@
+# -*- coding: utf-8 -*-
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'Utils'))
+
+# ------------------------------------------------------------------
+# Keras-2 legacy-API compatibility (environment fix, NOT a model change).
+# This code was written for the Keras 2 API (int_shape, lr=, Convolution2D,
+# keras.utils.to_categorical, ...).  Modern Kaggle images default to Keras 3,
+# which removed those.  Routing `keras` to the legacy `tf_keras` package
+# restores the exact API the author's architecture expects.
+# ------------------------------------------------------------------
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
+try:
+    try:
+        import tf_keras
+    except Exception:
+        import subprocess as _sp
+        _sp.run([sys.executable, "-m", "pip", "install", "-q", "tf-keras"], check=False)
+        import tf_keras
+    sys.modules["keras"] = tf_keras
+    for _sub in ["models", "layers", "utils", "optimizers", "callbacks",
+                 "regularizers", "backend", "initializers", "activations"]:
+        try:
+            sys.modules["keras." + _sub] = __import__("tf_keras." + _sub, fromlist=[_sub])
+        except Exception:
+            pass
+    print("[compat] SSRN using tf_keras (Keras 2 legacy API)")
+except Exception as _e:
+    print("[compat] tf_keras redirect unavailable:", _e)
+
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.io as sio
+from keras.models import Sequential, Model
+from keras.layers import Convolution2D, MaxPooling2D, Conv3D, MaxPooling3D, ZeroPadding3D
+from keras.layers import Activation, Dropout, Flatten, Dense, BatchNormalization, Input
+from keras.utils import to_categorical
+from sklearn.decomposition import PCA
+from keras.optimizers import Adam, SGD, Adadelta, RMSprop, Nadam
+import keras.callbacks as kcallbacks
+from keras.regularizers import l2
+import time
+import collections
+from sklearn import metrics, preprocessing
+
+from Utils import zeroPadding, normalization, doPCA, modelStatsRecord, averageAccuracy, ssrn_SS_IN
+
+def indexToAssignment(index_, Row, Col, pad_length):
+    new_assign = {}
+    for counter, value in enumerate(index_):
+        assign_0 = value // Col + pad_length
+        assign_1 = value % Col + pad_length
+        new_assign[counter] = [assign_0, assign_1]
+    return new_assign
+
+def assignmentToIndex( assign_0, assign_1, Row, Col):
+    new_index = assign_0 * Col + assign_1
+    return new_index
+
+def selectNeighboringPatch(matrix, pos_row, pos_col, ex_len):
+    selected_rows = matrix[range(pos_row-ex_len,pos_row+ex_len+1), :]
+    selected_patch = selected_rows[:, range(pos_col-ex_len, pos_col+ex_len+1)]
+    return selected_patch
+
+def sampling(proptionVal, groundTruth):              #divide dataset into train and test datasets
+    labels_loc = {}
+    train = {}
+    test = {}
+    m = max(groundTruth)
+    for i in range(m):
+        indices = [j for j, x in enumerate(groundTruth.ravel().tolist()) if x == i + 1]
+        np.random.shuffle(indices)
+        labels_loc[i] = indices
+        nb_val = int(proptionVal * len(indices))
+        train[i] = indices[:-nb_val]
+        test[i] = indices[-nb_val:]
+#    whole_indices = []
+    train_indices = []
+    test_indices = []
+    for i in range(m):
+#        whole_indices += labels_loc[i]
+        train_indices += train[i]
+        test_indices += test[i]
+    np.random.shuffle(train_indices)
+    np.random.shuffle(test_indices)
+    return train_indices, test_indices
+    
+def res4_model_ss():
+    model_res4 = ssrn_SS_IN.ResnetBuilder.build_resnet_8((1, img_rows, img_cols, img_channels), nb_classes)
+
+    RMS = RMSprop(lr=0.0003)
+    # Let's train the model using RMSprop
+    model_res4.compile(loss='categorical_crossentropy', optimizer=RMS, metrics=['accuracy'])
+
+    return model_res4
+
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+try:
+    from common_data import load_indian_pines
+    data_IN, gt_IN = load_indian_pines()
+except Exception:
+    mat_data = sio.loadmat('../../data/Indian_pines_corrected.mat')
+    data_IN = mat_data['indian_pines_corrected']
+    mat_gt = sio.loadmat('../../data/Indian_pines_gt.mat')
+    gt_IN = mat_gt['indian_pines_gt']
+print (data_IN.shape)
+
+#new_gt_IN = set_zeros(gt_IN, [1,4,7,9,13,15,16])
+new_gt_IN = gt_IN
+
+batch_size = 32
+nb_classes = 16
+nb_epoch = 100  #400
+img_rows, img_cols = 11, 11         #27, 27
+patience = 200
+
+INPUT_DIMENSION_CONV = 200
+INPUT_DIMENSION = 200
+
+# 20%:10%:70% data for training, validation and testing
+
+TOTAL_SIZE = 10249
+VAL_SIZE = 1025
+
+TRAIN_SIZE = 1025
+TEST_SIZE = TOTAL_SIZE - TRAIN_SIZE
+VALIDATION_SPLIT = 0.9                      # 20% for trainnig and 80% for validation and testing
+# TRAIN_NUM = 10
+# TRAIN_SIZE = TRAIN_NUM * nb_classes
+# TEST_SIZE = TOTAL_SIZE - TRAIN_SIZE
+# VAL_SIZE = TRAIN_SIZE
+
+img_channels = 200
+PATCH_LENGTH = 5                # window = 2*PATCH_LENGTH+1 = 11x11, matching img_rows/img_cols=11 (benchmark patch size). Was 3 (7x7), which mismatched the 11x11 model input.
+
+data = data_IN.reshape(np.prod(data_IN.shape[:2]),np.prod(data_IN.shape[2:]))
+gt = new_gt_IN.reshape(np.prod(new_gt_IN.shape[:2]),)
+
+data = preprocessing.scale(data)
+
+# scaler = preprocessing.MaxAbsScaler()
+# data = scaler.fit_transform(data)
+
+data_ = data.reshape(data_IN.shape[0], data_IN.shape[1],data_IN.shape[2])
+whole_data = data_
+padded_data = zeroPadding.zeroPadding_3D(whole_data, PATCH_LENGTH)
+
+ITER = 1
+CATEGORY = 16
+
+train_data = np.zeros((TRAIN_SIZE, 2*PATCH_LENGTH + 1, 2*PATCH_LENGTH + 1, INPUT_DIMENSION_CONV))
+test_data = np.zeros((TEST_SIZE, 2*PATCH_LENGTH + 1, 2*PATCH_LENGTH + 1, INPUT_DIMENSION_CONV))
+
+KAPPA_RES_SS4 = []
+OA_RES_SS4 = []
+AA_RES_SS4 = []
+TRAINING_TIME_RES_SS4 = []
+TESTING_TIME_RES_SS4 = []
+ELEMENT_ACC_RES_SS4 = np.zeros((ITER, CATEGORY))
+
+#seeds = [1220, 1221, 1222, 1223, 1224, 1225, 1226, 1227, 1228, 1229]
+
+seeds = [1334]
+
+for index_iter in range(ITER):
+    print("# %d Iteration" % (index_iter + 1))
+
+    # save the best validated model 
+    
+    best_weights_RES_path_ss4 = './models/Indian_best_RES_3D_SS4_10_' + str(
+        index_iter + 1) + '.hdf5'
+
+    np.random.seed(seeds[index_iter])
+#    train_indices, test_indices = sampleFixNum.samplingFixedNum(TRAIN_NUM, gt)
+    train_indices, test_indices = sampling(VALIDATION_SPLIT, gt)
+
+    # TRAIN_SIZE = len(train_indices)
+    # print (TRAIN_SIZE)
+    #
+    # TEST_SIZE = TOTAL_SIZE - TRAIN_SIZE - VAL_SIZE
+    # print (TEST_SIZE)
+
+    y_train = gt[train_indices] - 1
+    y_train = to_categorical(np.asarray(y_train))
+
+    y_test = gt[test_indices] - 1
+    y_test = to_categorical(np.asarray(y_test))
+
+    # print ("Validation data:")
+    # collections.Counter(y_test_raw[-VAL_SIZE:])
+    # print ("Testing data:")
+    # collections.Counter(y_test_raw[:-VAL_SIZE])
+
+    train_assign = indexToAssignment(train_indices, whole_data.shape[0], whole_data.shape[1], PATCH_LENGTH)
+    for i in range(len(train_assign)):
+        train_data[i] = selectNeighboringPatch(padded_data, train_assign[i][0], train_assign[i][1], PATCH_LENGTH)
+
+    test_assign = indexToAssignment(test_indices, whole_data.shape[0], whole_data.shape[1], PATCH_LENGTH)
+    for i in range(len(test_assign)):
+        test_data[i] = selectNeighboringPatch(padded_data, test_assign[i][0], test_assign[i][1], PATCH_LENGTH)
+
+    x_train = train_data.reshape(train_data.shape[0], train_data.shape[1], train_data.shape[2], INPUT_DIMENSION_CONV)
+    x_test_all = test_data.reshape(test_data.shape[0], test_data.shape[1], test_data.shape[2], INPUT_DIMENSION_CONV)
+
+    x_val = x_test_all[-VAL_SIZE:]
+    y_val = y_test[-VAL_SIZE:]
+
+    x_test = x_test_all[:-VAL_SIZE]
+    y_test = y_test[:-VAL_SIZE]
+
+    # SS Residual Network 4 with BN
+    model_res4_SS_BN = res4_model_ss()
+
+    earlyStopping6 = kcallbacks.EarlyStopping(monitor='val_loss', patience=patience, verbose=1, mode='auto')
+    saveBestModel6 = kcallbacks.ModelCheckpoint(best_weights_RES_path_ss4, monitor='val_loss', verbose=1,
+                                                save_best_only=True,
+                                                mode='auto')
+
+    tic6 = time.perf_counter()
+    print(x_train.shape, x_test.shape)
+    history_res4_SS_BN = model_res4_SS_BN.fit(
+        x_train.reshape(x_train.shape[0], x_train.shape[1], x_train.shape[2], x_train.shape[3], 1), y_train,
+        validation_data=(x_val.reshape(x_val.shape[0], x_val.shape[1], x_val.shape[2], x_val.shape[3], 1), y_val),
+        batch_size=batch_size,
+        epochs=nb_epoch, shuffle=True, callbacks=[earlyStopping6, saveBestModel6])
+    toc6 = time.perf_counter()
+
+    tic7 = time.perf_counter()
+    loss_and_metrics_res4_SS_BN = model_res4_SS_BN.evaluate(
+        x_test.reshape(x_test.shape[0], x_test.shape[1], x_test.shape[2], x_test.shape[3], 1), y_test,
+        batch_size=batch_size)
+    toc7 = time.perf_counter()
+
+    print('3D RES_SS4 without BN Training Time: ', toc6 - tic6)
+    print('3D RES_SS4 without BN Test time:', toc7 - tic7)
+
+    print('3D RES_SS4 without BN Test score:', loss_and_metrics_res4_SS_BN[0])
+    print('3D RES_SS4 without BN Test accuracy:', loss_and_metrics_res4_SS_BN[1])
+
+    print(history_res4_SS_BN.history.keys())
+
+    pred_test_res4 = model_res4_SS_BN.predict(
+        x_test.reshape(x_test.shape[0], x_test.shape[1], x_test.shape[2], x_test.shape[3], 1)).argmax(axis=1)
+    collections.Counter(pred_test_res4)
+    gt_test = gt[test_indices] - 1
+    overall_acc_res4 = metrics.accuracy_score(pred_test_res4, gt_test[:-VAL_SIZE])
+    confusion_matrix_res4 = metrics.confusion_matrix(pred_test_res4, gt_test[:-VAL_SIZE])
+    each_acc_res4, average_acc_res4 = averageAccuracy.AA_andEachClassAccuracy(confusion_matrix_res4)
+    kappa = metrics.cohen_kappa_score(pred_test_res4, gt_test[:-VAL_SIZE])
+    KAPPA_RES_SS4.append(kappa)
+    OA_RES_SS4.append(overall_acc_res4)
+    AA_RES_SS4.append(average_acc_res4)
+    TRAINING_TIME_RES_SS4.append(toc6 - tic6)
+    TESTING_TIME_RES_SS4.append(toc7 - tic7)
+    ELEMENT_ACC_RES_SS4[index_iter, :] = each_acc_res4
+
+    print("3D RESNET_SS4 without BN training finished.")
+    print("# %d Iteration" % (index_iter + 1))
+
+modelStatsRecord.outputStats(KAPPA_RES_SS4, OA_RES_SS4, AA_RES_SS4, ELEMENT_ACC_RES_SS4,
+                             TRAINING_TIME_RES_SS4, TESTING_TIME_RES_SS4,
+                             history_res4_SS_BN, loss_and_metrics_res4_SS_BN, CATEGORY,
+                             './records/IN_train_SS_10.txt',
+                             './records/IN_train_SS_element_10.txt')
+
+
+# ===================================================================
+# Standardized (shared-palette) outputs; additive, no model change.
+# Builds a full-image prediction map by running the SAME trained model
+# over every labeled pixel using the SAME patch pipeline, then recolors
+# with the shared palette.  Also saves the standardized loss curve.
+# ===================================================================
+try:
+    import sys as _sv_sys
+    _sv_sys.path.insert(0, "/kaggle/working")
+    import std_viz
+    _H, _W = gt_IN.shape[0], gt_IN.shape[1]
+    _lab_idx = np.where(gt > 0)[0]
+    _assign = indexToAssignment(_lab_idx, whole_data.shape[0], whole_data.shape[1], PATCH_LENGTH)
+    _win = 2 * PATCH_LENGTH + 1
+    _full = np.zeros((len(_lab_idx), _win, _win, INPUT_DIMENSION_CONV), dtype=np.float32)
+    for _i in range(len(_assign)):
+        _full[_i] = selectNeighboringPatch(padded_data, _assign[_i][0], _assign[_i][1], PATCH_LENGTH)
+    _full = _full.reshape(_full.shape[0], _full.shape[1], _full.shape[2], INPUT_DIMENSION_CONV, 1)
+    _pred = model_res4_SS_BN.predict(_full, batch_size=batch_size).argmax(axis=1)
+    _pred_map = np.zeros((_H, _W), dtype=int)
+    for _k, _idx in enumerate(_lab_idx):
+        _pred_map[_idx // _W, _idx % _W] = int(_pred[_k]) + 1
+    std_viz.save_maps("SSRN", np.asarray(gt_IN).astype(int), _pred_map)
+    try:
+        _hist = history_res4_SS_BN.history
+        std_viz.save_loss("SSRN", _hist.get('loss', []), _hist.get('val_loss'))
+    except Exception as _sv_le:
+        print("[std_viz] SSRN loss hook skipped:", _sv_le)
+except Exception as _sv_e:
+    print("[std_viz] SSRN hook failed:", _sv_e)
+
+

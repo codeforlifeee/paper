@@ -1,0 +1,641 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><title>Baseline Models Master Benchmark Report</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #24292e; max-width: 1100px; margin: 0 auto; padding: 40px; background-color: #ffffff; }
+h1 { color: #0366d6; border-bottom: 2px solid #eaecef; padding-bottom: 10px; margin-top: 40px; }
+h2 { color: #24292e; border-bottom: 1px solid #eaecef; padding-bottom: 6px; margin-top: 30px; }
+h3 { color: #2f363d; margin-top: 25px; }
+table { border-collapse: collapse; width: 100%; margin-bottom: 25px; margin-top: 15px; background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+th, td { padding: 10px 14px; text-align: left; border: 1px solid #dfe2e5; font-size: 13px; vertical-align: top; word-break: break-all; }
+th { background-color: #0366d6; color: white; font-weight: 600; }
+tr:nth-child(even) { background-color: #f6f8fa; }
+tr:hover { background-color: #f1f8ff; }
+code { background-color: #f6f8fa; padding: 3px 6px; border-radius: 3px; font-family: Consolas, monospace; color: #24292e; font-size: 0.85em; display: inline-block; word-break: break-all; }
+pre { background-color: #f6f8fa; padding: 16px; border-radius: 6px; overflow-x: auto; border: 1px solid #e1e4e8; }
+blockquote { border-left: 4px solid #0366d6; padding: 10px 18px; margin: 20px 0; background-color: #f1f8ff; color: #444d56; }
+img { max-width: 280px; max-height: 280px; object-fit: contain; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); margin: 5px auto 10px auto; display: block; }
+a { color: #0366d6; text-decoration: none; font-weight: 500; }
+a:hover { text-decoration: underline; }
+hr { border: 0; height: 1px; background: #e1e4e8; margin: 30px 0; }
+</style>
+</head><body>
+<h1>Baseline Models Master Benchmark Report</h1>
+<p><strong>Benchmark Dataset:</strong> Indian Pines (Corrected, 200 spectral bands, 16 ground-truth land-cover classes)<br />
+<strong>Standardized Experimental Setup:</strong>
+- <strong>Spatial Patch Size:</strong> 11 × 11
+- <strong>Batch Size:</strong> 32
+- <strong>Data Splitting Ratio:</strong> 10% Training / 10% Validation / 80% Testing
+- <strong>Training Duration:</strong> 200 Epochs
+- <strong>Hardware Acceleration:</strong> Kaggle NVIDIA Tesla GPU</p>
+<hr />
+<h2>0. Standardized Visualization &amp; Rerun Status (2026-10-18)</h2>
+<p>All classification maps (Ground Truth <strong>and</strong> Prediction) are now rendered with <strong>one shared colour palette</strong> — the exact <code>COLOR_MAP</code> used by our proposed <strong>SGSCF-Net</strong> (<code>ActualImplementation/SGSCF-Net_Final_Implementation/SGSCF_Net.py</code>) — so the comparative study is visually consistent across every model. Each model now reports <strong>three</strong> standardized images: <strong>Ground Truth</strong>, <strong>Prediction Map</strong>, and <strong>Training Loss Curve</strong>. Colour/visualization changes are additive only — no model architecture, training, or metric was altered (SSAN's data split and SSRN's Keras-version compatibility are the only exceptions, both required just to make those models run correctly on Indian Pines; see notes).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Model</th>
+<th style="text-align: center;">Rerun (standardized)</th>
+<th style="text-align: left;">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ViT</td>
+<td style="text-align: center;">✅ Done</td>
+<td style="text-align: left;"><strong>OA 92.70 / AA 88.80 / Kappa 91.65</strong> — fresh run</td>
+</tr>
+<tr>
+<td style="text-align: left;">HSI-SSFTT</td>
+<td style="text-align: center;">✅ Done</td>
+<td style="text-align: left;"><strong>OA 98.57 / AA 96.15 / Kappa 98.37</strong> — fresh run</td>
+</tr>
+<tr>
+<td style="text-align: left;">CRV-MHDL</td>
+<td style="text-align: center;">⚠️ Metrics OK</td>
+<td style="text-align: left;"><strong>OA 98.58 / AA 93.41 / Kappa 98.38</strong> — reproduced. NOTE: prediction-map image is still the author's colour scheme (shared-palette standardisation of CRV's map is unresolved / being handled manually)</td>
+</tr>
+<tr>
+<td style="text-align: left;">SSRN</td>
+<td style="text-align: center;">✅ Done</td>
+<td style="text-align: left;"><strong>OA 98.93 / AA 98.95 / Kappa 98.78</strong> — first genuine result (old 98.52 never ran). Fixed Keras-3 (<code>tf_keras</code>) + 11×11 patch; no dead classes</td>
+</tr>
+<tr>
+<td style="text-align: left;">SSAN</td>
+<td style="text-align: center;">✅ Done</td>
+<td style="text-align: left;"><strong>OA 64.19 / AA 72.77 / Kappa 59.79</strong> — genuine IP run; split + checkpoint (<code>best=0.0</code>) fixed, AA no longer nan</td>
+</tr>
+<tr>
+<td style="text-align: left;">A2S2K-ResNet</td>
+<td style="text-align: center;">🔄 Not done</td>
+<td style="text-align: left;">No fresh result yet (run hung on Kaggle). Table shows <strong>prior-run</strong> values (98.36 / 96.22 / 98.14) as placeholders, marked ‡</td>
+</tr>
+<tr>
+<td style="text-align: left;">HyperRoPE-HiT</td>
+<td style="text-align: center;">✅ Done</td>
+<td style="text-align: left;"><strong>OA 94.42 / AA 92.12 / Kappa 93.64</strong>; full-image map newly added (shared palette)</td>
+</tr>
+<tr>
+<td style="text-align: left;">DMC</td>
+<td style="text-align: center;">✅ Done</td>
+<td style="text-align: left;"><strong>OA 99.15 / AA 98.89 / Kappa 99.03</strong> — reproduced, warm-started from the author's shipped checkpoint (so no genuine from-scratch training-loss curve)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Numbers below for 🔄/⏳ models are the <strong>prior</strong> values pending their standardized rerun; ✅ rows show the refreshed results.</p>
+</blockquote>
+<h3>Data correctness assessment — is each number genuine?</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Model</th>
+<th style="text-align: center;">OA / AA / Kappa</th>
+<th style="text-align: center;">Correct?</th>
+<th style="text-align: left;">Why / caveat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>ViT</strong></td>
+<td style="text-align: center;">92.70 / 88.80 / 91.65</td>
+<td style="text-align: center;">✅ Genuine</td>
+<td style="text-align: left;">Fresh run, confirmed from kernel log. Maps standardized.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>HSI-SSFTT</strong></td>
+<td style="text-align: center;">98.57 / 96.15 / 98.37</td>
+<td style="text-align: center;">✅ Genuine</td>
+<td style="text-align: left;">Fresh run, from <code>classification_report.txt</code>. Maps standardized.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>SSRN</strong></td>
+<td style="text-align: center;">98.93 / 98.95 / 98.78</td>
+<td style="text-align: center;">✅ Genuine &amp; now trustworthy</td>
+<td style="text-align: left;">The old 98.52 was <strong>fake</strong> — SSRN had never actually run (Keras-3 crash). After the <code>tf_keras</code> + 11×11-patch fixes it truly ran; no dead classes. Maps standardized.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>SSAN</strong></td>
+<td style="text-align: center;">64.19 / 72.77 / 59.79</td>
+<td style="text-align: center;">✅ Genuine</td>
+<td style="text-align: left;">The old 64.62 / AA=nan was <strong>invalid</strong> (stale Pavia checkpoint + broken split). Real IP run now (checkpoint saved, valid split). SSAN genuinely scores low on IP's small classes — honest result. Maps standardized.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>HiT</strong></td>
+<td style="text-align: center;">94.42 / 92.12 / 93.64</td>
+<td style="text-align: center;">✅ Genuine</td>
+<td style="text-align: left;">Fresh full 200-epoch run. From <code>results_HiT.txt</code> eval dict. Maps standardized.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>DMC</strong></td>
+<td style="text-align: center;">99.15 / 98.89 / 99.03</td>
+<td style="text-align: center;">⚠️ Reproduced, NOT from-scratch</td>
+<td style="text-align: left;">Author's <strong>pre-trained checkpoint</strong> evaluated (0.39 min, warm-start). Metrics are real but it did not train fresh → no genuine training-loss curve for DMC.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CRV</strong></td>
+<td style="text-align: center;">98.58 / 93.41 / 98.38</td>
+<td style="text-align: center;">⚠️ Metrics correct; image not standardized</td>
+<td style="text-align: left;">Numbers reproduced correctly (from <code>classification_Results.txt</code>). But the prediction-map <strong>image</strong> is still the author's colour scheme — shared-palette standardization of CRV's map is unresolved (handled manually).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>A2S2K</strong></td>
+<td style="text-align: center;">98.36 / 96.22 / 98.14 (‡)</td>
+<td style="text-align: center;">❌ Not fresh / placeholder</td>
+<td style="text-align: left;">The rerun <strong>hung</strong> on Kaggle, so these are <strong>prior-run</strong> values kept as placeholders (marked ‡, status 🔄). No genuine fresh result yet.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>1. Comprehensive Benchmark Comparison Table</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">#</th>
+<th style="text-align: left;">Model Architecture</th>
+<th style="text-align: left;">Paradigm / Category</th>
+<th style="text-align: center;">Overall Accuracy (OA)</th>
+<th style="text-align: center;">Average Accuracy (AA)</th>
+<th style="text-align: center;">Kappa ($\kappa$)</th>
+<th style="text-align: center;">Train Time</th>
+<th style="text-align: left;">Weights Status &amp; Checkpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>—</strong></td>
+<td style="text-align: left;"><strong>SGSCF-Net (Proposed)</strong></td>
+<td style="text-align: left;"><strong>Spectral Gating + Cross-Attn</strong></td>
+<td style="text-align: center;"><strong>98.05%</strong></td>
+<td style="text-align: center;"><strong>94.82%</strong></td>
+<td style="text-align: center;"><strong>97.78%</strong></td>
+<td style="text-align: center;"><strong>8.8 min</strong></td>
+<td style="text-align: left;"><a href="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/sv_test1/models/SGSCFNet_IN_run1_OA0.9805.pt"><code>SGSCFNet_IN_run1_OA0.9805.pt</code></a></td>
+</tr>
+<tr>
+<td style="text-align: center;">1</td>
+<td style="text-align: left;"><strong>ViT</strong> ✅</td>
+<td style="text-align: left;">Vision Transformer</td>
+<td style="text-align: center;">92.70%</td>
+<td style="text-align: center;">88.80%</td>
+<td style="text-align: center;">91.65%</td>
+<td style="text-align: center;">1.71 min</td>
+<td style="text-align: left;"><a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/ViT/vision_transformer/best_vit.pth"><code>best_vit.pth</code></a> (2.4 MB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td style="text-align: left;"><strong>DMC</strong> ✅</td>
+<td style="text-align: left;">Deep Matrix Capsules</td>
+<td style="text-align: center;">99.15%</td>
+<td style="text-align: center;">98.89%</td>
+<td style="text-align: center;">99.03%</td>
+<td style="text-align: center;">0.39 min</td>
+<td style="text-align: left;"><a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/DMC/DeepMatrixCapsules/classification_report_dmc.txt"><code>classification_report_dmc.txt</code></a></td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td style="text-align: left;"><strong>A2S2K-ResNet</strong> 🔄</td>
+<td style="text-align: left;">3D-2D Hybrid CNN ResNet</td>
+<td style="text-align: center;">98.36%‡</td>
+<td style="text-align: center;">96.22%‡</td>
+<td style="text-align: center;">98.14%‡</td>
+<td style="text-align: center;">18.42 min</td>
+<td style="text-align: left;"><a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/A2S2K/A2S2KResNet/net_DBA.pt"><code>net_DBA.pt</code></a> (1.5 MB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td style="text-align: left;"><strong>CRV-MHDL</strong> ✅</td>
+<td style="text-align: left;">Complex-Valued Multiscale Hybrid</td>
+<td style="text-align: center;">98.58%</td>
+<td style="text-align: center;">93.41%</td>
+<td style="text-align: center;">98.38%</td>
+<td style="text-align: center;">3.23 min</td>
+<td style="text-align: left;"><a href="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/CRV/models/model_1.h5"><code>model_1.h5</code></a> (58.2 MB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td style="text-align: left;"><strong>SSRN</strong> ✅</td>
+<td style="text-align: left;">Spectral-Spatial Residual ConvNet</td>
+<td style="text-align: center;">98.93%</td>
+<td style="text-align: center;">98.95%</td>
+<td style="text-align: center;">98.78%</td>
+<td style="text-align: center;">5.37 min</td>
+<td style="text-align: left;">Keras-3 compat + 11×11 patch fixed; no dead classes now</td>
+</tr>
+<tr>
+<td style="text-align: center;">6</td>
+<td style="text-align: left;"><strong>HSI-SSFTT</strong> ✅</td>
+<td style="text-align: left;">Feature Token Transformer</td>
+<td style="text-align: center;">98.57%</td>
+<td style="text-align: center;">96.15%</td>
+<td style="text-align: center;">98.37%</td>
+<td style="text-align: center;">0.84 min</td>
+<td style="text-align: left;"><a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSFTT/cls_SSFTT_IP/cls_params/SSFTTnet_params.pth"><code>SSFTTnet_params.pth</code></a> (625 KB)</td>
+</tr>
+<tr>
+<td style="text-align: center;">7</td>
+<td style="text-align: left;"><strong>SSAN</strong> ✅</td>
+<td style="text-align: left;">Spectral-Spatial Attention Net</td>
+<td style="text-align: center;">64.19%</td>
+<td style="text-align: center;">72.77%</td>
+<td style="text-align: center;">59.79%</td>
+<td style="text-align: center;">14.00 min</td>
+<td style="text-align: left;">Genuine IP run (split+checkpoint fixed); AA no longer nan</td>
+</tr>
+<tr>
+<td style="text-align: center;">8</td>
+<td style="text-align: left;"><strong>HyperRoPE-HiT</strong> ✅</td>
+<td style="text-align: left;">Rotary Position Transformer</td>
+<td style="text-align: center;">94.42%</td>
+<td style="text-align: center;">92.12%</td>
+<td style="text-align: center;">93.64%</td>
+<td style="text-align: center;">37.74 min</td>
+<td style="text-align: left;"><a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/HiT/hyperrope-sst/checkpoints/IndianPine_best_model_hit.pth"><code>IndianPine_best_model_hit.pth</code></a></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>✅ refreshed</strong> = standardized rerun complete (new numbers shown). <strong>🔄/⏳ = rerun in progress/queued</strong>; <strong>‡</strong> marks prior-run values kept as placeholders until the standardized rerun lands.
+<strong>Note on the previous SSAN <code>64.62% / AA=nan</code>:</strong> caused by the author's fixed 100-train/100-val/200-test-per-class split (designed for Pavia) leaving Indian Pines' small classes with 0 test samples. Now using a small-class-safe split.
+<strong>Note on the previous SSRN <code>98.52%</code>:</strong> not reproducible — its committed log shows the same <code>keras.backend.int_shape</code> crash, so it had never truly run here. Fixed via the <code>tf_keras</code> legacy API; the rerun gives SSRN's first genuine number in this environment.</p>
+</blockquote>
+<hr />
+<h2>2. Model-by-Model Artifacts (Images with Complete Paths, Weights &amp; Reports)</h2>
+<h3>0. Proposed Model: SGSCF-Net (Ours)</h3>
+<ul>
+<li><strong>Model Category:</strong> Spectral Gated Spatial-Cross Fusion Network</li>
+<li><strong>Benchmark Performance:</strong> <strong>OA: 98.05%</strong> | <strong>AA: 94.82%</strong> | <strong>Kappa: 97.78%</strong> | <strong>Training Time: 8.8 min</strong></li>
+<li><strong>Model Weight Checkpoint:</strong></li>
+<li>File: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/sv_test1/models/SGSCFNet_IN_run1_OA0.9805.pt"><code>SGSCFNet_IN_run1_OA0.9805.pt</code></a></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\ActualImplementation\SGSCF-Net\sv_test1\models\SGSCFNet_IN_run1_OA0.9805.pt</code></li>
+<li><strong>Classification Report &amp; Execution Logs:</strong></li>
+<li>Official Report: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Reports_TXT/grid_report_IN_P11_B32.txt"><code>grid_report_IN_P11_B32.txt</code></a></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\ActualImplementation\SGSCF-Net\Kaggle_Master_Outputs\Indian_Pines\Reports_TXT\grid_report_IN_P11_B32.txt</code></li>
+<li><strong>Visual Outputs (2 Images):</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Image 1: Predicted Classification Map</th>
+<th style="text-align: center;">Image 2: Training Loss Curve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="SGSCF-Net Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/pred_P11_B32.png" /></td>
+<td style="text-align: center;"><img alt="SGSCF-Net Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SGSCF-Net/Kaggle_Master_Outputs/Indian_Pines/Visualizations_PNG/loss_P11_B32.png" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Complete Location:</strong><br><code>C:\Users\LENOVO\Pictures\MinorProject\ActualImplementation\SGSCF-Net\Kaggle_Master_Outputs\Indian_Pines\Visualizations_PNG\pred_P11_B32.png</code></td>
+<td style="text-align: center;"><strong>Complete Location:</strong><br><code>C:\Users\LENOVO\Pictures\MinorProject\ActualImplementation\SGSCF-Net\Kaggle_Master_Outputs\Indian_Pines\Visualizations_PNG\loss_P11_B32.png</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>1. Vision Transformer (ViT)</h3>
+<ul>
+<li><strong>Model Category:</strong> Pure Spatial-Spectral Transformer Encoder</li>
+<li><strong>Benchmark Performance (refreshed):</strong> <strong>OA: 92.70%</strong> | <strong>AA: 88.80%</strong> | <strong>Kappa: 91.65%</strong> | <strong>Training Time: 1.71 min</strong></li>
+<li><strong>Model Weight Checkpoint:</strong></li>
+<li>File: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/ViT/vision_transformer/best_vit.pth"><code>ViT/vision_transformer/best_vit.pth</code></a> <em>(Size: 2.4 MB)</em></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\ViT\vision_transformer\best_vit.pth</code></li>
+<li><strong>Classification Report &amp; Execution Logs:</strong></li>
+<li>Metrics CSV: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/ViT/outputs/metrics_ViT.csv"><code>ViT/outputs/metrics_ViT.csv</code></a></li>
+<li>Full Kaggle Log: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/ViT/actual-vit-indian-pines-benchmark.log"><code>ViT/actual-vit-indian-pines-benchmark.log</code></a></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\ViT\outputs\metrics_ViT.csv</code></li>
+<li><strong>Visual Outputs (2 Images):</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Ground Truth (shared palette)</th>
+<th style="text-align: center;">Predicted Classification Map</th>
+<th style="text-align: center;">Training Loss Curve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="ViT Ground Truth" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/ViT/outputs/ground_truth.png" /></td>
+<td style="text-align: center;"><img alt="ViT Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/ViT/outputs/pred_ViT.png" /></td>
+<td style="text-align: center;"><img alt="ViT Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/ViT/outputs/loss_ViT.png" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>...\ViT\outputs\ground_truth.png</code></td>
+<td style="text-align: center;"><code>...\ViT\outputs\pred_ViT.png</code></td>
+<td style="text-align: center;"><code>...\ViT\outputs\loss_ViT.png</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>2. Deep Matrix Capsules (DMC)</h3>
+<ul>
+<li><strong>Model Category:</strong> Matrix Capsule Network with Dynamic Routing for Hyperspectral Data</li>
+<li><strong>Benchmark Performance (refreshed):</strong> <strong>OA: 99.15%</strong> | <strong>AA: 98.89%</strong> | <strong>Kappa: 99.03%</strong> | <strong>Training Time: 0.39 min</strong></li>
+<li><strong>Model Weight Checkpoint:</strong></li>
+<li>In-memory execution with full per-class evaluation logs saved.</li>
+<li><strong>Classification Report &amp; Execution Logs:</strong></li>
+<li>Official Classification Report: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/DMC/DeepMatrixCapsules/classification_report_dmc.txt"><code>DMC/DeepMatrixCapsules/classification_report_dmc.txt</code></a></li>
+<li>Metrics CSV: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/DMC/outputs/metrics_DMC.csv"><code>DMC/outputs/metrics_DMC.csv</code></a></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\DMC\DeepMatrixCapsules\classification_report_dmc.txt</code></li>
+<li><strong>Visual Outputs (2 Images):</strong>  <em>(Training-loss curve N/A — the author's DMC ships a pre-trained checkpoint, so this run evaluates it rather than training from scratch; no fresh loss curve is produced.)</em></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Ground Truth (shared palette)</th>
+<th style="text-align: center;">Predicted Classification Map</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="DMC Ground Truth" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/DMC/outputs/ground_truth.png" /></td>
+<td style="text-align: center;"><img alt="DMC Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/DMC/outputs/pred_DMC.png" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Complete Location:</strong><br><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\DMC\outputs\pred_DMC.png</code></td>
+<td style="text-align: center;"><strong>Complete Location:</strong><br><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\DMC\outputs\ground_truth.png</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>3. A2S2K-ResNet</h3>
+<ul>
+<li><strong>Model Category:</strong> Attention-driven 3D-2D ResNet with Spatial-Spectral Kernel Attention</li>
+<li><strong>Benchmark Performance:</strong> <strong>OA: 98.36%</strong> | <strong>AA: 96.22%</strong> | <strong>Kappa: 98.14%</strong> | <strong>Training Time: 18.42 min</strong></li>
+<li><strong>Model Weight Checkpoints (.pt):</strong></li>
+<li>Primary Checkpoint: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/A2S2K/A2S2KResNet/net_DBA.pt"><code>A2S2K/A2S2KResNet/net_DBA.pt</code></a> <em>(Size: 1.52 MB)</em></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\A2S2K\A2S2KResNet\net_DBA.pt</code></li>
+<li>Replicate Checkpoint: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/A2S2K/A2S2KResNet/models/S3KAIResNetpatch_7_IN_split_0.9_lr_0.001adam_kernel_240.985.pt"><code>A2S2K/A2S2KResNet/models/S3KAIResNetpatch_7_IN_split_0.9_lr_0.001adam_kernel_240.985.pt</code></a> <em>(Size: 1.53 MB)</em></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\A2S2K\A2S2KResNet\models\S3KAIResNetpatch_7_IN_split_0.9_lr_0.001adam_kernel_240.985.pt</code></li>
+<li><strong>Classification Report &amp; Execution Logs:</strong></li>
+<li>Classification Results Report: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/A2S2K/A2S2KResNet/report/classification_Results_a2s2k.txt"><code>A2S2K/A2S2KResNet/report/classification_Results_a2s2k.txt</code></a></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\A2S2K\A2S2KResNet\report\classification_Results_a2s2k.txt</code></li>
+<li><strong>Visual Outputs (2 Images):</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Image 1: Predicted Classification Map</th>
+<th style="text-align: center;">Image 2: Ground Truth Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="A2S2K Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/A2S2K/outputs/pred_A2S2K.png" /></td>
+<td style="text-align: center;"><img alt="A2S2K Ground Truth" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/A2S2K/outputs/ground_truth.png" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Complete Location:</strong><br><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\A2S2K\outputs\pred_A2S2K.png</code></td>
+<td style="text-align: center;"><strong>Complete Location:</strong><br><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\A2S2K\outputs\ground_truth.png</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>4. CRV-MHDL</h3>
+<ul>
+<li><strong>Model Category:</strong> Complex-Valued Residual Multiscale Hybrid Deep Learning</li>
+<li><strong>Benchmark Performance (refreshed):</strong> <strong>OA: 98.58%</strong> | <strong>AA: 93.41%</strong> | <strong>Kappa: 98.38%</strong> | <strong>Training Time: 3.23 min</strong></li>
+<li><strong>Model Weight Checkpoint:</strong></li>
+<li>Checkpoint File: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/CRV/models/model_1.h5"><code>CRV/models/model_1.h5</code></a> <em>(Size: 58.2 MB)</em></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\ActualImplementation\CRV\models\model_1.h5</code></li>
+<li><strong>Classification Report &amp; Execution Logs:</strong></li>
+<li>Official Classification Results: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/CRV/CRV/classification_Results.txt"><code>CRV/CRV/classification_Results.txt</code></a></li>
+<li>Per-Class Report CSV: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/CRV/CRV/IP_Model%20Classification%20Report.csv"><code>CRV/CRV/IP_Model Classification Report.csv</code></a></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\CRV\CRV\classification_Results.txt</code></li>
+<li><strong>Visual Outputs (2 Images):</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Image 1: Predicted Classification Map</th>
+<th style="text-align: center;">Image 2: Training Loss Curve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="CRV Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/CRV/outputs/pred_CRV.png" /></td>
+<td style="text-align: center;"><img alt="CRV Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/CRV/outputs/loss_CRV.png" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Complete Location:</strong><br><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\CRV\outputs\pred_CRV.png</code></td>
+<td style="text-align: center;"><strong>Complete Location:</strong><br><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\CRV\outputs\loss_CRV.png</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>5. Spectral-Spatial Residual Network (SSRN)</h3>
+<ul>
+<li><strong>Model Category:</strong> Dual Residual 3D Spectral &amp; 3D Spatial Convolutional Network</li>
+<li><strong>Benchmark Performance (refreshed):</strong> <strong>OA: 98.93%</strong> | <strong>AA: 98.95%</strong> | <strong>Kappa: 98.78%</strong> | <strong>Training Time: 5.37 min</strong></li>
+<li><strong>Model Weight Checkpoint:</strong></li>
+<li>Executed under official repository protocol with internal evaluation hooks.</li>
+<li><strong>Classification Report &amp; Execution Logs:</strong></li>
+<li>Official Evaluation Results: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSRN/SSRN/records/IN_evaluation_results.txt"><code>SSRN/SSRN/records/IN_evaluation_results.txt</code></a></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSRN\SSRN\records\IN_evaluation_results.txt</code></li>
+<li><strong>Visual Outputs (2 Images):</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Ground Truth (shared palette)</th>
+<th style="text-align: center;">Predicted Classification Map</th>
+<th style="text-align: center;">Training Loss Curve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="SSRN Ground Truth" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSRN/outputs/ground_truth.png" /></td>
+<td style="text-align: center;"><img alt="SSRN Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSRN/outputs/pred_SSRN.png" /></td>
+<td style="text-align: center;"><img alt="SSRN Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSRN/outputs/loss_SSRN.png" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>...\SSRN\outputs\ground_truth.png</code></td>
+<td style="text-align: center;"><code>...\SSRN\outputs\pred_SSRN.png</code></td>
+<td style="text-align: center;"><code>...\SSRN\outputs\loss_SSRN.png</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>6. HSI-SSFTT (Feature Tokenization Transformer)</h3>
+<ul>
+<li><strong>Model Category:</strong> 3D-2D CNN Feature Extraction + Spectral Tokenization Transformer</li>
+<li><strong>Benchmark Performance (refreshed):</strong> <strong>OA: 98.57%</strong> | <strong>AA: 96.15%</strong> | <strong>Kappa: 98.37%</strong> | <strong>Training Time: 0.84 min</strong></li>
+<li><strong>Model Weight Checkpoint (.pth):</strong></li>
+<li>Trained Model File: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSFTT/cls_SSFTT_IP/cls_params/SSFTTnet_params.pth"><code>SSFTT/cls_SSFTT_IP/cls_params/SSFTTnet_params.pth</code></a> <em>(Size: 625 KB)</em></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSFTT\cls_SSFTT_IP\cls_params\SSFTTnet_params.pth</code></li>
+<li><strong>Classification Report &amp; Execution Logs:</strong></li>
+<li>Official Classification Report: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSFTT/cls_SSFTT_IP/cls_result/classification_report.txt"><code>SSFTT/cls_SSFTT_IP/cls_result/classification_report.txt</code></a></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSFTT\cls_SSFTT_IP\cls_result\classification_report.txt</code></li>
+<li><strong>Visual Outputs (3 Images):</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Ground Truth (shared palette)</th>
+<th style="text-align: center;">Predicted Classification Map</th>
+<th style="text-align: center;">Training Loss Curve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="SSFTT Ground Truth" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSFTT/outputs/ground_truth.png" /></td>
+<td style="text-align: center;"><img alt="SSFTT Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSFTT/outputs/pred_SSFTT.png" /></td>
+<td style="text-align: center;"><img alt="SSFTT Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSFTT/outputs/loss_SSFTT.png" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>...\SSFTT\outputs\ground_truth.png</code></td>
+<td style="text-align: center;"><code>...\SSFTT\outputs\pred_SSFTT.png</code></td>
+<td style="text-align: center;"><code>...\SSFTT\outputs\loss_SSFTT.png</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>7. Spectral-Spatial Attention Network (SSAN)</h3>
+<ul>
+<li><strong>Model Category:</strong> Recurrent and Convolutional Spectral-Spatial Attention Network (TF1)</li>
+<li><strong>Benchmark Performance (refreshed):</strong> <strong>OA: 64.19%</strong> | <strong>AA: 72.77%</strong> | <strong>Kappa: 59.79%</strong> | <strong>Training Time: 14.00 min</strong></li>
+<li><strong>Model Weight Checkpoint:</strong></li>
+<li>TensorFlow Checkpoint Data: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SSAN/model/ssan_step_1000.ckpt.data-00000-of-00001"><code>SSAN/model/ssan_step_1000.ckpt.data-00000-of-00001</code></a> <em>(Size: 65.2 MB)</em></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\ActualImplementation\SSAN\model\ssan_step_1000.ckpt.data-00000-of-00001</code></li>
+<li>Checkpoint Index &amp; Meta: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/ActualImplementation/SSAN/model/ssan_step_1000.ckpt.meta"><code>SSAN/model/ssan_step_1000.ckpt.meta</code></a> <em>(Size: 523 KB)</em></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\ActualImplementation\SSAN\model\ssan_step_1000.ckpt.meta</code></li>
+<li><strong>Classification Report &amp; Execution Logs:</strong></li>
+<li>Metrics CSV: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSAN/outputs/metrics_SSAN.csv"><code>SSAN/outputs/metrics_SSAN.csv</code></a></li>
+<li>Full Kaggle Execution Log: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSAN/actual-ssan-indian-pines-benchmark.log"><code>SSAN/actual-ssan-indian-pines-benchmark.log</code></a></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSAN\actual-ssan-indian-pines-benchmark.log</code></li>
+<li><strong>Visual Outputs (2 Images):</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Ground Truth (shared palette)</th>
+<th style="text-align: center;">Predicted Classification Map</th>
+<th style="text-align: center;">Training Loss Curve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="SSAN Ground Truth" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSAN/outputs/ground_truth.png" /></td>
+<td style="text-align: center;"><img alt="SSAN Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSAN/outputs/pred_SSAN.png" /></td>
+<td style="text-align: center;"><img alt="SSAN Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/SSAN/outputs/loss_SSAN.png" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>...\SSAN\outputs\ground_truth.png</code></td>
+<td style="text-align: center;"><code>...\SSAN\outputs\pred_SSAN.png</code></td>
+<td style="text-align: center;"><code>...\SSAN\outputs\loss_SSAN.png</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>8. HyperRoPE-HiT</h3>
+<ul>
+<li><strong>Model Category:</strong> Rotary Position Embedding Transformer for Hyperspectral Data</li>
+<li><strong>Benchmark Performance (refreshed):</strong> <strong>OA: 94.42%</strong> | <strong>AA: 92.12%</strong> | <strong>Kappa: 93.64%</strong> | <strong>Training Time: 37.74 min</strong></li>
+<li><strong>Model Weight Checkpoint (.pth):</strong></li>
+<li>Best Checkpoint: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/HiT/hyperrope-sst/checkpoints/IndianPine_best_model_hit.pth"><code>HiT/hyperrope-sst/checkpoints/IndianPine_best_model_hit.pth</code></a></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\HiT\hyperrope-sst\checkpoints\IndianPine_best_model_hit.pth</code></li>
+<li><strong>Classification Report &amp; Execution Logs:</strong></li>
+<li>Detailed Results Report: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/HiT/outputs/results_HiT.txt"><code>HiT/outputs/results_HiT.txt</code></a></li>
+<li>Full Location: <code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\HiT\outputs\results_HiT.txt</code></li>
+<li>Metrics Summary: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/HiT/outputs/metrics_HiT.csv"><code>HiT/outputs/metrics_HiT.csv</code></a></li>
+<li>Full Kaggle Execution Log: <a href="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/HiT/actual-hyperrope-hit-indian-pines-benchmark.log"><code>HiT/actual-hyperrope-hit-indian-pines-benchmark.log</code></a></li>
+<li><strong>Visual Outputs (3 Images):</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Ground Truth (shared palette)</th>
+<th style="text-align: center;">Predicted Classification Map</th>
+<th style="text-align: center;">Training Loss Curve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><img alt="HiT Ground Truth" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/HiT/outputs/ground_truth.png" /></td>
+<td style="text-align: center;"><img alt="HiT Prediction Map" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/HiT/outputs/pred_HiT.png" /></td>
+<td style="text-align: center;"><img alt="HiT Loss Curve" src="file:///C:/Users/LENOVO/Pictures/MinorProject/kaggle_results/HiT/outputs/loss_HiT.png" /></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>...\HiT\outputs\ground_truth.png</code></td>
+<td style="text-align: center;"><code>...\HiT\outputs\pred_HiT.png</code></td>
+<td style="text-align: center;"><code>...\HiT\outputs\loss_HiT.png</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Quick Reference Master Table of All Outputs</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Model Name</th>
+<th style="text-align: left;">Visual Output 1 (Prediction Map)</th>
+<th style="text-align: left;">Visual Output 2 (Loss Curve / Ground Truth)</th>
+<th style="text-align: left;">Model Weight File (.pt / .pth / .h5)</th>
+<th style="text-align: left;">Classification Report / Result Log</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>SGSCF-Net (Ours)</strong></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\ActualImplementation\SGSCF-Net\Kaggle_Master_Outputs\Indian_Pines\Visualizations_PNG\pred_P11_B32.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\ActualImplementation\SGSCF-Net\Kaggle_Master_Outputs\Indian_Pines\Visualizations_PNG\loss_P11_B32.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\ActualImplementation\SGSCF-Net\sv_test1\models\SGSCFNet_IN_run1_OA0.9805.pt</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\ActualImplementation\SGSCF-Net\Kaggle_Master_Outputs\Indian_Pines\Reports_TXT\grid_report_IN_P11_B32.txt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ViT</strong></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\ViT\outputs\pred_ViT.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\ViT\outputs\loss_ViT.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\ViT\vision_transformer\best_vit.pth</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\ViT\outputs\metrics_ViT.csv</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>DMC</strong></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\DMC\outputs\pred_DMC.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\DMC\outputs\ground_truth.png</code></td>
+<td style="text-align: left;"><em>(In-memory evaluation)</em></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\DMC\DeepMatrixCapsules\classification_report_dmc.txt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>A2S2K</strong></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\A2S2K\outputs\pred_A2S2K.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\A2S2K\outputs\ground_truth.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\A2S2K\A2S2KResNet\net_DBA.pt</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\A2S2K\A2S2KResNet\report\classification_Results_a2s2k.txt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>CRV</strong></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\CRV\outputs\pred_CRV.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\CRV\outputs\loss_CRV.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\ActualImplementation\CRV\models\model_1.h5</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\CRV\CRV\classification_Results.txt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>SSRN</strong></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSRN\SSRN\Cmaps\outputs/pred_SSRN.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSRN\SSRN\figure\new_fig.png</code></td>
+<td style="text-align: left;"><em>(In-memory evaluation)</em></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSRN\SSRN\records\IN_evaluation_results.txt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>SSFTT</strong></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSFTT\outputs\pred_SSFTT.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSFTT\outputs\ground_truth.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSFTT\cls_SSFTT_IP\cls_params\SSFTTnet_params.pth</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSFTT\cls_SSFTT_IP\cls_result\classification_report.txt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>SSAN</strong></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSAN\outputs\pred_SSAN.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSAN\outputs\loss_SSAN.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\ActualImplementation\SSAN\model\ssan_step_1000.ckpt.data-00000-of-00001</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\SSAN\actual-ssan-indian-pines-benchmark.log</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>HiT</strong></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\HiT\outputs\pred_HiT.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\HiT\outputs\loss_HiT.png</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\HiT\hyperrope-sst\checkpoints\IndianPine_best_model_hit.pth</code></td>
+<td style="text-align: left;"><code>C:\Users\LENOVO\Pictures\MinorProject\kaggle_results\HiT\outputs\results_HiT.txt</code></td>
+</tr>
+</tbody>
+</table>
+</body></html>

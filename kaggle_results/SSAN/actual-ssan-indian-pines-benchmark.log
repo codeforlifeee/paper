@@ -1,0 +1,84 @@
+[{"stream_name":"stderr","time":7.83441207,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.8344651800000005,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.834471195,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.834474768,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.453545522,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.453595825,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.453601967,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.453606083,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":10.261528271,"data":"Found model at: /kaggle/input/datasets/tejassurya2004/actual-baseline-models-hsi/SSAN\n"}
+,{"stream_name":"stdout","time":10.261552727,"data":"Copied.\n"}
+,{"stream_name":"stdout","time":10.437476297,"data":"Patched ssan.py\n"}
+,{"stream_name":"stdout","time":10.437503413,"data":"Data paths: /kaggle/input/datasets/tejassurya2004/actual-baseline-models-hsi/DeepMatrixCapsules/Data/IndianPines/Indian_pines_corrected.mat, /kaggle/input/datasets/tejassurya2004/actual-baseline-models-hsi/DeepMatrixCapsules/Data/IndianPines/Indian_pines_gt.mat\n"}
+,{"stream_name":"stdout","time":10.437510564,"data":"Patched indices.py: fixed all data paths dynamically\n"}
+,{"stream_name":"stdout","time":10.437514683,"data":"Fixed: added import os, sys after from __future__\n"}
+,{"stream_name":"stdout","time":10.437518565,"data":"Fixed spa_weights wd1: 2*2*64 -\u003e 3*3*64\n"}
+,{"stream_name":"stdout","time":10.437522747,"data":"v10: Patched ssan.py with inline test evaluation (4-space marker)\n"}
+,{"stream_name":"stdout","time":10.479982858,"data":"--- indices.py ---\n"}
+,{"stream_name":"stderr","time":10.966324179,"data":"/kaggle/working/SSAN/indices.py:10: DeprecationWarning: scipy.misc is deprecated and will be removed in 2.0.0\n"}
+,{"stream_name":"stderr","time":10.966344044,"data":"  import scipy.misc\n"}
+,{"stream_name":"stderr","time":11.170947015,"data":"/kaggle/working/SSAN/indices.py:10: DeprecationWarning: scipy.misc is deprecated and will be removed in 2.0.0\n"}
+,{"stream_name":"stderr","time":11.170994977,"data":"  import scipy.misc\n"}
+,{"stream_name":"stderr","time":11.170999903,"data":"\n"}
+,{"stream_name":"stderr","time":11.171003228,"data":"/kaggle/working/SSAN/indices.py:10: DeprecationWarning: scipy.misc is deprecated and will be removed in 2.0.0\n"}
+,{"stream_name":"stderr","time":11.171006928,"data":"  import scipy.misc\n"}
+,{"stream_name":"stdout","time":14.084071059,"data":"--- ssan.py (training + inline test eval) ---\n"}
+,{"stream_name":"stdout","time":828.15446747,"data":"Step 1, Minibatch Loss= 27138544.0000, Training Accuracy= 0.062\n"}
+,{"stream_name":"stdout","time":828.154512125,"data":"Step 100, Minibatch Loss= 4834415.5000, Training Accuracy= 0.094\n"}
+,{"stream_name":"stdout","time":828.154518368,"data":"Step 200, Minibatch Loss= 2091048.5000, Training Accuracy= 0.156\n"}
+,{"stream_name":"stdout","time":828.154522699,"data":"Step 300, Minibatch Loss= 1261715.5000, Training Accuracy= 0.312\n"}
+,{"stream_name":"stdout","time":828.154526901,"data":"Step 400, Minibatch Loss= 781703.7500, Training Accuracy= 0.250\n"}
+,{"stream_name":"stdout","time":828.154531401,"data":"Step 500, Minibatch Loss= 480241.0625, Training Accuracy= 0.469\n"}
+,{"stream_name":"stdout","time":828.154553713,"data":"Step 600, Minibatch Loss= 358318.3750, Training Accuracy= 0.500\n"}
+,{"stream_name":"stdout","time":828.154556393,"data":"Step 700, Minibatch Loss= 386850.3125, Training Accuracy= 0.469\n"}
+,{"stream_name":"stdout","time":828.154558558,"data":"Step 800, Minibatch Loss= 276367.0000, Training Accuracy= 0.531\n"}
+,{"stream_name":"stdout","time":828.154560703,"data":"Step 900, Minibatch Loss= 262989.0625, Training Accuracy= 0.625\n"}
+,{"stream_name":"stdout","time":828.15456287,"data":"Step 1000, Minibatch Loss= 242856.0000, Training Accuracy= 0.531\n"}
+,{"stream_name":"stdout","time":828.154565111,"data":"valid accuracy = 0.588\n"}
+,{"stream_name":"stdout","time":828.154567212,"data":"best valid accuracy = 0.800\n"}
+,{"stream_name":"stdout","time":828.154569345,"data":"Step 1100, Minibatch Loss= 307382.3125, Training Accuracy= 0.531\n"}
+,{"stream_name":"stdout","time":828.154571499,"data":"Step 1200, Minibatch Loss= 152203.4375, Training Accuracy= 0.719\n"}
+,{"stream_name":"stdout","time":828.154574521,"data":"Step 1300, Minibatch Loss= 164982.6406, Training Accuracy= 0.562\n"}
+,{"stream_name":"stdout","time":828.15458946,"data":"Step 1400, Minibatch Loss= 182117.6875, Training Accuracy= 0.531\n"}
+,{"stream_name":"stdout","time":828.15459329,"data":"Step 1500, Minibatch Loss= 182830.4375, Training Accuracy= 0.594\n"}
+,{"stream_name":"stdout","time":828.154597726,"data":"Step 1600, Minibatch Loss= 69479.1875, Training Accuracy= 0.781\n"}
+,{"stream_name":"stdout","time":828.154601388,"data":"Step 1700, Minibatch Loss= 118990.6406, Training Accuracy= 0.719\n"}
+,{"stream_name":"stdout","time":828.154605354,"data":"Step 1800, Minibatch Loss= 139873.4531, Training Accuracy= 0.562\n"}
+,{"stream_name":"stdout","time":828.154609031,"data":"Step 1900, Minibatch Loss= 118903.2734, Training Accuracy= 0.625\n"}
+,{"stream_name":"stdout","time":828.154612335,"data":"Step 2000, Minibatch Loss= 27840.8477, Training Accuracy= 0.688\n"}
+,{"stream_name":"stdout","time":828.154615808,"data":"valid accuracy = 0.729\n"}
+,{"stream_name":"stdout","time":828.154618978,"data":"best valid accuracy = 0.800\n"}
+,{"stream_name":"stdout","time":828.154622225,"data":"Step 2100, Minibatch Loss= 63495.8125, Training Accuracy= 0.688\n"}
+,{"stream_name":"stdout","time":828.154625568,"data":"Step 2200, Minibatch Loss= 124384.8438, Training Accuracy= 0.562\n"}
+,{"stream_name":"stdout","time":828.154628995,"data":"Step 2300, Minibatch Loss= 29934.2578, Training Accuracy= 0.844\n"}
+,{"stream_name":"stdout","time":828.15463226,"data":"Step 2400, Minibatch Loss= 50302.2266, Training Accuracy= 0.781\n"}
+,{"stream_name":"stdout","time":828.154635619,"data":"Step 2500, Minibatch Loss= 22694.3203, Training Accuracy= 0.875\n"}
+,{"stream_name":"stdout","time":828.154638852,"data":"Step 2600, Minibatch Loss= 76259.2656, Training Accuracy= 0.656\n"}
+,{"stream_name":"stdout","time":828.154642158,"data":"Step 2700, Minibatch Loss= 25552.9375, Training Accuracy= 0.875\n"}
+,{"stream_name":"stdout","time":828.154645433,"data":"Step 2800, Minibatch Loss= 44230.9883, Training Accuracy= 0.812\n"}
+,{"stream_name":"stdout","time":828.15464881,"data":"Step 2900, Minibatch Loss= 24973.4375, Training Accuracy= 0.781\n"}
+,{"stream_name":"stdout","time":828.154659996,"data":"Step 3000, Minibatch Loss= 35185.2773, Training Accuracy= 0.750\n"}
+,{"stream_name":"stdout","time":828.154662767,"data":"valid accuracy = 0.742\n"}
+,{"stream_name":"stdout","time":828.154664928,"data":"best valid accuracy = 0.800\n"}
+,{"stream_name":"stdout","time":828.154667054,"data":"Step 3100, Minibatch Loss= 44044.8281, Training Accuracy= 0.750\n"}
+,{"stream_name":"stdout","time":828.154686495,"data":"Step 3200, Minibatch Loss= 14538.0820, Training Accuracy= 0.812\n"}
+,{"stream_name":"stdout","time":828.154691222,"data":"INLINE_TEST_OA=64.6176 INLINE_TEST_AA=nan INLINE_TEST_KAPPA=59.4302\n"}
+,{"stream_name":"stdout","time":828.154695268,"data":"Optimization Finished!\n"}
+,{"stream_name":"stdout","time":828.154699201,"data":"\n"}
+,{"stream_name":"stdout","time":828.154703005,"data":"STDERR: T4, pci bus id: 0000:00:05.0, compute capability: 7.5\n"}
+,{"stream_name":"stdout","time":828.154706547,"data":"I0000 00:00:1792180522.595101      57 mlir_graph_optimization_pass.cc:437] MLIR V1 optimization pass is not enabled\n"}
+,{"stream_name":"stdout","time":828.154709978,"data":"/kaggle/working/SSAN/indices.py:159: RuntimeWarning: invalid value encountered in scalar divide\n"}
+,{"stream_name":"stdout","time":828.154713486,"data":"  acc = C[i, i] / C[i, class_num]\n"}
+,{"stream_name":"stdout","time":828.154716747,"data":"\n"}
+,{"stream_name":"stdout","time":828.154719856,"data":"Done in 13.6 min | rc=0\n"}
+,{"stream_name":"stdout","time":828.154723045,"data":"WARNING: Could not parse inline test metrics\n"}
+,{"stream_name":"stdout","time":828.165595155,"data":"FINAL SSAN: OA=see_log%  AA=see_log%  Kappa=see_log%\n"}
+,{"stream_name":"stderr","time":830.552830471,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":830.552876004,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":830.733261391,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":830.733283253,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":831.563304069,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":831.642880522,"data":"[NbConvertApp] Writing 18035 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":834.043772137,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":834.585502601,"data":"[NbConvertApp] Writing 314780 bytes to __results__.html\n"}
+]

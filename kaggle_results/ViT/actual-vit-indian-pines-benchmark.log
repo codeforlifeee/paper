@@ -1,0 +1,69 @@
+[{"stream_name":"stderr","time":6.446913414,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":6.446991229,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":6.446999705,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":6.447003664,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.021073963,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.021098714,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.021103519,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.021107219,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":8.949157951,"data":"Found model at: /kaggle/input/datasets/tejassurya2004/actual-baseline-models-hsi/vision_transformer\n"}
+,{"stream_name":"stdout","time":9.11982508,"data":"Copied.\n"}
+,{"stream_name":"stdout","time":9.13253502,"data":"Wrote common_data.py\n"}
+,{"stream_name":"stdout","time":9.132560854,"data":"Patched run_vit.py\n"}
+,{"stream_name":"stdout","time":135.170000105,"data":"Running ViT on cuda:0\n"}
+,{"stream_name":"stdout","time":135.170039835,"data":"Epoch [1/200] - Train Loss: 2.3607 - Val Loss: 2.0253 - Val Acc: 34.54%\n"}
+,{"stream_name":"stdout","time":135.170045972,"data":"Epoch [10/200] - Train Loss: 1.2829 - Val Loss: 1.3475 - Val Acc: 48.68%\n"}
+,{"stream_name":"stdout","time":135.170050811,"data":"Epoch [20/200] - Train Loss: 0.8701 - Val Loss: 1.0748 - Val Acc: 60.98%\n"}
+,{"stream_name":"stdout","time":135.170055141,"data":"Epoch [30/200] - Train Loss: 0.6015 - Val Loss: 0.8464 - Val Acc: 72.59%\n"}
+,{"stream_name":"stdout","time":135.170060172,"data":"Epoch [40/200] - Train Loss: 0.3927 - Val Loss: 0.8083 - Val Acc: 73.56%\n"}
+,{"stream_name":"stdout","time":135.170064638,"data":"Epoch [50/200] - Train Loss: 0.2841 - Val Loss: 0.9035 - Val Acc: 75.12%\n"}
+,{"stream_name":"stdout","time":135.170069008,"data":"Epoch [60/200] - Train Loss: 0.1349 - Val Loss: 0.5912 - Val Acc: 83.71%\n"}
+,{"stream_name":"stdout","time":135.17007307,"data":"Epoch [70/200] - Train Loss: 0.1025 - Val Loss: 0.6371 - Val Acc: 84.00%\n"}
+,{"stream_name":"stdout","time":135.170077989,"data":"Epoch [80/200] - Train Loss: 0.0649 - Val Loss: 0.6016 - Val Acc: 83.90%\n"}
+,{"stream_name":"stdout","time":135.170082909,"data":"Epoch [90/200] - Train Loss: 0.1708 - Val Loss: 0.7270 - Val Acc: 82.63%\n"}
+,{"stream_name":"stdout","time":135.170087608,"data":"Epoch [100/200] - Train Loss: 0.2799 - Val Loss: 0.8537 - Val Acc: 80.39%\n"}
+,{"stream_name":"stdout","time":135.170092519,"data":"Epoch [110/200] - Train Loss: 0.1143 - Val Loss: 0.5144 - Val Acc: 86.05%\n"}
+,{"stream_name":"stdout","time":135.170096815,"data":"Epoch [120/200] - Train Loss: 0.0210 - Val Loss: 0.4898 - Val Acc: 89.66%\n"}
+,{"stream_name":"stdout","time":135.170100988,"data":"Epoch [130/200] - Train Loss: 0.0328 - Val Loss: 0.7093 - Val Acc: 86.63%\n"}
+,{"stream_name":"stdout","time":135.170105244,"data":"Epoch [140/200] - Train Loss: 0.0424 - Val Loss: 0.5320 - Val Acc: 88.88%\n"}
+,{"stream_name":"stdout","time":135.170109588,"data":"Epoch [150/200] - Train Loss: 0.0621 - Val Loss: 0.6079 - Val Acc: 87.61%\n"}
+,{"stream_name":"stdout","time":135.170113757,"data":"Epoch [160/200] - Train Loss: 0.1370 - Val Loss: 0.7548 - Val Acc: 83.41%\n"}
+,{"stream_name":"stdout","time":135.170129151,"data":"Epoch [170/200] - Train Loss: 0.0128 - Val Loss: 0.4756 - Val Acc: 89.95%\n"}
+,{"stream_name":"stdout","time":135.170132751,"data":"Epoch [180/200] - Train Loss: 0.0414 - Val Loss: 0.5291 - Val Acc: 89.07%\n"}
+,{"stream_name":"stdout","time":135.170136231,"data":"Epoch [190/200] - Train Loss: 0.0309 - Val Loss: 0.5666 - Val Acc: 89.07%\n"}
+,{"stream_name":"stdout","time":135.170141372,"data":"Epoch [200/200] - Train Loss: 0.0300 - Val Loss: 0.6015 - Val Acc: 88.39%\n"}
+,{"stream_name":"stdout","time":135.170149373,"data":"ViT Final Results: OA = 89.29%, AA = 85.07%, Kappa = 87.79%, Train Time = 1.72 min\n"}
+,{"stream_name":"stdout","time":135.373949999,"data":"Running ViT on cuda:0\n"}
+,{"stream_name":"stdout","time":135.373990504,"data":"Epoch [1/200] - Train Loss: 2.3607 - Val Loss: 2.0253 - Val Acc: 34.54%\n"}
+,{"stream_name":"stdout","time":135.373995809,"data":"Epoch [10/200] - Train Loss: 1.2829 - Val Loss: 1.3475 - Val Acc: 48.68%\n"}
+,{"stream_name":"stdout","time":135.374000227,"data":"Epoch [20/200] - Train Loss: 0.8701 - Val Loss: 1.0748 - Val Acc: 60.98%\n"}
+,{"stream_name":"stdout","time":135.374003796,"data":"Epoch [30/200] - Train Loss: 0.6015 - Val Loss: 0.8464 - Val Acc: 72.59%\n"}
+,{"stream_name":"stdout","time":135.374007281,"data":"Epoch [40/200] - Train Loss: 0.3927 - Val Loss: 0.8083 - Val Acc: 73.56%\n"}
+,{"stream_name":"stdout","time":135.374010819,"data":"Epoch [50/200] - Train Loss: 0.2841 - Val Loss: 0.9035 - Val Acc: 75.12%\n"}
+,{"stream_name":"stdout","time":135.374016209,"data":"Epoch [60/200] - Train Loss: 0.1349 - Val Loss: 0.5912 - Val Acc: 83.71%\n"}
+,{"stream_name":"stdout","time":135.374021206,"data":"Epoch [70/200] - Train Loss: 0.1025 - Val Loss: 0.6371 - Val Acc: 84.00%\n"}
+,{"stream_name":"stdout","time":135.374028811,"data":"Epoch [80/200] - Train Loss: 0.0649 - Val Loss: 0.6016 - Val Acc: 83.90%\n"}
+,{"stream_name":"stdout","time":135.374032159,"data":"Epoch [90/200] - Train Loss: 0.1708 - Val Loss: 0.7270 - Val Acc: 82.63%\n"}
+,{"stream_name":"stdout","time":135.374034592,"data":"Epoch [100/200] - Train Loss: 0.2799 - Val Loss: 0.8537 - Val Acc: 80.39%\n"}
+,{"stream_name":"stdout","time":135.374036974,"data":"Epoch [110/200] - Train Loss: 0.1143 - Val Loss: 0.5144 - Val Acc: 86.05%\n"}
+,{"stream_name":"stdout","time":135.374039347,"data":"Epoch [120/200] - Train Loss: 0.0210 - Val Loss: 0.4898 - Val Acc: 89.66%\n"}
+,{"stream_name":"stdout","time":135.374041707,"data":"Epoch [130/200] - Train Loss: 0.0328 - Val Loss: 0.7093 - Val Acc: 86.63%\n"}
+,{"stream_name":"stdout","time":135.374044008,"data":"Epoch [140/200] - Train Loss: 0.0424 - Val Loss: 0.5320 - Val Acc: 88.88%\n"}
+,{"stream_name":"stdout","time":135.374046217,"data":"Epoch [150/200] - Train Loss: 0.0621 - Val Loss: 0.6079 - Val Acc: 87.61%\n"}
+,{"stream_name":"stdout","time":135.374048439,"data":"Epoch [160/200] - Train Loss: 0.1370 - Val Loss: 0.7548 - Val Acc: 83.41%\n"}
+,{"stream_name":"stdout","time":135.374050663,"data":"Epoch [170/200] - Train Loss: 0.0128 - Val Loss: 0.4756 - Val Acc: 89.95%\n"}
+,{"stream_name":"stdout","time":135.374053728,"data":"Epoch [180/200] - Train Loss: 0.0414 - Val Loss: 0.5291 - Val Acc: 89.07%\n"}
+,{"stream_name":"stdout","time":135.374056032,"data":"Epoch [190/200] - Train Loss: 0.0309 - Val Loss: 0.5666 - Val Acc: 89.07%\n"}
+,{"stream_name":"stdout","time":135.374058259,"data":"Epoch [200/200] - Train Loss: 0.0300 - Val Loss: 0.6015 - Val Acc: 88.39%\n"}
+,{"stream_name":"stdout","time":135.374060497,"data":"ViT Final Results: OA = 89.29%, AA = 85.07%, Kappa = 87.79%, Train Time = 1.72 min\n"}
+,{"stream_name":"stdout","time":138.443691012,"data":"Done in 2.2 min | rc=0\n"}
+,{"stream_name":"stdout","time":138.457644594,"data":"Outputs: ['pred_ViT.png', 'metrics_ViT.csv', 'loss_ViT.png']\n"}
+,{"stream_name":"stderr","time":140.768321228,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":140.768349516,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":140.943685842,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":140.943727098,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":141.728569269,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":141.803556954,"data":"[NbConvertApp] Writing 10597 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":144.260805663,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":144.764222878,"data":"[NbConvertApp] Writing 295150 bytes to __results__.html\n"}
+]

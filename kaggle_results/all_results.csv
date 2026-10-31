@@ -1,0 +1,9 @@
+Model,OA_pct,AA_pct,Kappa_pct,TrainTime_min,Status,Results_File
+ViT,89.29,85.07,87.79,1.72,Done,ViT/actual-vit-indian-pines-benchmark.log
+DMC,99.15,98.89,99.03,0.32,Done,DMC/DeepMatrixCapsules/classification_report_dmc.txt
+A2S2K-ResNet,98.36,96.22,98.14,18.42,Done,A2S2K/A2S2KResNet/report/classification_Results_a2s2k.txt
+CRV-MHDL,98.58,93.41,98.38,3.23,Done,CRV/CRV/classification_Results.txt
+SSRN,98.52,79.99,98.31,0.61,Done,SSRN/SSRN/records/IN_evaluation_results.txt
+HSI-SSFTT,98.45,94.29,98.23,1.40,Done,SSFTT/cls_SSFTT_IP/cls_result/classification_report.txt
+SSAN,64.62,N/A (nan),59.43,13.60,Done_v10,SSAN/actual-ssan-indian-pines-benchmark.log
+HyperRoPE-HiT,94.42,92.12,93.64,37.29,Done_v6,HiT/actual-hyperrope-hit-indian-pines-benchmark.log

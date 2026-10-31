@@ -1,0 +1,741 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{55}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{} and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showURL}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showURL #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Al-Alimi et~al\mbox{.}(2022)]%
+        {alalimi2022compression}
+\bibfield{author}{\bibinfo{person}{Dalal Al-Alimi}, \bibinfo{person}{Zhihua
+  Cai}, \bibinfo{person}{Mohammed A.~A. Al-qaness}, \bibinfo{person}{Abdelghani
+  Dahou}, \bibinfo{person}{Eman~Ahmed Alawamy}, {and} \bibinfo{person}{Sakinatu
+  Issaka}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Compression and reinforce variation with
+  convolutional neural networks for hyperspectral image classification}.
+\newblock \bibinfo{journal}{\emph{Applied Soft Computing}}
+  \bibinfo{volume}{131} (\bibinfo{year}{2022}), \bibinfo{pages}{109650}.
+\newblock
+
+
+\bibitem[Ben~Hamida et~al\mbox{.}(2018)]%
+        {ben2018deep}
+\bibfield{author}{\bibinfo{person}{Amina Ben~Hamida},
+  \bibinfo{person}{Alexandre Benoit}, \bibinfo{person}{Patrick Lambert}, {and}
+  \bibinfo{person}{Christian Ben~Amar}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Deep Learning for Hyperspectral Image
+  Classification: An Overview Based on 3-D Convolutional Neural Networks}.
+\newblock \bibinfo{journal}{\emph{IEEE Geoscience and Remote Sensing Magazine}}
+  \bibinfo{volume}{6}, \bibinfo{number}{2} (\bibinfo{year}{2018}),
+  \bibinfo{pages}{42--63}.
+\newblock
+
+
+\bibitem[Bioucas-Dias et~al\mbox{.}(2013)]%
+        {bioucas2012hyperspectral}
+\bibfield{author}{\bibinfo{person}{Jos{\'e}~M. Bioucas-Dias},
+  \bibinfo{person}{Antonio Plaza}, \bibinfo{person}{Gustavo Camps-Valls},
+  \bibinfo{person}{Paul Scheunders}, \bibinfo{person}{Nasser Nasrabadi}, {and}
+  \bibinfo{person}{Jocelyn Chanussot}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Hyperspectral Remote Sensing Data Analysis and
+  Future Challenges}.
+\newblock \bibinfo{journal}{\emph{IEEE Geoscience and Remote Sensing Magazine}}
+  \bibinfo{volume}{1}, \bibinfo{number}{2} (\bibinfo{year}{2013}),
+  \bibinfo{pages}{6--36}.
+\newblock
+
+
+\bibitem[Camps-Valls and Bruzzone(2005)]%
+        {camps2005kernel}
+\bibfield{author}{\bibinfo{person}{Gustavo Camps-Valls} {and}
+  \bibinfo{person}{Lorenzo Bruzzone}.} \bibinfo{year}{2005}\natexlab{}.
+\newblock \showarticletitle{Kernel-based methods for hyperspectral image
+  classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{43}, \bibinfo{number}{6} (\bibinfo{year}{2005}),
+  \bibinfo{pages}{1351--1362}.
+\newblock
+
+
+\bibitem[Cao et~al\mbox{.}(2019)]%
+        {cao2019learning}
+\bibfield{author}{\bibinfo{person}{Kaidi Cao}, \bibinfo{person}{Colin Wei},
+  \bibinfo{person}{Adrien Gaidon}, \bibinfo{person}{Nikos Ar{\'e}chiga}, {and}
+  \bibinfo{person}{Tengyu Ma}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Learning Imbalanced Datasets with
+  Label-Distribution-Aware Margin Loss}. In \bibinfo{booktitle}{\emph{Advances
+  in Neural Information Processing Systems (NeurIPS)}},
+  Vol.~\bibinfo{volume}{32}. \bibinfo{pages}{1567--1578}.
+\newblock
+
+
+\bibitem[Chen et~al\mbox{.}(2016)]%
+        {chen2016deep}
+\bibfield{author}{\bibinfo{person}{Yushi Chen}, \bibinfo{person}{Hao Jiang},
+  \bibinfo{person}{Chenghao Li}, \bibinfo{person}{Xiuping Jia}, {and}
+  \bibinfo{person}{Pedram Ghamisi}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Deep Feature Extraction and Classification of
+  Hyperspectral Images Based on Convolutional Neural Networks}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{54}, \bibinfo{number}{10} (\bibinfo{year}{2016}),
+  \bibinfo{pages}{6232--6251}.
+\newblock
+
+
+\bibitem[Chen et~al\mbox{.}(2014)]%
+        {chen2014deep}
+\bibfield{author}{\bibinfo{person}{Yushi Chen}, \bibinfo{person}{Zhouhan Lin},
+  \bibinfo{person}{Xing Zhao}, \bibinfo{person}{Gang Wang}, {and}
+  \bibinfo{person}{Yanfeng Gu}.} \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{Deep Learning-Based Classification of Hyperspectral
+  Data}.
+\newblock \bibinfo{journal}{\emph{IEEE Journal of Selected Topics in Applied
+  Earth Observations and Remote Sensing}} \bibinfo{volume}{7},
+  \bibinfo{number}{6} (\bibinfo{year}{2014}), \bibinfo{pages}{2094--2107}.
+\newblock
+
+
+\bibitem[Cui et~al\mbox{.}(2019)]%
+        {cui2019class}
+\bibfield{author}{\bibinfo{person}{Yin Cui}, \bibinfo{person}{Menglin Jia},
+  \bibinfo{person}{Tsung-Yi Lin}, \bibinfo{person}{Yang Song}, {and}
+  \bibinfo{person}{Serge Belongie}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Class-Balanced Loss Based on Effective Number of
+  Samples}. In \bibinfo{booktitle}{\emph{Proceedings of the IEEE/CVF Conference
+  on Computer Vision and Pattern Recognition (CVPR)}}.
+  \bibinfo{pages}{9268--9277}.
+\newblock
+
+
+\bibitem[Dosovitskiy et~al\mbox{.}(2021)]%
+        {dosovitskiy2020image}
+\bibfield{author}{\bibinfo{person}{Alexey Dosovitskiy}, \bibinfo{person}{Lucas
+  Beyer}, \bibinfo{person}{Alexander Kolesnikov}, \bibinfo{person}{Dirk
+  Weissenborn}, \bibinfo{person}{Xiaohua Zhai}, \bibinfo{person}{Thomas
+  Unterthiner}, \bibinfo{person}{Mostafa Dehghani}, \bibinfo{person}{Matthias
+  Minderer}, \bibinfo{person}{Georg Heigold}, \bibinfo{person}{Sylvain Gelly},
+  \bibinfo{person}{Jakob Uszkoreit}, {and} \bibinfo{person}{Neil Houlsby}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{An Image is Worth 16x16 Words: Transformers for
+  Image Recognition at Scale}. In \bibinfo{booktitle}{\emph{International
+  Conference on Learning Representations (ICLR)}}.
+\newblock
+
+
+\bibitem[Fang et~al\mbox{.}(2018)]%
+        {fang2018new}
+\bibfield{author}{\bibinfo{person}{Leyuan Fang}, \bibinfo{person}{Ning He},
+  \bibinfo{person}{Shutao Li}, \bibinfo{person}{Antonio~J. Plaza}, {and}
+  \bibinfo{person}{Javier Plaza}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{A New Spatial--Spectral Feature Extraction Method
+  for Hyperspectral Images Using Local Covariance Matrix Representation}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{56}, \bibinfo{number}{6} (\bibinfo{year}{2018}),
+  \bibinfo{pages}{3534--3546}.
+\newblock
+
+
+\bibitem[Fauvel et~al\mbox{.}(2008)]%
+        {fauvel2008spectral}
+\bibfield{author}{\bibinfo{person}{Mathieu Fauvel},
+  \bibinfo{person}{J{\'o}n~Atli Benediktsson}, \bibinfo{person}{Jocelyn
+  Chanussot}, {and} \bibinfo{person}{Johannes~R. Sveinsson}.}
+  \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Spectral and Spatial Classification of
+  Hyperspectral Data Using {SVMs} and Morphological Profiles}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{46}, \bibinfo{number}{11} (\bibinfo{year}{2008}),
+  \bibinfo{pages}{3804--3814}.
+\newblock
+
+
+\bibitem[Fauvel et~al\mbox{.}(2013)]%
+        {fauvel2012advances}
+\bibfield{author}{\bibinfo{person}{Mathieu Fauvel}, \bibinfo{person}{Yuliya
+  Tarabalka}, \bibinfo{person}{J{\'o}n~Atli Benediktsson},
+  \bibinfo{person}{Jocelyn Chanussot}, {and} \bibinfo{person}{James~C.
+  Tilton}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Advances in Spectral-Spatial Classification of
+  Hyperspectral Images}.
+\newblock \bibinfo{journal}{\emph{Proc. IEEE}} \bibinfo{volume}{101},
+  \bibinfo{number}{3} (\bibinfo{year}{2013}), \bibinfo{pages}{652--675}.
+\newblock
+
+
+\bibitem[Gao et~al\mbox{.}(2019)]%
+        {gao2019global}
+\bibfield{author}{\bibinfo{person}{Zilin Gao}, \bibinfo{person}{Jiangtao Xie},
+  \bibinfo{person}{Qilong Wang}, {and} \bibinfo{person}{Peihua Li}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Global Second-Order Pooling Convolutional
+  Networks}. In \bibinfo{booktitle}{\emph{Proceedings of the IEEE/CVF
+  Conference on Computer Vision and Pattern Recognition (CVPR)}}.
+  \bibinfo{pages}{3024--3033}.
+\newblock
+
+
+\bibitem[Ghamisi et~al\mbox{.}(2017)]%
+        {ghamisi2017advanced}
+\bibfield{author}{\bibinfo{person}{Pedram Ghamisi}, \bibinfo{person}{Javier
+  Plaza}, \bibinfo{person}{Yushi Chen}, \bibinfo{person}{Jun Li}, {and}
+  \bibinfo{person}{Antonio~J. Plaza}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Advanced Spectral Classifiers for Hyperspectral
+  Images: A Review}.
+\newblock \bibinfo{journal}{\emph{IEEE Geoscience and Remote Sensing Magazine}}
+  \bibinfo{volume}{5}, \bibinfo{number}{1} (\bibinfo{year}{2017}),
+  \bibinfo{pages}{8--32}.
+\newblock
+
+
+\bibitem[Green et~al\mbox{.}(1998)]%
+        {green1998imaging}
+\bibfield{author}{\bibinfo{person}{Robert~O. Green},
+  \bibinfo{person}{Michael~L. Eastwood}, \bibinfo{person}{Charles~M. Sarture},
+  \bibinfo{person}{Thomas~G. Chrien}, \bibinfo{person}{Mikael Aronsson},
+  \bibinfo{person}{Bruce~J. Chippendale}, \bibinfo{person}{Jessica~A. Faust},
+  \bibinfo{person}{Betina~E. Pavri}, \bibinfo{person}{Christopher~J. Chovit},
+  \bibinfo{person}{Manuel Solis}, \bibinfo{person}{Martin~R. Olah}, {and}
+  \bibinfo{person}{Orlesa Williams}.} \bibinfo{year}{1998}\natexlab{}.
+\newblock \showarticletitle{Imaging Spectroscopy and the Airborne
+  Visible/Infrared Imaging Spectrometer ({AVIRIS})}.
+\newblock \bibinfo{journal}{\emph{Remote Sensing of Environment}}
+  \bibinfo{volume}{65}, \bibinfo{number}{3} (\bibinfo{year}{1998}),
+  \bibinfo{pages}{227--248}.
+\newblock
+
+
+\bibitem[Gu and Dao(2023)]%
+        {gu2023mamba}
+\bibfield{author}{\bibinfo{person}{Albert Gu} {and} \bibinfo{person}{Tri Dao}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Mamba: Linear-Time Sequence Modeling with Selective
+  State Spaces}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2312.00752}}
+  (\bibinfo{year}{2023}).
+\newblock
+
+
+\bibitem[Guo et~al\mbox{.}(2022)]%
+        {guo2022feature}
+\bibfield{author}{\bibinfo{person}{Wenhui Guo}, \bibinfo{person}{Hailiang Ye},
+  {and} \bibinfo{person}{Feilong Cao}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Feature-Grouped Network With Spectral--Spatial
+  Connected Attention for Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}}  \bibinfo{volume}{60} (\bibinfo{year}{2022}),
+  \bibinfo{pages}{1--13}.
+\newblock
+
+
+\bibitem[Hang et~al\mbox{.}(2021)]%
+        {hang2021hyperspectral}
+\bibfield{author}{\bibinfo{person}{Renlong Hang}, \bibinfo{person}{Zhu Li},
+  \bibinfo{person}{Qingshan Liu}, \bibinfo{person}{Pedram Ghamisi}, {and}
+  \bibinfo{person}{Shuvra~S. Bhattacharyya}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Hyperspectral Image Classification With
+  Attention-Aided {CNNs}}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{59}, \bibinfo{number}{3} (\bibinfo{year}{2021}),
+  \bibinfo{pages}{2281--2293}.
+\newblock
+
+
+\bibitem[Haut et~al\mbox{.}(2022)]%
+        {haut2021generative}
+\bibfield{author}{\bibinfo{person}{Juan~M. Haut}, \bibinfo{person}{Mercedes~E.
+  Paoletti}, \bibinfo{person}{Javier Plaza}, \bibinfo{person}{Antonio Plaza},
+  {and} \bibinfo{person}{Jun Li}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Generative Adversarial Minority Oversampling for
+  Spectral--Spatial Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}}  \bibinfo{volume}{60} (\bibinfo{year}{2022}),
+  \bibinfo{pages}{1--12}.
+\newblock
+
+
+\bibitem[He et~al\mbox{.}(2016)]%
+        {he2016deep}
+\bibfield{author}{\bibinfo{person}{Kaiming He}, \bibinfo{person}{Xiangyu
+  Zhang}, \bibinfo{person}{Shaoqing Ren}, {and} \bibinfo{person}{Jian Sun}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Deep Residual Learning for Image Recognition}.
+\newblock  (\bibinfo{year}{2016}), \bibinfo{pages}{770--778}.
+\newblock
+
+
+\bibitem[He et~al\mbox{.}(2018)]%
+        {he2018multi}
+\bibfield{author}{\bibinfo{person}{Mingyi He}, \bibinfo{person}{Bo Li}, {and}
+  \bibinfo{person}{Huahui Chen}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Multi-scale 3D deep convolutional neural network
+  for hyperspectral image classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{56}, \bibinfo{number}{9} (\bibinfo{year}{2018}),
+  \bibinfo{pages}{5262--5273}.
+\newblock
+
+
+\bibitem[He et~al\mbox{.}(2019)]%
+        {he2019feature}
+\bibfield{author}{\bibinfo{person}{Na He}, \bibinfo{person}{Mercedes~E.
+  Paoletti}, \bibinfo{person}{Juan~M. Haut}, \bibinfo{person}{Shutao Li},
+  \bibinfo{person}{Antonio Plaza}, {and} \bibinfo{person}{Javier Plaza}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Feature Extraction With Multiscale Covariance Maps
+  for Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{57}, \bibinfo{number}{2} (\bibinfo{year}{2019}),
+  \bibinfo{pages}{755--769}.
+\newblock
+
+
+\bibitem[He et~al\mbox{.}(2021)]%
+        {he2021spatial}
+\bibfield{author}{\bibinfo{person}{Xixi He}, \bibinfo{person}{Yushi Chen},
+  {and} \bibinfo{person}{Zhouhan Lin}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Spatial-Spectral Transformer for Hyperspectral
+  Image Classification}.
+\newblock \bibinfo{journal}{\emph{Remote Sensing}} \bibinfo{volume}{13},
+  \bibinfo{number}{3} (\bibinfo{year}{2021}), \bibinfo{pages}{498}.
+\newblock
+
+
+\bibitem[Hong et~al\mbox{.}(2022)]%
+        {hong2021spectralformer}
+\bibfield{author}{\bibinfo{person}{Danfeng Hong}, \bibinfo{person}{Zheng Han},
+  \bibinfo{person}{Jing Yao}, \bibinfo{person}{Lianru Gao},
+  \bibinfo{person}{Bing Zhang}, \bibinfo{person}{Antonio Plaza}, {and}
+  \bibinfo{person}{Jocelyn Chanussot}.} \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{SpectralFormer: Rethinking Hyperspectral Image
+  Classification With Transformers}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}}  \bibinfo{volume}{60} (\bibinfo{year}{2022}),
+  \bibinfo{pages}{1--15}.
+\newblock
+
+
+\bibitem[Hu et~al\mbox{.}(2018)]%
+        {hu2018squeeze}
+\bibfield{author}{\bibinfo{person}{Jie Hu}, \bibinfo{person}{Li Shen}, {and}
+  \bibinfo{person}{Gang Sun}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Squeeze-and-Excitation Networks}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the IEEE Conference on Computer
+  Vision and Pattern Recognition (CVPR)}}. \bibinfo{pages}{7132--7141}.
+\newblock
+
+
+\bibitem[Hu et~al\mbox{.}(2015)]%
+        {hu2015deep}
+\bibfield{author}{\bibinfo{person}{Wei Hu}, \bibinfo{person}{Yangyu Huang},
+  \bibinfo{person}{Li Wei}, \bibinfo{person}{Fan Zhang}, {and}
+  \bibinfo{person}{Hengchao Li}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Deep Convolutional Neural Networks for
+  Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{Journal of Sensors}}  \bibinfo{volume}{2015}
+  (\bibinfo{year}{2015}), \bibinfo{pages}{1--12}.
+\newblock
+
+
+\bibitem[Khan et~al\mbox{.}(2025)]%
+        {khan2025hyperrope}
+\bibfield{author}{\bibinfo{person}{Zirak Khan}, \bibinfo{person}{Noyon Dey},
+  \bibinfo{person}{Kavya Kathiravan}, \bibinfo{person}{Seung-Chul Yoon}, {and}
+  \bibinfo{person}{Suchendra Bhandarkar}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Spatial-Spectral Transformer With Patch-Local
+  Mixed-Axis 2D Rotary Position Embedding for Hyperspectral Image
+  Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Journal of Selected Topics in Applied
+  Earth Observations and Remote Sensing}}  \bibinfo{volume}{18}
+  (\bibinfo{year}{2025}), \bibinfo{pages}{4412--4425}.
+\newblock
+
+
+\bibitem[Li et~al\mbox{.}(2018)]%
+        {li2018towards}
+\bibfield{author}{\bibinfo{person}{Peihua Li}, \bibinfo{person}{Jiangtao Xie},
+  \bibinfo{person}{Qilong Wang}, {and} \bibinfo{person}{Zilin Gao}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Towards Faster Training of Global Covariance
+  Pooling Networks by Iterative Matrix Square Root Normalization}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the IEEE Conference on Computer
+  Vision and Pattern Recognition (CVPR)}}. \bibinfo{pages}{947--955}.
+\newblock
+
+
+\bibitem[Li et~al\mbox{.}(2020)]%
+        {li2020double}
+\bibfield{author}{\bibinfo{person}{Rui Li}, \bibinfo{person}{Siyuan Zheng},
+  \bibinfo{person}{Chenxi Duan}, \bibinfo{person}{Yongjun Zheng}, {and}
+  \bibinfo{person}{Lu Su}.} \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{Double-Branch Dual-Attention Mechanism Network for
+  Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{Remote Sensing}} \bibinfo{volume}{12},
+  \bibinfo{number}{8} (\bibinfo{year}{2020}), \bibinfo{pages}{1307}.
+\newblock
+
+
+\bibitem[Li et~al\mbox{.}(2024)]%
+        {li2024mambahsi}
+\bibfield{author}{\bibinfo{person}{Xiang Li}, \bibinfo{person}{Yanan Ding},
+  \bibinfo{person}{Wei Li}, \bibinfo{person}{Lingling Ran}, {and}
+  \bibinfo{person}{Meng Zhao}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{MambaHSI: Spatial-Spectral Mamba for Hyperspectral
+  Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Geoscience and Remote Sensing Letters}}
+  \bibinfo{volume}{21} (\bibinfo{year}{2024}), \bibinfo{pages}{1--5}.
+\newblock
+
+
+\bibitem[Lin et~al\mbox{.}(2017)]%
+        {lin2017focal}
+\bibfield{author}{\bibinfo{person}{Tsung-Yi Lin}, \bibinfo{person}{Priya
+  Goyal}, \bibinfo{person}{Ross Girshick}, \bibinfo{person}{Kaiming He}, {and}
+  \bibinfo{person}{Piotr Doll{\'a}r}.} \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Focal Loss for Dense Object Detection}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the IEEE International Conference on
+  Computer Vision (ICCV)}}. \bibinfo{pages}{2980--2988}.
+\newblock
+
+
+\bibitem[Lin et~al\mbox{.}(2015)]%
+        {lin2015bilinear}
+\bibfield{author}{\bibinfo{person}{Tsung-Yi Lin}, \bibinfo{person}{Aruni
+  RoyChowdhury}, {and} \bibinfo{person}{Subhransu Maji}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Bilinear {CNN} Models for Fine-Grained Visual
+  Recognition}. In \bibinfo{booktitle}{\emph{Proceedings of the IEEE
+  International Conference on Computer Vision (ICCV)}}.
+  \bibinfo{pages}{1449--1457}.
+\newblock
+
+
+\bibitem[Melgani and Bruzzone(2004)]%
+        {melgani2004classification}
+\bibfield{author}{\bibinfo{person}{Farid Melgani} {and}
+  \bibinfo{person}{Lorenzo Bruzzone}.} \bibinfo{year}{2004}\natexlab{}.
+\newblock \showarticletitle{Classification of hyperspectral remote sensing
+  images with support vector machines}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{42}, \bibinfo{number}{8} (\bibinfo{year}{2004}),
+  \bibinfo{pages}{1778--1790}.
+\newblock
+
+
+\bibitem[Mou et~al\mbox{.}(2022)]%
+        {mou2022deep}
+\bibfield{author}{\bibinfo{person}{Lichao Mou}, \bibinfo{person}{Sudipan Saha},
+  \bibinfo{person}{Yuansheng Hua}, \bibinfo{person}{Francesca Bovolo},
+  \bibinfo{person}{Lorenzo Bruzzone}, {and} \bibinfo{person}{Xiao~Xiang Zhu}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Deep Reinforcement Learning for Band Selection in
+  Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}}  \bibinfo{volume}{60} (\bibinfo{year}{2022}),
+  \bibinfo{pages}{1--14}.
+\newblock
+
+
+\bibitem[Paoletti et~al\mbox{.}(2018)]%
+        {paoletti2018capsule}
+\bibfield{author}{\bibinfo{person}{Mercedes~E. Paoletti},
+  \bibinfo{person}{Juan~M. Haut}, \bibinfo{person}{Javier Plaza}, {and}
+  \bibinfo{person}{Antonio Plaza}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Capsule Networks for Hyperspectral Image
+  Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{57}, \bibinfo{number}{4} (\bibinfo{year}{2018}),
+  \bibinfo{pages}{2114--2131}.
+\newblock
+
+
+\bibitem[Plaza et~al\mbox{.}(2009)]%
+        {plaza2009recent}
+\bibfield{author}{\bibinfo{person}{Antonio Plaza},
+  \bibinfo{person}{J{\'o}n~Atli Benediktsson}, \bibinfo{person}{Joseph~W.
+  Boardman}, \bibinfo{person}{Jason Brazile}, \bibinfo{person}{Lorenzo
+  Bruzzone}, \bibinfo{person}{Gustavo Camps-Valls}, \bibinfo{person}{Jocelyn
+  Chanussot}, \bibinfo{person}{Mathieu Fauvel}, \bibinfo{person}{Paolo Gamba},
+  \bibinfo{person}{Anthony Gualtieri}, \bibinfo{person}{Mattia Marconcini},
+  \bibinfo{person}{James~C. Tilton}, {and} \bibinfo{person}{Giovanna Trianni}.}
+  \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{Recent Advances in Techniques for Hyperspectral
+  Image Processing}.
+\newblock \bibinfo{journal}{\emph{Remote Sensing of Environment}}
+  \bibinfo{volume}{113} (\bibinfo{year}{2009}), \bibinfo{pages}{S110--S122}.
+\newblock
+
+
+\bibitem[Qing et~al\mbox{.}(2021)]%
+        {qing2021improved}
+\bibfield{author}{\bibinfo{person}{Yuhao Qing}, \bibinfo{person}{Wenyi Liu},
+  \bibinfo{person}{Liuyan Feng}, {and} \bibinfo{person}{Wanjia Gao}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Improved Transformer Net for Hyperspectral Image
+  Classification}.
+\newblock \bibinfo{journal}{\emph{Remote Sensing}} \bibinfo{volume}{13},
+  \bibinfo{number}{11} (\bibinfo{year}{2021}), \bibinfo{pages}{2216}.
+\newblock
+
+
+\bibitem[Roy et~al\mbox{.}(2023)]%
+        {roy2023morphformer}
+\bibfield{author}{\bibinfo{person}{Swalpa~Kumar Roy}, \bibinfo{person}{Ankur
+  Deria}, \bibinfo{person}{Chiranjibi Shah}, \bibinfo{person}{Juan~M. Haut},
+  \bibinfo{person}{Qian Du}, {and} \bibinfo{person}{Antonio Plaza}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Spectral--Spatial Morphological Attention
+  Transformer for Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}}  \bibinfo{volume}{61} (\bibinfo{year}{2023}),
+  \bibinfo{pages}{1--15}.
+\newblock
+
+
+\bibitem[Roy et~al\mbox{.}(2020a)]%
+        {roy2020hybridsn}
+\bibfield{author}{\bibinfo{person}{Swalpa~Kumar Roy}, \bibinfo{person}{Gopal
+  Krishna}, \bibinfo{person}{Shiv~Ram Dubey}, {and} \bibinfo{person}{Bidyut~B.
+  Chaudhuri}.} \bibinfo{year}{2020}\natexlab{a}.
+\newblock \showarticletitle{HybridSN: Exploring 3-D-2-D CNN Feature Hierarchy
+  for Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Geoscience and Remote Sensing Letters}}
+  \bibinfo{volume}{17}, \bibinfo{number}{2} (\bibinfo{year}{2020}),
+  \bibinfo{pages}{277--281}.
+\newblock
+
+
+\bibitem[Roy et~al\mbox{.}(2020b)]%
+        {roy2020attention}
+\bibfield{author}{\bibinfo{person}{Swalpa~Kumar Roy}, \bibinfo{person}{Somnath
+  Manna}, \bibinfo{person}{Tao Song}, {and} \bibinfo{person}{Lorenzo
+  Bruzzone}.} \bibinfo{year}{2020}\natexlab{b}.
+\newblock \showarticletitle{Attention-Based Adaptive Spectral-Spatial Kernel
+  ResNet for Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{59}, \bibinfo{number}{9} (\bibinfo{year}{2020}),
+  \bibinfo{pages}{7831--7843}.
+\newblock
+
+
+\bibitem[Sabour et~al\mbox{.}(2018)]%
+        {sabour2018matrix}
+\bibfield{author}{\bibinfo{person}{Sara Sabour}, \bibinfo{person}{Nicholas
+  Frosst}, {and} \bibinfo{person}{Geoffrey~E. Hinton}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Matrix Capsules with EM Routing}. In
+  \bibinfo{booktitle}{\emph{International Conference on Learning
+  Representations (ICLR)}}.
+\newblock
+
+
+\bibitem[Su et~al\mbox{.}(2023)]%
+        {su2023spectral}
+\bibfield{author}{\bibinfo{person}{Yi Su}, \bibinfo{person}{Xiaojun Li},
+  \bibinfo{person}{Junping Yao}, \bibinfo{person}{Chengrong Dong}, {and}
+  \bibinfo{person}{Yao Wang}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{A Spectral--Spatial Feature Rotation-Based Ensemble
+  Method for Imbalanced Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}}  \bibinfo{volume}{61} (\bibinfo{year}{2023}),
+  \bibinfo{pages}{1--15}.
+\newblock
+
+
+\bibitem[Sun et~al\mbox{.}(2019)]%
+        {sun2019spectral}
+\bibfield{author}{\bibinfo{person}{Heng Sun}, \bibinfo{person}{Xiangtao Zheng},
+  \bibinfo{person}{Xiaoqiang Lu}, {and} \bibinfo{person}{Shengyang Wu}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Spectral-Spatial Attention Network for
+  Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{58}, \bibinfo{number}{5} (\bibinfo{year}{2019}),
+  \bibinfo{pages}{3232--3245}.
+\newblock
+
+
+\bibitem[Sun et~al\mbox{.}(2022)]%
+        {sun2022spectral}
+\bibfield{author}{\bibinfo{person}{Le Sun}, \bibinfo{person}{Guangrui Zhao},
+  \bibinfo{person}{Yuhui Zheng}, {and} \bibinfo{person}{Zebin Wu}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Spectral-Spatial Feature Tokenization Transformer
+  for Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}}  \bibinfo{volume}{60} (\bibinfo{year}{2022}),
+  \bibinfo{pages}{1--14}.
+\newblock
+
+
+\bibitem[Wang et~al\mbox{.}(2023)]%
+        {wang2023cscanet}
+\bibfield{author}{\bibinfo{person}{Lu Wang}, \bibinfo{person}{Shaohui Mei},
+  \bibinfo{person}{Qian Du}, {and} \bibinfo{person}{Chen Chen}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{{CSCANet}: Class-Specific Cross-Attention Network
+  for Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}}  \bibinfo{volume}{61} (\bibinfo{year}{2023}),
+  \bibinfo{pages}{1--15}.
+\newblock
+
+
+\bibitem[Wang et~al\mbox{.}(2020)]%
+        {wang2020eca}
+\bibfield{author}{\bibinfo{person}{Qilong Wang}, \bibinfo{person}{Banggu Wu},
+  \bibinfo{person}{Pengfei Zhu}, \bibinfo{person}{Peihua Li},
+  \bibinfo{person}{Wangmeng Zuo}, {and} \bibinfo{person}{Qinghua Hu}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{ECA-Net: Efficient Channel Attention for Deep
+  Convolutional Neural Networks}. In \bibinfo{booktitle}{\emph{Proceedings of
+  the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}}.
+  \bibinfo{pages}{11534--11542}.
+\newblock
+
+
+\bibitem[Wang et~al\mbox{.}(2021)]%
+        {wang2021deep}
+\bibfield{author}{\bibinfo{person}{Xinyu Wang}, \bibinfo{person}{Kun Tan},
+  \bibinfo{person}{Peijun Du}, {and} \bibinfo{person}{Yuting Chen}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Deep Matrix Capsules With EM Routing for
+  Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{59}, \bibinfo{number}{12} (\bibinfo{year}{2021}),
+  \bibinfo{pages}{10368--10382}.
+\newblock
+
+
+\bibitem[Woo et~al\mbox{.}(2018)]%
+        {woo2018cbam}
+\bibfield{author}{\bibinfo{person}{Sanghyun Woo}, \bibinfo{person}{Jongchan
+  Park}, \bibinfo{person}{Joon-Young Lee}, {and} \bibinfo{person}{In~So
+  Kweon}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{CBAM}: Convolutional Block Attention Module}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the European Conference on Computer
+  Vision (ECCV)}}. \bibinfo{pages}{3--19}.
+\newblock
+
+
+\bibitem[Xue et~al\mbox{.}(2021)]%
+        {xue2021attention}
+\bibfield{author}{\bibinfo{person}{Zhaohui Xue}, \bibinfo{person}{Mengxue
+  Zhang}, \bibinfo{person}{Yifeng Liu}, {and} \bibinfo{person}{Peijun Du}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Attention-Based Second-Order Pooling Network for
+  Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{59}, \bibinfo{number}{11} (\bibinfo{year}{2021}),
+  \bibinfo{pages}{9600--9615}.
+\newblock
+
+
+\bibitem[Yang et~al\mbox{.}(2022)]%
+        {yang2022hyperspectral}
+\bibfield{author}{\bibinfo{person}{Xiaofei Yang}, \bibinfo{person}{Weijia Cao},
+  \bibinfo{person}{Yao Lu}, {and} \bibinfo{person}{Yicong Zhou}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Hyperspectral Image Transformer Classification
+  Networks}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}}  \bibinfo{volume}{60} (\bibinfo{year}{2022}),
+  \bibinfo{pages}{1--15}.
+\newblock
+
+
+\bibitem[Zhang et~al\mbox{.}(2018)]%
+        {zhang2018diverse}
+\bibfield{author}{\bibinfo{person}{Mengmeng Zhang}, \bibinfo{person}{Wei Li},
+  {and} \bibinfo{person}{Qian Du}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Diverse Region-Based {CNN} for Hyperspectral Image
+  Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Image Processing}}
+  \bibinfo{volume}{27}, \bibinfo{number}{6} (\bibinfo{year}{2018}),
+  \bibinfo{pages}{2623--2634}.
+\newblock
+
+
+\bibitem[Zhao and Du(2016)]%
+        {zhao2016spectral}
+\bibfield{author}{\bibinfo{person}{Wenzhi Zhao} {and} \bibinfo{person}{Shihong
+  Du}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Spectral--Spatial Feature Extraction for
+  Hyperspectral Image Classification: A Dimension Reduction and Deep Learning
+  Approach}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{54}, \bibinfo{number}{8} (\bibinfo{year}{2016}),
+  \bibinfo{pages}{4544--4554}.
+\newblock
+
+
+\bibitem[Zheng et~al\mbox{.}(2021)]%
+        {zheng2021hyperspectral}
+\bibfield{author}{\bibinfo{person}{Jianwei Zheng}, \bibinfo{person}{Yuchao
+  Feng}, \bibinfo{person}{Cong Bai}, {and} \bibinfo{person}{Jinglin Zhang}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Hyperspectral Image Classification Using Mixed
+  Convolutions and Covariance Pooling}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{59}, \bibinfo{number}{1} (\bibinfo{year}{2021}),
+  \bibinfo{pages}{522--534}.
+\newblock
+
+
+\bibitem[Zhong et~al\mbox{.}(2017)]%
+        {zhong2017spectral}
+\bibfield{author}{\bibinfo{person}{Zilong Zhong}, \bibinfo{person}{Jonathan
+  Li}, \bibinfo{person}{Zhiming Luo}, {and} \bibinfo{person}{Michael Chapman}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Spectral-Spatial Residual Network for Hyperspectral
+  Image Classification: A 3-D Deep Learning Framework}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{56}, \bibinfo{number}{2} (\bibinfo{year}{2017}),
+  \bibinfo{pages}{847--858}.
+\newblock
+
+
+\bibitem[Zhu et~al\mbox{.}(2021)]%
+        {zhu2021residual}
+\bibfield{author}{\bibinfo{person}{Minghao Zhu}, \bibinfo{person}{Licheng
+  Jiao}, \bibinfo{person}{Fang Liu}, \bibinfo{person}{Shuyuan Yang}, {and}
+  \bibinfo{person}{Jianing Wang}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Residual Spectral--Spatial Attention Network for
+  Hyperspectral Image Classification}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Geoscience and Remote
+  Sensing}} \bibinfo{volume}{59}, \bibinfo{number}{1} (\bibinfo{year}{2021}),
+  \bibinfo{pages}{449--462}.
+\newblock
+
+
+\end{thebibliography}

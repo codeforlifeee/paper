@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.pt
+!checkpoints/*.pt
+net_sgscf_best.pt
+data/*.mat
+.ipynb_checkpoints/
