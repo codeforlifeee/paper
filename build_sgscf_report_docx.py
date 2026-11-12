@@ -1436,7 +1436,7 @@ def write_report(R, D):
     cell_lines(L, [
         ('Under the Guidance of:', True, 11.5, 4),
         ('Dr. R.R. Janghel', True, 10.5, 2),
-        ('Associate Professor (Supervisor)', False, 10, 2),
+        ('Associate Professor', False, 10, 2),
         ('Dept. of Information Technology', False, 9.5, 2),
         ('National Institute of Technology, Raipur', False, 9.5, 6),
         ('Sushil Janardhan', True, 10.5, 2),
@@ -1449,7 +1449,7 @@ def write_report(R, D):
         ('1. Tejas Surya (Roll No. 23118098)', False, 10, 3),
         ('2. B. Vyshnavi (Roll No. 23118021)', False, 10, 3),
         ('3. Valluri Lahitha (Roll No. 23118106)', False, 10, 8),
-        ('B.Tech Seventh Semester, Oct.-2026', True, 10.5, 2),
+        ('B.Tech Seventh Semester, Nov.-2026', True, 10.5, 2),
         ('National Institute of Technology, Raipur', True, 10.5, 2),
     ], WD_ALIGN_PARAGRAPH.LEFT)
 
