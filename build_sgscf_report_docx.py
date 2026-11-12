@@ -1405,18 +1405,18 @@ def write_report(R, D):
     d = R.doc
 
     # ================================================================== COVER
-    R.para('National Institute of Technology Raipur', 'center', 18, True, before=16, after=6)
-    R.para('Department of Information Technology', 'center', 14, after=12)
+    R.para('National Institute of Technology Raipur', 'center', 18, True, before=12, after=4)
+    R.para('Department of Information Technology', 'center', 14, after=10)
     p = d.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p.paragraph_format.space_after = Pt(14)
-    p.add_run().add_picture(LOGO, width=Inches(1.7))
+    p.paragraph_format.space_after = Pt(12)
+    p.add_run().add_picture(LOGO, width=Inches(2.25))
     R.para('Project Report', 'center', 15, after=2)
-    R.para('on', 'center', 14, after=8)
+    R.para('on', 'center', 14, after=6)
     tp = R.para('SGSCF-Net: Spectral-Guided Spatial', 'center', 17, True, after=0, line=1.3, color=NAVY)
     for ln in ['Cross-Attention Fusion Network for', 'Hyperspectral Image Classification']:
         tp.add_run().add_break(); r = tp.add_run(ln); r.font.name = FONT; r.font.size = Pt(17); r.bold = True
         r.font.color.rgb = NAVY
-    tp.paragraph_format.space_after = Pt(22)
+    tp.paragraph_format.space_after = Pt(18)
     t = d.add_table(rows=1, cols=2); t.alignment = WD_TABLE_ALIGNMENT.CENTER; t.autofit = False
     table_borders(t); fix_table_width(t, [3.2, 3.07])
     L, Rr = t.rows[0].cells
@@ -1445,10 +1445,10 @@ def write_report(R, D):
         ('National Institute of Technology, Raipur', False, 9.5, 2),
     ], WD_ALIGN_PARAGRAPH.LEFT)
     cell_lines(Rr, [
-        ('Presented By:', True, 11.5, 4),
+        ('Submitted by:', True, 11.5, 4),
         ('1. Tejas Surya (Roll No. 23118098)', False, 10, 3),
-        ('2. Vyshnavi (Roll No. 23118098)', False, 10, 3),
-        ('3. Valluri Lahitha (Roll No. 23118098)', False, 10, 8),
+        ('2. B. Vyshnavi (Roll No. 23118021)', False, 10, 3),
+        ('3. Valluri Lahitha (Roll No. 23118106)', False, 10, 8),
         ('B.Tech Seventh Semester, Oct.-2026', True, 10.5, 2),
         ('National Institute of Technology, Raipur', True, 10.5, 2),
     ], WD_ALIGN_PARAGRAPH.LEFT)
@@ -2647,7 +2647,7 @@ def main():
     for bad in ['[?]', 'TODO', 'lorem', 'XXX']:
         assert bad not in text, bad
     R2.doc.core_properties.title = 'SGSCF-Net: Spectral-Guided Spatial Cross-Attention Fusion Network for Hyperspectral Image Classification'
-    R2.doc.core_properties.author = 'Tejas Surya; Vyshnavi; Valluri Lahitha'
+    R2.doc.core_properties.author = 'Tejas Surya; B. Vyshnavi; Valluri Lahitha'
     R2.doc.save(OUT_DOCX)
     print(f'      cited {len(R2.cite_order)} of {len(bib)} bib entries; '
           f'{R2.n_tab} tables, {R2.n_fig} figures; saved {OUT_DOCX}')
