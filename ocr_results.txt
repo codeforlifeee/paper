@@ -1,0 +1,306 @@
+=== SLIDE 6 OCR ===
+[0.85] Imaging Techniques Comparison
+[1.00] Feature
+[1.00] RGB Imaging
+[0.92] Multispectral (MSI)
+[0.88] Hyperspectral (HSI)
+[0.88] Number of Bands
+[0.65] 3 (Red, Green; Blue)
+[0.97] 4 to 20 discrete bands
+[0.74] 100 to 300+ contiguous bands
+[0.82] Spectral Resolution
+[1.00] Broad (~100 nm)
+[0.62] Medium (~30-50 nm)
+[0.98] High (~1-10 nm)
+[0.83] Spatial Detail
+[1.00] High
+[1.00] High
+[0.98] Medium to High
+[0.94] Data Complexity
+[0.64] Low (2D array)
+[0.75] Moderate (3D sparse)
+[0.92] Extremely High (3D dense)
+[0.89] Primary Use Case
+[0.77] Visual photography
+[0.80] Broad vegetation indices
+[0.95] Precision agriculture, mineralogy
+[1.00] RGB
+[0.87] MSI
+[0.83] HSL
+[1.00] Very
+[1.00] Very
+
+========================================
+
+=== SLIDE 7 OCR ===
+[0.89] Applications of HSI:
+[0.48] Fopd
+[1.00] Industry
+[0.98] Medical
+[0.97] Environmental
+[0.25] Dlagnosis
+[1.00] Monitoring
+[0.01] L
+[0.96] Hyperspectral
+[0.89] Imaging
+[0.84] Recyclinp
+[0.67] Precision
+[0.67] Industry
+[1.00] Agriculture
+[0.22] h
+[0.55] Pharmaceuticall
+[1.00] Industry
+
+========================================
+
+=== SLIDE 8 OCR ===
+[0.73] Datasets
+[1.00] Ground Truth Specification
+[1.00] Indian
+[0.67] Pavia
+[1.00] Salinas
+[1.00] Pines (IN)
+[1.00] University
+[1.00] Scene
+[0.77] Sensor
+[1.00] AVIRIS
+[1.00] ROSIS
+[1.00] AVIRIS
+[1.00] Resolution
+[0.99] 20 m/pixel
+[0.92] 1.3 m/pixel
+[0.85] 3.7 m/pixel
+[0.54] K 
+[0.07] %
+[0.55] Size
+[0.67] 145 x 145
+[0.71] 610 x 340
+[0.44] 512 * 217
+[0.84] Y
+[0.97] Bands
+[0.99] 200 (filtered)
+[0.92] 103 channels
+[0.91] 204 (filtered)
+[1.00] Classes
+[1.00] 16
+[0.96] 9
+[1.00] 16
+[0.82] Labeled Samples
+[0.54] 10,249
+[1.00] 42,776
+[0.56] 54,129
+[0.10] 0
+
+========================================
+
+=== SLIDE 9 OCR ===
+[0.64] HSI Feature Extraction Workflow
+[1.00] Data Acquisition
+[1.00] 2
+[1.00] Data Processing
+[1.00] 3
+[0.79] Feature Extraction
+[0.68] 4
+[0.86] Model Training
+[1.00] 5
+[1.00] Optimization
+[1.00] Training Loss
+[0.96] Validation Loss
+[0.98] PCA &
+[1.00] Calibration
+[1.00] Noise removal
+[0.68] Train on labeled data
+[0.91] Raw AVIRIS/ROSIS
+[0.90] Radiometric & atmospheric
+[0.87] Spatial & Spectral Analysis
+[0.96] Fine-Tuning &
+[1.00] Sensors
+[1.00] correction
+[1.00] Deep Learning
+[1.00] Learn discriminative
+[1.00] Loss
+[1.00] Adjustment
+[0.91] features
+[1.00] Dimensionality reduction
+[1.00] (PCA)
+[0.99] Optimize model parameters
+
+========================================
+
+=== SLIDE 10 OCR ===
+[0.69] Limitations of Deep Learning in HSI
+[1.00] 1
+[0.99] Hughes Phenomenon
+[0.57] 2
+[0.78] Memory Explosion
+[1.00] 3
+[0.99] Feature Entanglement
+[1.00] 4
+[1.00] Class Imbalance
+[1.00] 85M+
+[1.00] Minority
+[1.00] Classes
+[0.97] parameters
+[1.00] Class
+[0.00] 
+[1.00] GPU
+[1.00] Class 2
+[0.77] Class 3
+[1.00] Majority
+[0.62] Classes
+[1.00] Wavelength
+[1.00] Spatial
+[0.87] Spectral
+[1.00] Class N
+[0.93] Texture
+[1.00] Reflection
+[1.00] (rare)
+[1.00] High spectral dimensions
+[0.98] 3D-CNNs & Transformers
+[1.00] Spatial + Spectral mixing
+[0.76] Minority classes ignored
+[0.71] Low training samples
+[0.80] 85M+ parameters
+[0.85] Blurred signatures
+[0.97] Standard loss fails
+[0.98] Severe Overfitting
+[0.93] GPU memory exhaustion
+[0.84] Loss of pure spectral info
+[0.98] Poor generalization
+
+========================================
+
+=== SLIDE 14 OCR ===
+[0.92] Empirical Flaws
+[0.93] & Architectural Bottlenecks
+[0.82] Hardware Locks
+[1.00] 2
+[1.00] Static Tensor Crashes
+[1.00] 3
+[0.93] Unfiltered Noise
+[1.00] 4
+[0.97] Branch Redundancy
+[1.00] 5
+[0.99] Minority Collapse
+[0.74] Spatial
+[0.72] Branch
+[1.00] Oats
+[0.95] BATCH_SIZE = 64
+[0.59] 0.0%
+[0.58] CUDI
+[1.00] Spectral
+[0.84] Branch
+[1.00] Class
+[1.00] Class 2
+[0.91] Class 3
+[1.00] Oats
+[0.92] Models like MambaHSI
+[0.78] Architectures like CSCANet
+[0.98] Feeding raw bands into
+[0.80] Multi-stream networks
+[0.99] Standard models yield
+[0.92] fail on standard laptops
+[0.60] hardcode BATCH_SIZE-64,
+[0.99] dense filters allows
+[0.87] duplicate learning due to
+[0.89] 0.0% accuracy on rare classes
+[0.79] due to non-portable C++
+[0.71] crashing on validation sets:
+[0.75] atmospheric noise to corrupt
+[0.86] alack of cross-branch
+[0.82] like Oats under 0.2%
+[0.90] CUDA extensions:
+[0.93] feature maps:
+[0.82] constraints:
+[0.88] train ratios:
+
+========================================
+
+=== SLIDE 17 OCR ===
+[0.75] Proposed Architecture Workflow
+[1.00] Spatial Branch
+[0.90] Input Hyperspectral
+[1.00] Stage 1:
+[0.99] Stage 2:
+[0.53] Stage 3:
+[1.00] Stage 4:
+[0.94] Patch X
+[1.00] Capture spatial
+[1.00] CBSA Gate
+[0.60] SCFG Gate
+[0.99] Classification Head &
+[0.96] (HxWxC)
+[0.82] SBAM Noise Filtering
+[1.00] context and
+[0.69] texture
+[0.76] (Complementary
+[0.88] (Second-Order
+[1.00] Joint Spread-Focal Loss
+[0.76] Alpha Gating)
+[1.00] Covariance)
+[1.00] Class
+[1.00] SBAM
+[0.99] FC
+[0.70] Class 2
+[0.90] H
+[0.83] Spectral Branch
+[0.95] Class N
+[1.00] C =
+[0.89] PPT
+[0.94] W
+[0.92] Remove atmospheric
+[0.59] Capture spectral
+[0.88] Fuse complementary
+[0.93] Calibrate using
+[0.91] Robust classification
+[1.00] and sensor noise
+[1.00] signatures and
+[1.00] representations
+[0.86] spatial-channel
+[0.76] with joint spread-focal loss
+[0.99] band relationships
+[1.00] covariance
+
+========================================
+
+=== SLIDE 18 OCR ===
+[0.81] Phase-Wise Research Plan
+[0.99] Phase 1:
+[0.93] Preprocessing
+[1.00] Dataset
+[1.00] PCA
+[1.00] Spatial
+[1.00] Extraction
+[0.99] Reduction
+[0.92] Patch Gen
+[1.00] Phase 2:
+[1.00] Architecture
+[1.00] SBAM
+[0.99] CBSA
+[1.00] SCFG
+[1.00] Custom
+[1.00] Implementation
+[0.53] Dual-Stream
+[0.90] Covariance
+[1.00] Loss
+[1.00] Phase 3:
+[1.00] Sweeps
+[0.83] Patch Size
+[0.76] Batch Size
+[0.83] Data Scarcity
+[0.25] 3 0
+[1.00] Tuning
+[0.91] Opt:
+[1.00] Testing
+[1.00] Phase 4:
+[0.99] Validation
+[1.00] Baseline
+[0.99] Minority Class
+[1.00] Defense
+[1.00] Benchmarking
+[1.00] Analysis
+[0.02] F=7
+[1.00] Documentation
+
+========================================
+

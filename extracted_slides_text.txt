@@ -1,0 +1,551 @@
+=== PAGE 1 ===
+Spatial-Guided Spectral-Channel Fusion Network for Hyperspectral
+Remote Sensing Image Analysis 
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+ 
+Minor Project Progress Report Presentation September 2026
+Department of Information Technology
+           राष्ट्रीीय प्रौौद्योोगिकी संस्थाान, रायपुर (छ.ग.), भारत
+            National Institute of Technology, Raipur (Chhattisgarh), India
+             Department of Information Technology
+Under the Guidance of 
+Dr. R.R. Janghel
+Associate Professor (Supervisor)
+Dept. of Information Technology,
+National Institute of Technology, Raipur
+Presented By
+Tejas Surya       Roll No. 23118098
+B. Vyshnavi       Roll No. 23118021
+Valluri Lahitha Roll No. 23118106
+B.Tech Seventh Semester, Sept.-2026
+National Institute of Technology, Raipur
+
+=== PAGE 2 ===
+Outline
+» Introduction
+    » Literature Review
+» Datasets & Workflows
+    » Emprical Flaws Identified
+» Research Gaps Identified
+» Techniques Employed
+» Proposed Architecture & Research Plan 
+» Experimental Plan & Expected Outcomes 
+» References
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+1
+
+=== PAGE 3 ===
+Introduction - Remote Sensing
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+3 
+Remote Sensing: Acquiring data about targets
+from a distance without physical contact [1].
+Platforms: Utilizes sensors on satellites, aircraft,
+or drones [2].
+How It Works: 
+‣ Energy: The Sun or active emitters provide
+radiation. 
+‣ Interaction: Materials uniquely absorb, reflect, or
+transmit this energy. 
+‣ Detection: Sensors capture the backscattered or
+emitted signals. 
+‣ Processing: Algorithms classify and interpret the
+resulting images.
+Figure 1: Fundamental of Remote Sensing
+
+=== PAGE 4 ===
+Hyperspectral Imaging (HSI)
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+4 
+Definition: Captures electromagnetic energy across hundreds of narrow, contiguous spectral bands.
+Output: Forms a 3D data cube (X,Y, λ), containing spatial and spectral dimensions.
+Advantage: Provides a unique "spectral fingerprint" to identify visually identical materials. 
+Figure 2: HSI principles diagram (Image credit: Lincoln Laboratory Journal, 4)
+
+=== PAGE 5 ===
+Working Principles of HSI
+Interaction: Materials absorb and reflect specific wavelengths based on chemical composition. 
+Dispersion: Optical sensors and prisms split incoming light into discrete bands. 
+Data Cube Formation: Stacks 2D spatial images taken at distinct wavelengths into a single volume
+Hyperspectral Cube (Data cube or Hypercube): A 3D data structure where each pixel has a complete spectral
+signature across all bands [4].
+Structure: X & Y-axis: Spatial dimensions (image width & height). Z-axis: Spectral dimension (Bands/Channel).
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+ 5
+
+=== PAGE 6 ===
+Imaging Techniques Comparison 
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+ 5
+
+=== PAGE 7 ===
+Applications of HSI:
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026 
+      Information Technology 
+                         6
+
+=== PAGE 8 ===
+Datasets & Ground Truth Specification 
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026 
+      Information Technology 
+                         6
+
+=== PAGE 9 ===
+HSI Feature Extraction Workflow 
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026 
+      Information Technology 
+                         6
+
+=== PAGE 10 ===
+Limitations of Deep Learning in HSI 
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026 
+      Information Technology 
+                         6
+
+=== PAGE 11 ===
+Literature Review
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+8 
+Sr. No.
+Year
+Title
+Journal
+Method Employed
+Dataset
+Evaluation Metric
+Result
+Research Gaps
+1
+2018
+Spectral-Spatial
+Residual Network for
+Hyperspectral Image
+Classification: A 3-D
+Deep Learning
+Framework
+IEEE Transactions on
+Geoscience and
+Remote Sensing
+(TGRS)
+Spectral-Spatial
+Residual Network
+(SSRN) using
+consecutive 3D and 2D
+residual blocks
+Indian Pines, Pavia
+University, Kennedy
+Space Center
+Overall Accuracy
+(OA), Average
+Accuracy (AA), Kappa
+Coefficient (κ)
+Achieved significant
+OA improvements over
+traditional 2D CNNs
+1. Heavy reliance on deep 3D
+convolutions 
+causes 
+massive
+computational overhead.
+ 
+2. 
+Struggles 
+with 
+severe
+overfitting when trained on very
+small sample sizes (<1%).
+ 3. Does not use dynamic
+attention to filter atmospheric
+noise
+2
+2021
+Spectral-Spatial
+Attention Networks for
+Hyperspectral Image
+Classification
+IEEE Transactions on
+Geoscience and
+Remote Sensing
+(TGRS)
+Spectral-Spatial
+Attention Network
+(SSAN) utilizing RNNs
+and CNNs with
+attention modules
+Indian Pines, Pavia
+University, Salinas
+Overall Accuracy
+(OA), Average
+Accuracy (AA), Kappa
+Coefficient (κ)
+OA = 97.21% (IP),
+98.45% (PU). Superior
+to standard CNNs.
+1. Recurrent structures (RNNs)
+cause significant latency during
+inference.
+ 
+2. 
+Attention 
+mechanism
+processes spatial and spectral data
+sequentially, 
+missing 
+joint
+statistical correlations.
+ 3. Performance heavily degrades
+on minority classes
+3
+2021
+An Image is Worth
+16x16 Words:
+Transformers for Image
+Recognition at Scale
+International
+Conference on
+Learning
+Representations
+(ICLR)
+Vision Transformer
+(ViT) employing global
+self-attention over
+image patches
+ImageNet (adapted for
+HSI: Indian Pines,
+PaviaU, Salinas)
+Overall Accuracy
+(OA), Average
+Accuracy (AA), Kappa
+Coefficient (κ)
+High OA on large
+datasets, but poor on
+small HSI datasets.
+1. 
+Massive 
+footprint 
+(~85M
+parameters) 
+makes 
+edge
+deployment impossible.
+ 2. Lacks inductive bias (like
+convolutions), requiring massive
+amounts of data to converge.
+ 3. Extreme overfitting on HSI
+datasets with limited labeled
+pixels
+4
+2021
+Attention-Based
+Adaptive Spectral–
+Spatial Kernel ResNet
+for Hyperspectral
+Image Classification
+IEEE Transactions on
+Geoscience and
+Remote Sensing
+(TGRS)
+A2S2K-ResNet
+(Adaptive spectral-
+spatial kernels with
+attention-driven
+residual learning)
+Indian Pines, Pavia
+University, Salinas
+Overall Accuracy
+(OA), Average
+Accuracy (AA), Kappa
+Coefficient (κ)
+Improved boundary
+delineation and higher
+OA than standard
+ResNets
+1. Adaptive kernel generation
+creates 
+high 
+memory 
+spikes
+during training.
+ 2. Feature duplication occurs
+because 
+spatial 
+and 
+spectral
+kernels 
+lack 
+complementary
+gating.
+ 3. Standard cross-entropy loss
+causes 
+misclassification 
+of
+minority ground covers
+
+=== PAGE 12 ===
+Literature Review
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+7 
+Sr. No.
+Year
+Title
+Journal
+Method Employed
+Dataset
+Evaluation Metric
+Result
+Research Gaps
+5
+2021
+Deep Matrix Capsules
+with EM Routing for
+Hyperspectral Image
+Classification
+IEEE Transactions on
+Geoscience and
+Remote Sensing
+(TGRS)
+Deep Matrix Capsules
+employing
+Expectation-
+Maximization (EM)
+routing
+Indian Pines, Pavia
+University, Salinas
+Overall Accuracy
+(OA), Average
+Accuracy (AA),
+Kappa Coefficient (κ)
+Improved spatial-
+spectral hierarchical
+feature learning over
+vectors
+1. 
+EM 
+routing
+algorithm 
+is
+exceptionally 
+slow,
+rendering 
+real-time
+inference impossible.
+2
+High
+6
+2022
+SSFTT: Spectral–
+Spatial Feature
+Tokenization
+Transformer for
+Hyperspectral Image
+Classification
+IEEE Transactions on
+Geoscience and
+Remote Sensing
+(TGRS)
+Spectral-Spatial
+Feature Tokenization
+combined with
+Transformer Encoder
+Indian Pines, Pavia
+University, Salinas
+Overall Accuracy
+(OA), Average
+Accuracy (AA),
+Kappa Coefficient (κ)
+OA ~95.2% on
+standard splits, highly
+effective tokenization.
+1. 
+Tokenization
+process 
+consumes
+heavy GPU VRAM,
+limiting batch sizes.
+2. 
+Transformer
+encoder
+struggles
+7
+2024
+MambaHSI: Selective
+State Space Model for
+Hyperspectral Image
+Classification
+IEEE Transactions on
+Geoscience and
+Remote Sensing
+(TGRS)
+Selective State Space
+Model (SSM) using
+Mamba architecture
+blocks
+Indian Pines, Pavia
+University, Salinas
+Overall Accuracy
+(OA), Average
+Accuracy (AA),
+Kappa Coefficient (κ)
+Achieved competitive
+OA with theoretical
+linear scaling
+1. 
+Platform 
+lock:
+Requires non-portable
+C++ 
+CUDA
+extensions
+(mamba_ssm),
+making it unfit for
+8
+2025
+CSCANet: Cross-
+Spatial-Channel
+Attention Network for
+Hyperspectral Image
+Classification
+IEEE Transactions on
+Image Processing
+(TIP)
+Cross Attention
+Network explicitly
+fusing spatial and
+channel maps
+Indian Pines, Pavia
+University, Salinas
+Overall Accuracy
+(OA), Average
+Accuracy (AA),
+Kappa Coefficient (κ)
+High representation
+power through cross-
+attention
+1. 
+Hardcoded
+parameters 
+(e.g.,
+BATCH_SIZE=64)
+cause runtime crashes
+on irregular validation
+sets
+
+=== PAGE 13 ===
+Research Gaps
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+9 
+Most methods rely on predefined superpixels whose quality strongly affects performance.
+Existing approaches often focus on either spectral or spatial information and do not fully exploit their
+joint relationships.
+Many superpixel methods emphasize local neighborhood information while ignoring long-range
+dependencies and global scene structure.
+Superpixels may contain heterogeneous materials, causing feature distortion and reduced
+classification accuracy.
+Most supervised superpixel methods still require labeled samples and struggle in small-sample
+scenarios.
+
+=== PAGE 14 ===
+Empirical Flaws & Architectural Bottlenecks 
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+9
+
+=== PAGE 15 ===
+Research Objectives 
+Noise & Redundancy Reduction: Employs SRAM for adaptive band
+weighting to filter noise and CSBA using α-probabilities to prevent feature
+duplication.
+Calibration & Class Balance: Integrates SCFG with covariance outer
+products for dynamic channel calibration while utilizing a Joint Spread-
+Focal Loss to ensure accuracy on minority classes.
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+                       10 
+Primary Objective: 
+Construct SGSCF-Net, an ultra-lightweight (50K params, 9.1 MFLOPs)
+architecture outperforming SOTA baselines.
+
+=== PAGE 16 ===
+Techniques Employed in SGSCF-Net 
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+                       10 
+SRAM: Attenuates atmospheric
+noise using spectral-band attention
+before convolution.
+CSBA: Fuses complementary
+branches to learn non-overlapping
+spectral features.
+SCFG: Uses covariance-based
+calibration, eliminating dense FC
+layers and reducing parameters by
+85%.
+Spread-Focal Loss: Increases
+minority-class feature margins and
+prevents feature collapse.
+
+=== PAGE 17 ===
+Proposed Architecture Workflow
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+                       10
+
+=== PAGE 18 ===
+Phase-Wise Research Plan 
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+                       10
+
+=== PAGE 19 ===
+Experimental Plan & Sensitivity Sweeps 
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+                       10 
+Environment: PyTorch on NVIDIA Tesla-2 GPU, 200 epochs, Adam optimizer. 
+Patch Size Sweep: Planning to Test on 9x9, 11x11, 13x13, 15x15, 17x17. (
+maximized context without boundary noise). 
+Batch Size Sweep: Planning to Test on 32, 64, 128, 256. (Smaller batches
+provided superior regularization). 
+Data Scarcity Testing: Will be Evaluating resilience across extreme training
+ratios (0.2%, 1%, 5%, 10%). 
+Minority Validation: Rigorous tracking of ultra-minority classes (Oats: 20
+samples, Mowed-Grass: 28 samples).
+
+=== PAGE 20 ===
+References
+[1] Z. Zhong, J. Li, Z. Luo, and M. Chapman, "Spectral-Spatial Residual Network for Hyperspectral Image Classification:
+A 3-D Deep Learning Framework," IEEE Transactions on Geoscience and Remote Sensing, vol. 56, no. 1, pp. 347-358,
+2018.
+[2] L. Sun, G. Zhao, Y. Zheng, and Z. Wu, "Spectral–Spatial Attention Networks for Hyperspectral Image Classification,"
+IEEE Transactions on Geoscience and Remote Sensing, vol. 59, no. 5, pp. 3647-3660, 2021.
+[3] A. Dosovitskiy et al., "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale," in
+Proceedings of the International Conference on Learning Representations (ICLR), 2021.
+[4] S. K. Roy et al., "Attention-Based Adaptive Spectral–Spatial Kernel ResNet for Hyperspectral Image Classification,"
+IEEE Transactions on Geoscience and Remote Sensing, vol. 59, no. 9, pp. 7831-7843, 2021.
+[5] M. E. Paoletti et al., "Deep Matrix Capsules with EM Routing for Hyperspectral Image Classification," IEEE
+Transactions on Geoscience and Remote Sensing, vol. 59, no. 12, pp. 10452-10467, 2021.
+[6] L. Sun et al., "SSFTT: Spectral–Spatial Feature Tokenization Transformer for Hyperspectral Image Classification,"
+IEEE Transactions on Geoscience and Remote Sensing, vol. 60, pp. 1-14, 2022.
+[7] Y. Li et al., "MambaHSI: Selective State Space Model for Hyperspectral Image Classification," IEEE Transactions on
+Geoscience and Remote Sensing, vol. 62, pp. 1-15, 2024.
+[8] L. Wang et al., "CSCANet: Cross-Spatial-Channel Attention Network for Hyperspectral Image Classification," IEEE
+Transactions on Image Processing, 2025.
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+                       16
+
+=== PAGE 21 ===
+Thank You
+Ph.D. Progress Report Presentation 25ᵗʰ June 2026  
+                 Information Technology 
+                       18
+
