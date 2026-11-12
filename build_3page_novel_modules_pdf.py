@@ -77,7 +77,7 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
     )
     body_style = ParagraphStyle(
         'BodyTextCustom', parent=styles['Normal'],
-        fontName='Helvetica', fontSize=7.6, leading=10.3,
+        fontName='Helvetica', fontSize=7.5, leading=10.1,
         textColor=colors.HexColor("#1E293B")
     )
     bullet_style = ParagraphStyle(
@@ -86,23 +86,28 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
     )
     math_style = ParagraphStyle(
         'MathCustom', parent=styles['Normal'],
-        fontName='Helvetica', fontSize=7.4, leading=10.0,
+        fontName='Helvetica', fontSize=7.3, leading=9.8,
         textColor=colors.HexColor("#065F46"),
         leftIndent=8, firstLineIndent=-8
     )
     qa_q_style = ParagraphStyle(
         'QAQuestion', parent=styles['Normal'],
-        fontName='Helvetica-Bold', fontSize=7.5, leading=10.0,
+        fontName='Helvetica-Bold', fontSize=7.4, leading=9.8,
         textColor=colors.HexColor("#991B1B")
     )
     qa_a_style = ParagraphStyle(
         'QAAnswer', parent=styles['Normal'],
-        fontName='Helvetica', fontSize=7.5, leading=10.0,
+        fontName='Helvetica', fontSize=7.4, leading=9.8,
         textColor=colors.HexColor("#1E293B"), leftIndent=6
+    )
+    sota_style = ParagraphStyle(
+        'SotaContrast', parent=styles['Normal'],
+        fontName='Helvetica', fontSize=7.4, leading=9.8,
+        textColor=colors.HexColor("#854D0E"), leftIndent=6
     )
     utterance_style = ParagraphStyle(
         'UtteranceText', parent=styles['Normal'],
-        fontName='Helvetica', fontSize=7.5, leading=10.3,
+        fontName='Helvetica', fontSize=7.4, leading=10.0,
         textColor=colors.HexColor("#1E3A8A"), leftIndent=6
     )
 
@@ -120,14 +125,14 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
         return t
 
     def make_box(title, paragraphs, bg_color="#F8FAFC", border_color="#CBD5E1", title_color="#0F172A"):
-        header = Paragraph(f"<b>{title}</b>", ParagraphStyle('BoxH', fontName='Helvetica-Bold', fontSize=8, leading=10, textColor=colors.HexColor(title_color)))
+        header = Paragraph(f"<b>{title}</b>", ParagraphStyle('BoxH', fontName='Helvetica-Bold', fontSize=7.8, leading=9.8, textColor=colors.HexColor(title_color)))
         content = [header, Spacer(1, 1)] + paragraphs
         t = Table([[content]], colWidths=[usable_width])
         t.setStyle(TableStyle([
             ('BACKGROUND', (0,0), (-1,-1), colors.HexColor(bg_color)),
             ('BOX', (0,0), (-1,-1), 0.55, colors.HexColor(border_color)),
-            ('TOPPADDING', (0,0), (-1,-1), 2.5),
-            ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
+            ('TOPPADDING', (0,0), (-1,-1), 2.2),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 2.2),
             ('LEFTPADDING', (0,0), (-1,-1), 5),
             ('RIGHTPADDING', (0,0), (-1,-1), 5),
         ]))
@@ -149,12 +154,12 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
     # Figure
     sbam_img_path = os.path.join(fig_dir, "fig_sbam.png")
     if os.path.exists(sbam_img_path):
-        img_sbam = Image(sbam_img_path, width=300, height=163)
+        img_sbam = Image(sbam_img_path, width=290, height=158)
         img_sbam.hAlign = 'CENTER'
         story.append(img_sbam)
         story.append(Spacer(1, 2))
 
-    # Box 1: Problem & Motivation
+    # Box 1: Problem & Architectural Purpose
     box1_p = [
         Paragraph("• <b>Atmospheric Noise & Degradation:</b> Airborne hyperspectral sensors (AVIRIS/ROSIS) capture 100–200+ contiguous bands. Critical regions suffer from severe <b>atmospheric water vapor absorption</b> (bands 104–108 at 1.4 µm, bands 150–163 at 1.9 µm). If raw cubes enter 3D convolutions directly, noisy zero-transmission bands corrupt representations, propagating errors into deep layers.", bullet_style),
         Paragraph("• <b>Pre-Convolution Solution:</b> Unlike SENet or CBAM that operate strictly on deep latent feature maps, SBAM operates <b>directly on raw spectral bands before any convolution occurs</b>. It dynamically learns continuous soft attention weights per scene, shielding downstream representation learning.", bullet_style)
@@ -174,17 +179,20 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
     story.append(make_box("2. MATHEMATICAL FORMULATION & TENSOR TRANSFORMATIONS", box2_p, "#F0FDF4", "#86EFAC", "#166534"))
     story.append(Spacer(1, 2))
 
-    # Box 3: Viva Defense Shield
+    # Box 3: SOTA Contrast & Viva Defense Shield
     box3_p = [
+        Paragraph("• <b>What Was in Previous SOTA Models:</b> Existing models (e.g., SSRN, A2S2K-ResNet) either blindly process raw noisy bands through 3D convolutions, or apply channel attention late on deep intermediate layers after noise has already contaminated feature representations.", sota_style),
+        Paragraph("• <b>What We Did Better:</b> SBAM performs channel gating <b>upfront at the raw physical input</b>, learning soft continuous weights per scene that eliminate water-noise propagation before convolution with only 10,225 parameters.", sota_style),
+        Spacer(1, 1),
         Paragraph("<b>Examiner: Why not simply delete noisy water absorption bands manually during data preprocessing?</b>", qa_q_style),
-        Paragraph("<b>Winning Defense Answer:</b> Manual band removal relies on rigid, hardcoded indices (e.g. deleting 20 bands in AVIRIS). However, atmospheric attenuation, sensor drift, and noise vary continuously across different flight lines and times. SBAM dynamically learns continuous, data-driven attention weights per scene, preserving useful residual spectral signal while filtering corrupted channels adaptively with only 10,225 parameters.", qa_a_style)
+        Paragraph("<b>Winning Defense Answer:</b> Manual band removal uses rigid, hardcoded indices (e.g. deleting 20 bands in AVIRIS). However, atmospheric attenuation and sensor noise vary across flight lines and times. SBAM dynamically learns continuous, data-driven attention weights per scene, preserving useful residual spectral signals adaptively.", qa_a_style)
     ]
-    story.append(make_box("3. VIVA DEFENSE SHIELD & NOVELTY HIGHLIGHTS", box3_p, "#FEF2F2", "#FECACA", "#991B1B"))
+    story.append(make_box("3. SOTA BENCHMARK CONTRAST & VIVA DEFENSE SHIELD", box3_p, "#FEF2F2", "#FECACA", "#991B1B"))
     story.append(Spacer(1, 2))
 
     # Box 4: What to Utter in PPT
     box4_sbam = [
-        Paragraph("• <b>Exact Words to Speak:</b> <i>\"Respected committee, let me explain <b>SBAM</b> in simple terms: Satellite hyperspectral images contain noisy atmospheric water absorption bands. Standard models pass all bands straight into 3D convolutions, which spreads this noise into deep layers. What SBAM does is very simple: <b>BEFORE any convolution starts</b>, it pools the spatial patch into a per-band energy vector, runs it through an 8× reduction bottleneck, and produces an attention weight between 0 and 1 for each band. Corrupted bands get near-zero weights and are suppressed upfront through simple element-wise multiplication. It cleans the data at the physical input layer using only 10,225 parameters (3.3% of the network).\"</i>", utterance_style)
+        Paragraph("• <b>Exact Words to Speak:</b> <i>\"Respected committee, let me explain <b>SBAM</b> in simple terms: Satellite hyperspectral images contain noisy atmospheric water absorption bands. <b>In previous SOTA models</b>, all bands were passed blindly into 3D convolutions, which spread noise into deep layers. <b>What we did better</b> is that BEFORE any convolution starts, SBAM pools the spatial patch into a per-band energy vector, runs it through an 8× reduction bottleneck, and produces an attention weight between 0 and 1. Corrupted bands get near-zero weights and are suppressed upfront through element-wise multiplication. It cleans the data right at the physical input layer using only 10,225 parameters (3.3% of the network).\"</i>", utterance_style)
     ]
     story.append(make_box("4. WHAT TO UTTER IN YOUR PPT (Simple Words Spoken Script)", box4_sbam, "#EFF6FF", "#93C5FD", "#1D4ED8"))
     story.append(PageBreak())
@@ -202,7 +210,7 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
     # Figure
     cbsa_img_path = os.path.join(fig_dir, "fig_cbsa.png")
     if os.path.exists(cbsa_img_path):
-        img_cbsa = Image(cbsa_img_path, width=300, height=163)
+        img_cbsa = Image(cbsa_img_path, width=290, height=158)
         img_cbsa.hAlign = 'CENTER'
         story.append(img_cbsa)
         story.append(Spacer(1, 2))
@@ -231,17 +239,20 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
     story.append(make_box("2. MATHEMATICAL FORMULATION & TENSOR TRANSFORMATIONS", box2_cbsa, "#F0FDF4", "#86EFAC", "#166534"))
     story.append(Spacer(1, 2))
 
-    # Box 3: Viva Defense Shield
+    # Box 3: SOTA Contrast & Viva Defense Shield
     box3_cbsa = [
+        Paragraph("• <b>What Was in Previous SOTA Models:</b> Prior dual-branch architectures (like Double-Branch CNN and CSCANet) fused parallel branches with simple element-wise addition or unconstrained independent gates, allowing both branches to learn identical, redundant representations.", sota_style),
+        Paragraph("• <b>What We Did Better:</b> CBSA enforces the strict partition of unity $\\alpha + (1-\\alpha) \\equiv 1$. This mathematically prevents feature overlap and forces orthogonal specialization between pure spectral transitions and spatial context using only 80 parameters.", sota_style),
+        Spacer(1, 1),
         Paragraph("<b>Examiner: Why enforce α and (1 - α) instead of learning two independent attention gates α and β?</b>", qa_q_style),
-        Paragraph("<b>Winning Defense Answer:</b> If α and β are learned independently, both can saturate to 1, causing high feature redundancy and doubling the feature magnitude. Enforcing the partition of unity α + (1 - α) = 1 mathematically guarantees that the branches compete and specialize into orthogonal representations without duplicating features, using only 80 parameters.", qa_a_style)
+        Paragraph("<b>Winning Defense Answer:</b> If α and β are learned independently, both can saturate to 1, causing high feature redundancy and doubling the feature magnitude. Enforcing α + (1 - α) = 1 mathematically guarantees that the branches compete and specialize into non-overlapping representations without duplicating parameters.", qa_a_style)
     ]
-    story.append(make_box("3. VIVA DEFENSE SHIELD & NOVELTY HIGHLIGHTS", box3_cbsa, "#FEF2F2", "#FECACA", "#991B1B"))
+    story.append(make_box("3. SOTA BENCHMARK CONTRAST & VIVA DEFENSE SHIELD", box3_cbsa, "#FEF2F2", "#FECACA", "#991B1B"))
     story.append(Spacer(1, 2))
 
     # Box 4: What to Utter in PPT
     box4_cbsa = [
-        Paragraph("• <b>Exact Words to Speak:</b> <i>\"Moving to our second module, <b>CBSA</b> in simple terms: Existing dual-branch networks use narrow and wide 3D filters, but combine them with simple addition, which causes both branches to duplicate the exact same features. In CBSA, Branch a (1×1×7) captures pure spectral absorption lines, while Branch b (3×3×7) captures spatial context. Here is our key mathematical punchline: we compute a learned gate α, and fuse them as <b>α · Branch a + (1 - α) · Branch b</b>. Because α + (1 - α) always equals 1, the two branches are mathematically forced to specialize: when spectral fidelity is needed, α goes to 1; when spatial context dominates, (1 - α) takes over. Branch redundancy is mathematically zero, costing only 80 parameters.\"</i>", utterance_style)
+        Paragraph("• <b>Exact Words to Speak:</b> <i>\"Moving to our second module, <b>CBSA</b> in simple terms: <b>Previous SOTA dual-branch models</b> combined narrow and wide 3D branches with simple addition, which caused both branches to learn the exact same duplicate features. <b>What we did better</b> is decoupling them into Branch a (1×1×7) for pure spectral absorption and Branch b (3×3×7) for spatial context, fused via <b>α · Branch a + (1 - α) · Branch b</b>. Because α + (1 - α) always sums to 1, the branches are mathematically forced to specialize: when spectral fidelity is needed, α goes to 1; when spatial context dominates, (1 - α) takes over. Branch redundancy is mathematically zero, costing only 80 parameters.\"</i>", utterance_style)
     ]
     story.append(make_box("4. WHAT TO UTTER IN YOUR PPT (Simple Words Spoken Script)", box4_cbsa, "#EFF6FF", "#93C5FD", "#1D4ED8"))
     story.append(PageBreak())
@@ -259,7 +270,7 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
     # Figure
     scfg_img_path = os.path.join(fig_dir, "fig_scfg.png")
     if os.path.exists(scfg_img_path):
-        img_scfg = Image(scfg_img_path, width=300, height=163)
+        img_scfg = Image(scfg_img_path, width=290, height=158)
         img_scfg.hAlign = 'CENTER'
         story.append(img_scfg)
         story.append(Spacer(1, 2))
@@ -287,17 +298,20 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
     story.append(make_box("2. MATHEMATICAL FORMULATION & TENSOR TRANSFORMATIONS", box2_scfg, "#F0FDF4", "#86EFAC", "#166534"))
     story.append(Spacer(1, 2))
 
-    # Box 3: Viva Defense Shield
+    # Box 3: SOTA Contrast & Viva Defense Shield
     box3_scfg = [
+        Paragraph("• <b>What Was in Previous SOTA Models:</b> Standard architectures (SSRN, SSAN, ViT) rely entirely on first-order Global Average Pooling (GAP), which only measures average intensity per channel and completely discards spatial-channel covariance structures.", sota_style),
+        Paragraph("• <b>What We Did Better:</b> SCFG computes a bilinear outer product $G = f_{\\text{ch}} \\otimes f_{\\text{sp}}$ normalized by Frobenius norm, capturing second-order cross-domain correlations without expensive matrix square roots using only 82 parameters.", sota_style),
+        Spacer(1, 1),
         Paragraph("<b>Examiner: What physical information does the outer product f_ch ⊗ f_sp capture in remote sensing?</b>", qa_q_style),
-        Paragraph("<b>Winning Defense Answer:</b> In remote sensing, a pixel's reflectance is strongly coupled to its spatial context. First-order pooling averages these out independently. The outer product captures the second-order co-occurrence: how specific spectral absorption bands vary across spatial locations. This enabled SGSCF-Net to achieve 99.34% accuracy on shadow pixels and 99.76% on gravel in Pavia University using only 82 parameters.", qa_a_style)
+        Paragraph("<b>Winning Defense Answer:</b> In remote sensing, pixel reflectance is strongly coupled to spatial context. First-order pooling averages them out independently. The outer product captures second-order co-occurrence: how specific spectral absorption bands vary across spatial coordinates. This lifted shadow classification to 99.34% and gravel accuracy to 99.76% on Pavia University.", qa_a_style)
     ]
-    story.append(make_box("3. VIVA DEFENSE SHIELD & NOVELTY HIGHLIGHTS", box3_scfg, "#FEF2F2", "#FECACA", "#991B1B"))
+    story.append(make_box("3. SOTA BENCHMARK CONTRAST & VIVA DEFENSE SHIELD", box3_scfg, "#FEF2F2", "#FECACA", "#991B1B"))
     story.append(Spacer(1, 2))
 
     # Box 4: What to Utter in PPT
     box4_scfg = [
-        Paragraph("• <b>Exact Words to Speak:</b> <i>\"Finally, our third module, <b>SCFG</b> in simple terms: Standard networks use Global Average Pooling, which only computes the average intensity of each channel. But in remote sensing, simple averages completely miss how spectral channels interact across spatial locations—which is why standard models confuse asphalt with gravel. In SCFG, we take the channel descriptor and spatial descriptor and compute their <b>outer product G = f_ch ⊗ f_sp</b>, creating a second-order covariance matrix that captures bilinear interactions. We normalize it with the Frobenius norm so gradients stay stable, and project it into a spatial gate. This captures subtle material boundaries using only 82 parameters and lifts shadow accuracy to 99.34%.\"</i>", utterance_style)
+        Paragraph("• <b>Exact Words to Speak:</b> <i>\"Finally, our third module, <b>SCFG</b> in simple terms: <b>Previous SOTA models</b> relied on simple Global Average Pooling, which only measures the average intensity of each channel and misses how spectral channels co-vary across space—causing confusion between asphalt and gravel. <b>What we did better</b> is computing the bilinear outer product <b>G = f_ch ⊗ f_sp</b> to capture second-order spatial-channel covariance. We normalize it with the Frobenius norm so gradients stay stable, and project it into a spatial gate. This captures subtle material boundaries using only 82 parameters and lifted shadow accuracy to 99.34%.\"</i>", utterance_style)
     ]
     story.append(make_box("4. WHAT TO UTTER IN YOUR PPT (Simple Words Spoken Script)", box4_scfg, "#EFF6FF", "#93C5FD", "#1D4ED8"))
 
