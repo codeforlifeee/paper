@@ -41,12 +41,12 @@ class ThreePageCanvas(canvas.Canvas):
         # Footer on all pages
         self.setFont("Helvetica", 8)
         self.setFillColor(colors.HexColor("#64748B"))
-        self.drawString(36, 28, "Tejas Surya (23118098) | B. Vyshnavi (23118021) | Valluri Lahitha (23118106) — Guide: Dr. R.R. Janghel")
+        self.drawString(36, 26, "Tejas Surya (23118098) | B. Vyshnavi (23118021) | Valluri Lahitha (23118106) — Guide: Dr. R.R. Janghel")
         page_text = f"Page {self._pageNumber} of {page_count}"
-        self.drawRightString(576, 28, page_text)
+        self.drawRightString(576, 26, page_text)
         self.setStrokeColor(colors.HexColor("#CBD5E1"))
         self.setLineWidth(0.6)
-        self.line(36, 38, 576, 38)
+        self.line(36, 36, 576, 36)
         
         self.restoreState()
 
@@ -57,8 +57,8 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
         pagesize=letter,
         leftMargin=36,
         rightMargin=36,
-        topMargin=48,
-        bottomMargin=45
+        topMargin=46,
+        bottomMargin=42
     )
     
     usable_width = 540
@@ -67,22 +67,17 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
     # Custom Typography Styles
     mod_title_style = ParagraphStyle(
         'ModTitle', parent=styles['Normal'],
-        fontName='Helvetica-Bold', fontSize=12, leading=15,
+        fontName='Helvetica-Bold', fontSize=11.5, leading=14.5,
         textColor=colors.white
     )
     mod_meta_style = ParagraphStyle(
         'ModMeta', parent=styles['Normal'],
-        fontName='Helvetica', fontSize=8, leading=11,
+        fontName='Helvetica', fontSize=7.8, leading=10.5,
         textColor=colors.HexColor("#E2E8F0")
-    )
-    section_h_style = ParagraphStyle(
-        'SecHeader', parent=styles['Normal'],
-        fontName='Helvetica-Bold', fontSize=8.5, leading=11,
-        textColor=colors.HexColor("#0F172A")
     )
     body_style = ParagraphStyle(
         'BodyTextCustom', parent=styles['Normal'],
-        fontName='Helvetica', fontSize=7.8, leading=10.8,
+        fontName='Helvetica', fontSize=7.6, leading=10.3,
         textColor=colors.HexColor("#1E293B")
     )
     bullet_style = ParagraphStyle(
@@ -91,19 +86,24 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
     )
     math_style = ParagraphStyle(
         'MathCustom', parent=styles['Normal'],
-        fontName='Helvetica', fontSize=7.6, leading=10.5,
+        fontName='Helvetica', fontSize=7.4, leading=10.0,
         textColor=colors.HexColor("#065F46"),
         leftIndent=8, firstLineIndent=-8
     )
     qa_q_style = ParagraphStyle(
         'QAQuestion', parent=styles['Normal'],
-        fontName='Helvetica-Bold', fontSize=7.8, leading=10.5,
+        fontName='Helvetica-Bold', fontSize=7.5, leading=10.0,
         textColor=colors.HexColor("#991B1B")
     )
     qa_a_style = ParagraphStyle(
         'QAAnswer', parent=styles['Normal'],
-        fontName='Helvetica', fontSize=7.8, leading=10.5,
+        fontName='Helvetica', fontSize=7.5, leading=10.0,
         textColor=colors.HexColor("#1E293B"), leftIndent=6
+    )
+    utterance_style = ParagraphStyle(
+        'UtteranceText', parent=styles['Normal'],
+        fontName='Helvetica', fontSize=7.5, leading=10.3,
+        textColor=colors.HexColor("#1E3A8A"), leftIndent=6
     )
 
     def header_banner(mod_num, title, location, params_str, color_hex="#1E3A8A"):
@@ -112,24 +112,24 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
         t = Table([[t1], [t2]], colWidths=[usable_width])
         t.setStyle(TableStyle([
             ('BACKGROUND', (0,0), (-1,-1), colors.HexColor(color_hex)),
-            ('TOPPADDING', (0,0), (-1,-1), 3),
-            ('BOTTOMPADDING', (0,0), (-1,-1), 3),
+            ('TOPPADDING', (0,0), (-1,-1), 2.5),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
             ('LEFTPADDING', (0,0), (-1,-1), 6),
             ('RIGHTPADDING', (0,0), (-1,-1), 6),
         ]))
         return t
 
     def make_box(title, paragraphs, bg_color="#F8FAFC", border_color="#CBD5E1", title_color="#0F172A"):
-        header = Paragraph(f"<b>{title}</b>", ParagraphStyle('BoxH', fontName='Helvetica-Bold', fontSize=8.2, leading=10.5, textColor=colors.HexColor(title_color)))
-        content = [header, Spacer(1, 1.5)] + paragraphs
+        header = Paragraph(f"<b>{title}</b>", ParagraphStyle('BoxH', fontName='Helvetica-Bold', fontSize=8, leading=10, textColor=colors.HexColor(title_color)))
+        content = [header, Spacer(1, 1)] + paragraphs
         t = Table([[content]], colWidths=[usable_width])
         t.setStyle(TableStyle([
             ('BACKGROUND', (0,0), (-1,-1), colors.HexColor(bg_color)),
-            ('BOX', (0,0), (-1,-1), 0.6, colors.HexColor(border_color)),
-            ('TOPPADDING', (0,0), (-1,-1), 3),
-            ('BOTTOMPADDING', (0,0), (-1,-1), 3),
-            ('LEFTPADDING', (0,0), (-1,-1), 6),
-            ('RIGHTPADDING', (0,0), (-1,-1), 6),
+            ('BOX', (0,0), (-1,-1), 0.55, colors.HexColor(border_color)),
+            ('TOPPADDING', (0,0), (-1,-1), 2.5),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
+            ('LEFTPADDING', (0,0), (-1,-1), 5),
+            ('RIGHTPADDING', (0,0), (-1,-1), 5),
         ]))
         return t
 
@@ -144,25 +144,25 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
         "#1E3A8A"
     )
     story.append(sbam_banner)
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 2))
 
     # Figure
     sbam_img_path = os.path.join(fig_dir, "fig_sbam.png")
     if os.path.exists(sbam_img_path):
-        img_sbam = Image(sbam_img_path, width=320, height=174)
+        img_sbam = Image(sbam_img_path, width=300, height=163)
         img_sbam.hAlign = 'CENTER'
         story.append(img_sbam)
-        story.append(Spacer(1, 3))
+        story.append(Spacer(1, 2))
 
-    # Box 1: Problem & Architectural Purpose
+    # Box 1: Problem & Motivation
     box1_p = [
         Paragraph("• <b>Atmospheric Noise & Degradation:</b> Airborne hyperspectral sensors (AVIRIS/ROSIS) capture 100–200+ contiguous bands. Critical regions suffer from severe <b>atmospheric water vapor absorption</b> (bands 104–108 at 1.4 µm, bands 150–163 at 1.9 µm). If raw cubes enter 3D convolutions directly, noisy zero-transmission bands corrupt representations, propagating errors into deep layers.", bullet_style),
         Paragraph("• <b>Pre-Convolution Solution:</b> Unlike SENet or CBAM that operate strictly on deep latent feature maps, SBAM operates <b>directly on raw spectral bands before any convolution occurs</b>. It dynamically learns continuous soft attention weights per scene, shielding downstream representation learning.", bullet_style)
     ]
     story.append(make_box("1. PROBLEM STATEMENT & ARCHITECTURAL MOTIVATION", box1_p, "#F8FAFC", "#94A3B8", "#1E3A8A"))
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 2))
 
-    # Box 2: Mathematical Formulation & Step-by-Step Dataflow
+    # Box 2: Mathematical Formulation
     box2_p = [
         Paragraph("• <b>Step 1 (Spatial Compression):</b> For volumetric patch X ∈ ℝ^(B×1×P×P×C), adaptive 3D average pooling compresses spatial grid P×P to extract global spectral energy descriptor z ∈ ℝ^(B×C):<br/>"
                   "&nbsp;&nbsp;&nbsp;&nbsp;<b>z_c = (1 / P²) ∑_{u=1}^P ∑_{v=1}^P X(b, 1, u, v, c)</b>, &nbsp; for each band c ∈ {1, ..., C}.", math_style),
@@ -172,14 +172,21 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
                   "&nbsp;&nbsp;&nbsp;&nbsp;<b>X̃ = X ⊙ ℰ(w) ∈ ℝ^(B×1×P×P×C)</b>. Noisy water absorption bands receive near-zero weights and are attenuated at the physical boundary.", math_style)
     ]
     story.append(make_box("2. MATHEMATICAL FORMULATION & TENSOR TRANSFORMATIONS", box2_p, "#F0FDF4", "#86EFAC", "#166534"))
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 2))
 
-    # Box 3: Novelty & Viva Defense Shield
+    # Box 3: Viva Defense Shield
     box3_p = [
         Paragraph("<b>Examiner: Why not simply delete noisy water absorption bands manually during data preprocessing?</b>", qa_q_style),
         Paragraph("<b>Winning Defense Answer:</b> Manual band removal relies on rigid, hardcoded indices (e.g. deleting 20 bands in AVIRIS). However, atmospheric attenuation, sensor drift, and noise vary continuously across different flight lines and times. SBAM dynamically learns continuous, data-driven attention weights per scene, preserving useful residual spectral signal while filtering corrupted channels adaptively with only 10,225 parameters.", qa_a_style)
     ]
     story.append(make_box("3. VIVA DEFENSE SHIELD & NOVELTY HIGHLIGHTS", box3_p, "#FEF2F2", "#FECACA", "#991B1B"))
+    story.append(Spacer(1, 2))
+
+    # Box 4: What to Utter in PPT
+    box4_sbam = [
+        Paragraph("• <b>Exact Words to Speak:</b> <i>\"Respected committee, let me explain <b>SBAM</b> in simple terms: Satellite hyperspectral images contain noisy atmospheric water absorption bands. Standard models pass all bands straight into 3D convolutions, which spreads this noise into deep layers. What SBAM does is very simple: <b>BEFORE any convolution starts</b>, it pools the spatial patch into a per-band energy vector, runs it through an 8× reduction bottleneck, and produces an attention weight between 0 and 1 for each band. Corrupted bands get near-zero weights and are suppressed upfront through simple element-wise multiplication. It cleans the data at the physical input layer using only 10,225 parameters (3.3% of the network).\"</i>", utterance_style)
+    ]
+    story.append(make_box("4. WHAT TO UTTER IN YOUR PPT (Simple Words Spoken Script)", box4_sbam, "#EFF6FF", "#93C5FD", "#1D4ED8"))
     story.append(PageBreak())
 
     # ==================== PAGE 2: MODULE 2 (CBSA) ====================
@@ -190,23 +197,23 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
         "#0D9488"
     )
     story.append(cbsa_banner)
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 2))
 
     # Figure
     cbsa_img_path = os.path.join(fig_dir, "fig_cbsa.png")
     if os.path.exists(cbsa_img_path):
-        img_cbsa = Image(cbsa_img_path, width=320, height=174)
+        img_cbsa = Image(cbsa_img_path, width=300, height=163)
         img_cbsa.hAlign = 'CENTER'
         story.append(img_cbsa)
-        story.append(Spacer(1, 3))
+        story.append(Spacer(1, 2))
 
-    # Box 1: Problem & Architectural Purpose
+    # Box 1: Problem & Motivation
     box1_cbsa = [
         Paragraph("• <b>Multi-Branch Redundancy Problem:</b> Dual-stream 3D networks (e.g. Double-Branch CNNs, A2S2K-ResNet) extract features using parallel branches. However, combining them via direct summation (a + b) or shared attention assigns identical importance to both streams, causing co-dependent, duplicated feature representations and severe parameter explosion.", bullet_style),
         Paragraph("• <b>Complementary Branch Solution:</b> CBSA decouples spectral and spatial-spectral modeling into two dedicated parallel 3D streams, fused via a learned gating scalar α strictly constrained by <b>α + (1 - α) ≡ 1</b>. This forces orthogonal specialization and zero branch redundancy.", bullet_style)
     ]
     story.append(make_box("1. PROBLEM STATEMENT & ARCHITECTURAL MOTIVATION", box1_cbsa, "#F8FAFC", "#94A3B8", "#0F766E"))
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 2))
 
     # Box 2: Mathematical Formulation
     box2_cbsa = [
@@ -222,14 +229,21 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
                   "&nbsp;&nbsp;&nbsp;&nbsp;Because α + (1 - α) ≡ 1, the branches compete for capacity: when spectral fidelity dominates, α → 1; when spatial texture dominates, (1 - α) → 1.", math_style)
     ]
     story.append(make_box("2. MATHEMATICAL FORMULATION & TENSOR TRANSFORMATIONS", box2_cbsa, "#F0FDF4", "#86EFAC", "#166534"))
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 2))
 
-    # Box 3: Novelty & Viva Defense Shield
+    # Box 3: Viva Defense Shield
     box3_cbsa = [
         Paragraph("<b>Examiner: Why enforce α and (1 - α) instead of learning two independent attention gates α and β?</b>", qa_q_style),
         Paragraph("<b>Winning Defense Answer:</b> If α and β are learned independently, both can saturate to 1, causing high feature redundancy and doubling the feature magnitude. Enforcing the partition of unity α + (1 - α) = 1 mathematically guarantees that the branches compete and specialize into orthogonal representations without duplicating features, using only 80 parameters.", qa_a_style)
     ]
     story.append(make_box("3. VIVA DEFENSE SHIELD & NOVELTY HIGHLIGHTS", box3_cbsa, "#FEF2F2", "#FECACA", "#991B1B"))
+    story.append(Spacer(1, 2))
+
+    # Box 4: What to Utter in PPT
+    box4_cbsa = [
+        Paragraph("• <b>Exact Words to Speak:</b> <i>\"Moving to our second module, <b>CBSA</b> in simple terms: Existing dual-branch networks use narrow and wide 3D filters, but combine them with simple addition, which causes both branches to duplicate the exact same features. In CBSA, Branch a (1×1×7) captures pure spectral absorption lines, while Branch b (3×3×7) captures spatial context. Here is our key mathematical punchline: we compute a learned gate α, and fuse them as <b>α · Branch a + (1 - α) · Branch b</b>. Because α + (1 - α) always equals 1, the two branches are mathematically forced to specialize: when spectral fidelity is needed, α goes to 1; when spatial context dominates, (1 - α) takes over. Branch redundancy is mathematically zero, costing only 80 parameters.\"</i>", utterance_style)
+    ]
+    story.append(make_box("4. WHAT TO UTTER IN YOUR PPT (Simple Words Spoken Script)", box4_cbsa, "#EFF6FF", "#93C5FD", "#1D4ED8"))
     story.append(PageBreak())
 
     # ==================== PAGE 3: MODULE 3 (SCFG) ====================
@@ -240,23 +254,23 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
         "#7C3AED"
     )
     story.append(scfg_banner)
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 2))
 
     # Figure
     scfg_img_path = os.path.join(fig_dir, "fig_scfg.png")
     if os.path.exists(scfg_img_path):
-        img_scfg = Image(scfg_img_path, width=320, height=174)
+        img_scfg = Image(scfg_img_path, width=300, height=163)
         img_scfg.hAlign = 'CENTER'
         story.append(img_scfg)
-        story.append(Spacer(1, 3))
+        story.append(Spacer(1, 2))
 
-    # Box 1: Problem & Architectural Purpose
+    # Box 1: Problem & Motivation
     box1_scfg = [
         Paragraph("• <b>The Flaw of First-Order GAP:</b> Standard spatial attention mechanisms and global pooling compute only the <b>first-order spatial mean</b> μ_c = (1/N) ∑ x_{c,i}. In remote sensing, this discards spatial-channel co-activations (e.g. how specific spectral channels correlate with edges vs homogeneous interiors), failing to separate spectrally similar materials like asphalt and gravel, or subtle shadow gradients.", bullet_style),
         Paragraph("• <b>Second-Order Covariance Solution:</b> SCFG computes a <b>bilinear outer product G = f_ch ⊗ f_sp</b> between the channel descriptor and spatial position descriptor, normalized via the Frobenius norm. This models second-order statistics with zero iterative decompositions.", bullet_style)
     ]
     story.append(make_box("1. PROBLEM STATEMENT & ARCHITECTURAL MOTIVATION", box1_scfg, "#F8FAFC", "#94A3B8", "#6D28D9"))
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 2))
 
     # Box 2: Mathematical Formulation
     box2_scfg = [
@@ -271,14 +285,21 @@ def build_pdf(filename="SGSCF_Net_3_Novel_Modules_Explanation.pdf"):
                   "&nbsp;&nbsp;&nbsp;&nbsp;Spatial features are modulated element-wise: <b>x_scfg = x ⊙ g</b>.", math_style)
     ]
     story.append(make_box("2. MATHEMATICAL FORMULATION & TENSOR TRANSFORMATIONS", box2_scfg, "#F0FDF4", "#86EFAC", "#166534"))
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 2))
 
-    # Box 3: Novelty & Viva Defense Shield
+    # Box 3: Viva Defense Shield
     box3_scfg = [
         Paragraph("<b>Examiner: What physical information does the outer product f_ch ⊗ f_sp capture in remote sensing?</b>", qa_q_style),
         Paragraph("<b>Winning Defense Answer:</b> In remote sensing, a pixel's reflectance is strongly coupled to its spatial context. First-order pooling averages these out independently. The outer product captures the second-order co-occurrence: how specific spectral absorption bands vary across spatial locations. This enabled SGSCF-Net to achieve 99.34% accuracy on shadow pixels and 99.76% on gravel in Pavia University using only 82 parameters.", qa_a_style)
     ]
     story.append(make_box("3. VIVA DEFENSE SHIELD & NOVELTY HIGHLIGHTS", box3_scfg, "#FEF2F2", "#FECACA", "#991B1B"))
+    story.append(Spacer(1, 2))
+
+    # Box 4: What to Utter in PPT
+    box4_scfg = [
+        Paragraph("• <b>Exact Words to Speak:</b> <i>\"Finally, our third module, <b>SCFG</b> in simple terms: Standard networks use Global Average Pooling, which only computes the average intensity of each channel. But in remote sensing, simple averages completely miss how spectral channels interact across spatial locations—which is why standard models confuse asphalt with gravel. In SCFG, we take the channel descriptor and spatial descriptor and compute their <b>outer product G = f_ch ⊗ f_sp</b>, creating a second-order covariance matrix that captures bilinear interactions. We normalize it with the Frobenius norm so gradients stay stable, and project it into a spatial gate. This captures subtle material boundaries using only 82 parameters and lifts shadow accuracy to 99.34%.\"</i>", utterance_style)
+    ]
+    story.append(make_box("4. WHAT TO UTTER IN YOUR PPT (Simple Words Spoken Script)", box4_scfg, "#EFF6FF", "#93C5FD", "#1D4ED8"))
 
     doc.build(story, canvasmaker=ThreePageCanvas)
     print(f"Successfully generated 3-page PDF at: {pdf_path}")
