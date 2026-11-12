@@ -777,3 +777,4 @@ def build_pdf(filename="SGSCF_Net_Minor_Project_Progress_Defense_Script.pdf"):
 
 if __name__ == "__main__":
     build_pdf()
+
