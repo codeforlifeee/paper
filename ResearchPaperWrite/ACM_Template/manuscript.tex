@@ -281,6 +281,7 @@ The primary contributions of this work are summarized as follows:
 
 The remainder of this article is organized as follows. Section II provides a review of related literature across convolutional, attention-based, and transformer architectures for HSI classification. Section III presents the formal mathematical formulation of SGSCF-Net, detailing SBAM, CBSA, SCFG, and the hybrid training objective. Section IV reports the experimental setup, comparative baseline evaluations, and computational complexity analyses. Section V discusses ablation studies and data scarcity stress testing. Finally, Section VI concludes the paper.
 
+\newpage
 \section{Related Work}
 \label{sec:related_work}
 
@@ -303,6 +304,7 @@ Compounding these architectural bottlenecks, hyperspectral benchmark datasets su
 
 To reconcile these divergent challenges, \textbf{SGSCF-Net} introduces an integrated solution: (1) an input-level Spectral Band Attention Module (SBAM) that filters atmospheric absorption noise prior to convolution; (2) a Complementary Branch Spectral Attention (CBSA) mechanism that enforces orthogonal branch specialization through complementary gating ($\alpha$ vs $1-\alpha$); (3) a Second-Order Covariance Fusion Gate (SCFG) that models bilinear channel-spatial co-activation; and (4) a minority-aware hybrid objective combining margin-scheduled Spread Loss and Focal Loss. This yields state-of-the-art representation capacity with only $\sim$308K parameters and zero quadratic self-attention latency.
 
+\newpage
 \section{Methodology}
 \label{sec:methodology}
 This section formalizes the mathematical architecture of SGSCF-Net. We first define the problem formulation and pipeline dataflow, followed by detailed formulations of SBAM (input band filtering), CBSA (orthogonal dual-branch fusion), SCFG (second-order covariance gating), and the minority-aware hybrid objective.
@@ -317,16 +319,16 @@ This section formalizes the mathematical architecture of SGSCF-Net. We first def
 \Description{End-to-end architectural workflow of SGSCF-Net across Stage I and Stage II.}
 \end{figure*}
 
-Let $\mathcal{X} \in \mathbb{R}^{H \times W \times C}$ denote the raw hyperspectral data cube, where $H$, $W$, and $C$ represent the spatial height, width, and number of contiguous spectral bands, respectively. Let $\mathcal{Y} \in \{1, 2, \dots, C_{\text{cls}}\}^{H \times W}$ denote the corresponding ground-truth land-cover semantic label map. For any labeled target pixel located at spatial coordinate $(i, j)$, we extract a localized spatial neighborhood cube of size $P \times P$ across all $C$ spectral channels. To handle boundary pixels, symmetric spatial reflection padding of size $p = \lfloor P / 2 \rfloor$ is applied. Each input sample is structured as a five-dimensional volumetric tensor:
+Let $\mathcal{X} \in \mathbb{R}^{H \times W \times C}$ denote the raw hyperspectral data cube, where $H$, $W$, and $C$ represent the spatial height, width, and number of contiguous spectral bands, respectively. Let $\mathcal{Y} \in \{1, 2, \dots, C_{\text{cls}}\}^{H \times W}$ denote the corresponding ground-truth land-cover semantic label map. For any labeled target pixel located at spatial coordinate $(i, j)$, we extract a localized spatial neighborhood cube of size $P \times P$ across all $C$ spectral channels. To handle boundary pixels, symmetric spatial reflection padding of size $p = \lfloor P / 2 \rfloor$ is applied. Each input sample is structured as a five-dimensional volumetric tensor (Eq.~\ref{eq:input_tensor}):
 \begin{equation}
 \label{eq:input_tensor}
 X \in \mathbb{R}^{B \times 1 \times P \times P \times C}
 \end{equation}
 where $B$ denotes the mini-batch size, and the unitary second dimension represents the input channel axis required for 3D convolutional operations.
 
-The computational dataflow of SGSCF-Net, illustrated in Fig.~\ref{fig:sgscf_overall}, processes the input patch $X$ through two coordinated stages of spectral filtering and second-order spatial refinement. First, $X$ enters the \textbf{Spectral Band Attention Module (SBAM)} to produce an adaptively recalibrated tensor $\tilde{X} \in \mathbb{R}^{B \times 1 \times P \times P \times C}$, suppressing noisy atmospheric absorption channels before convolutional operations. Next, $\tilde{X}$ feeds into a \textbf{Dual 3D Entry Stream} that yields a spectral-only representation $a \in \mathbb{R}^{B \times K \times P \times P \times C_2}$ via $1\times 1\times 7$ convolution and a joint spatial-spectral representation $b \in \mathbb{R}^{B \times K \times P \times P \times C_2}$ via $3\times 3\times 7$ convolution, with $K=16$ filters and $C_2 = \lfloor(C-7)/2\rfloor + 1$. The \textbf{Complementary Branch Spectral Attention (CBSA)} mechanism then couples both streams using a depthwise 1D gate $\alpha \in \mathbb{R}^{B \times K \times 1 \times 1 \times C_2}$, fusing them as $\alpha \odot a + (1-\alpha) \odot b$ to enforce orthogonal feature specialization. The coupled tensor subsequently traverses two cascaded \textbf{3D Spectral Residual Blocks} ($\mathcal{R}_{\text{spec}}^{(1)}, \mathcal{R}_{\text{spec}}^{(2)}$) integrated with 3D Efficient Channel Attention (ECA-3D).
+The computational dataflow of SGSCF-Net, illustrated in Fig.~\ref{fig:sgscf_overall}, processes the input patch $X$ through two coordinated stages of spectral filtering and second-order spatial refinement. First, $X$ enters the \textbf{Spectral Band Attention Module (SBAM)} to produce an adaptively recalibrated tensor $\tilde{X} \in \mathbb{R}^{B \times 1 \times P \times P \times C}$, suppressing noisy atmospheric absorption channels before convolutional operations. Next, $\tilde{X}$ feeds into a \textbf{Dual 3D Entry Stream} that yields a spectral-only representation $a \in \mathbb{R}^{B \times K \times P \times P \times C_2}$ via $1\times 1\times 7$ convolution and a joint spatial-spectral representation $b \in \mathbb{R}^{B \times K \times P \times P \times C_2}$ via $3\times 3\times 7$ convolution, with $K=16$ filters and $C_2 = \lfloor(C-7)/2\rfloor + 1$. The \textbf{Complementary Branch Spectral Attention (CBSA)} mechanism then couples both streams using a depthwise 1D gate $\alpha \in \mathbb{R}^{B \times K \times 1 \times 1 \times C_2}$, fusing them as $\alpha \odot a + (1-\alpha) \odot b$ (Eq.~\ref{eq:cbsa_fuse}) to enforce orthogonal feature specialization. The coupled tensor subsequently traverses two cascaded \textbf{3D Spectral Residual Blocks} ($\mathcal{R}_{\text{spec}}^{(1)}, \mathcal{R}_{\text{spec}}^{(2)}$) integrated with 3D Efficient Channel Attention (ECA-3D).
 
-Following spectral feature extraction, adaptive 3D pooling collapses the spectral dimension ($C_2 \to 1$), and a $1\times 1\times 1$ convolution projects channels to $C_{\text{mid}} = 128$. Squeezing the singleton axis yields a spatial feature map $x \in \mathbb{R}^{B \times 128 \times P \times P}$. The \textbf{Second-Order Covariance Fusion Gate (SCFG)} captures bilinear cross-domain dependencies via outer-product interaction ($G = f_{\text{ch}} \otimes f_{\text{sp}} \in \mathbb{R}^{B \times 128 \times N}$), normalizes the matrix via Frobenius norm, and recalibrates spatial activations through a linear projection. The recalibrated features are then permuted into a volumetric tensor $v_{\text{spat}} \in \mathbb{R}^{B \times 1 \times P \times P \times 128}$, projected back to $K=16$ channels by a $3\times 3\times 128$ convolution, and processed by two \textbf{3D Spatial Residual Blocks} ($\mathcal{R}_{\text{spat}}^{(1)}, \mathcal{R}_{\text{spat}}^{(2)}$). Finally, global 3D average pooling condenses spatial activations into a compact latent vector $z \in \mathbb{R}^{B \times K}$, mapped to class logits $\hat{y} \in \mathbb{R}^{B \times C_{\text{cls}}}$ by a linear classification head (Fig.~\ref{fig:proposed_modules}(d)). The entire network is trained end-to-end using the \textbf{Minority-Aware Hybrid Loss} $\mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}$ with dynamic margin scheduling and inverse-frequency class weights.
+Following spectral feature extraction, adaptive 3D pooling collapses the spectral dimension ($C_2 \to 1$), and a $1\times 1\times 1$ convolution projects channels to $C_{\text{mid}} = 128$. Squeezing the singleton axis yields a spatial feature map $x \in \mathbb{R}^{B \times 128 \times P \times P}$. The \textbf{Second-Order Covariance Fusion Gate (SCFG)} captures bilinear cross-domain dependencies via outer-product interaction ($G = f_{\text{ch}} \otimes f_{\text{sp}} \in \mathbb{R}^{B \times 128 \times N}$), normalizes the matrix via Frobenius norm, and recalibrates spatial activations through a linear projection (Eqs.~\ref{eq:scfg_g}--\ref{eq:scfg_mod}). The recalibrated features are then permuted into a volumetric tensor $v_{\text{spat}} \in \mathbb{R}^{B \times 1 \times P \times P \times 128}$, projected back to $K=16$ channels by a $3\times 3\times 128$ convolution, and processed by two \textbf{3D Spatial Residual Blocks} ($\mathcal{R}_{\text{spat}}^{(1)}, \mathcal{R}_{\text{spat}}^{(2)}$). Finally, global 3D average pooling condenses spatial activations into a compact latent vector $z \in \mathbb{R}^{B \times K}$, mapped to class logits $\hat{y} \in \mathbb{R}^{B \times C_{\text{cls}}}$ by a linear classification head (Eq.~\ref{eq:fc_out}; Fig.~\ref{fig:proposed_modules}(d)). The entire network is trained end-to-end using the \textbf{Minority-Aware Hybrid Loss} $\mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}$ (Eq.~\ref{eq:total_loss}) with dynamic margin scheduling and inverse-frequency class weights.
 
 \subsection{Spectral Band Attention Module (SBAM)}
 \label{subsec:sbam}
@@ -348,19 +350,19 @@ Following spectral feature extraction, adaptive 3D pooling collapses the spectra
 
 Hyperspectral sensors capture hundreds of contiguous spectral bands, but atmospheric water vapor absorption bands (such as those around 1.4 $\mu$m and 1.9 $\mu$m) and low signal-to-noise ratios at spectral boundaries corrupt raw reflectance signatures. Conventional deep learning architectures apply convolutional kernels indiscriminately across all raw bands, permitting noisy band responses to propagate into deep feature representations. While the Squeeze-and-Excitation Network (SENet) \cite{hu2018squeeze} and Convolutional Block Attention Module (CBAM) \cite{woo2018cbam} introduced channel and spatial attention, they operate strictly on deep latent feature maps following multiple convolutional stages. Unlike reinforcement learning band selection policies \cite{mou2022deep} or connected grouping heuristics \cite{guo2022feature} that require expensive outer optimization loops, SBAM embeds direct channel gating into the end-to-end differentiable graph.
 
-To eliminate noise at the earliest computational stage, as illustrated in Fig.~\ref{fig:proposed_modules}(a), SBAM performs adaptive channel recalibration directly on raw spectral bands before any convolutional feature extraction. Given the input volumetric patch $X \in \mathbb{R}^{B \times 1 \times P \times P \times C}$, SBAM first compresses the spatial dimensions $P \times P$ via adaptive 3D average pooling to extract a global spectral descriptor $z \in \mathbb{R}^{B \times C}$:
+To eliminate noise at the earliest computational stage, as illustrated in Fig.~\ref{fig:proposed_modules}(a), SBAM performs adaptive channel recalibration directly on raw spectral bands before any convolutional feature extraction. Given the input volumetric patch $X \in \mathbb{R}^{B \times 1 \times P \times P \times C}$, SBAM first compresses the spatial dimensions $P \times P$ via adaptive 3D average pooling to extract a global spectral descriptor $z \in \mathbb{R}^{B \times C}$ (Eq.~\ref{eq:sbam_pool}):
 \begin{equation}
 \label{eq:sbam_pool}
 z_c = \frac{1}{P^2} \sum_{u=1}^P \sum_{v=1}^P X(b, 1, u, v, c), \quad c \in \{1, 2, \dots, C\}
 \end{equation}
-To model inter-band dependencies while preserving low parameter complexity, the summary vector $z$ is routed through a multi-layer perceptron (MLP) bottleneck consisting of two linear projections with a dimensionality reduction ratio $r=8$:
+To model inter-band dependencies while preserving low parameter complexity, the summary vector $z$ is routed through a multi-layer perceptron (MLP) bottleneck consisting of two linear projections with a dimensionality reduction ratio $r=8$ (Eq.~\ref{eq:sbam_fc}):
 \begin{equation}
 \label{eq:sbam_fc}
 w = \sigma\left(W_2 \cdot \delta(W_1 z + b_1) + b_2\right)
 \end{equation}
 where $W_1 \in \mathbb{R}^{C_{\text{mid}} \times C}$, $b_1 \in \mathbb{R}^{C_{\text{mid}}}$, $W_2 \in \mathbb{R}^{C \times C_{\text{mid}}}$, and $b_2 \in \mathbb{R}^{C}$. The bottleneck channel capacity is defined as $C_{\text{mid}} = \max(\lfloor C / r \rfloor, 8)$ to prevent over-compression on datasets with fewer spectral channels. Here, $\delta(\cdot)$ denotes the rectified linear unit (ReLU) activation, and $\sigma(\cdot)$ is the standard sigmoid gating function, yielding normalized band importance weights $w \in (0, 1)^{B \times C}$.
 
-Finally, the input tensor $X$ is recalibrated via channel-wise broadcast multiplication:
+Finally, the input tensor $X$ is recalibrated via channel-wise broadcast multiplication (Eq.~\ref{eq:sbam_recal}):
 \begin{equation}
 \label{eq:sbam_recal}
 \tilde{X} = X \odot \mathcal{E}(w), \quad \tilde{X} \in \mathbb{R}^{B \times 1 \times P \times P \times C}
@@ -369,7 +371,7 @@ where $\mathcal{E}(w) \in \mathbb{R}^{B \times 1 \times 1 \times 1 \times C}$ de
 
 \subsection{Complementary Branch Spectral Attention (CBSA)}
 \label{subsec:cbsa}
-Following SBAM recalibration, the refined tensor $\tilde{X}$ enters a dual-stream 3D convolutional module designed to capture multi-scale spectral and spatial structures concurrently:
+Following SBAM recalibration, the refined tensor $\tilde{X}$ enters a dual-stream 3D convolutional module designed to capture multi-scale spectral and spatial structures concurrently (Eqs.~\ref{eq:cbsa_a}--\ref{eq:cbsa_b}):
 \begin{equation}
 \label{eq:cbsa_a}
 a = \text{ReLU}\left(\text{BN}\left(\text{Conv3D}_{(1 \times 1 \times 7)}(\tilde{X})\right)\right) \in \mathbb{R}^{B \times K \times P \times P \times C_2}
@@ -382,12 +384,12 @@ where $K = 16$ denotes intermediate feature channels, and both 3D convolutions e
 
 In multi-branch architectures such as A2S2K-ResNet \cite{roy2020attention}, Double-Branch networks \cite{li2020double}, and CSCANet \cite{wang2023cscanet}, parallel streams are combined either by direct summation or by computing a single shared squeeze-and-excitation attention gate. However, assigning an identical gating scalar to both streams causes them to learn co-dependent, redundant feature representations, negating the benefit of multi-scale branching.
 
-To enforce orthogonal feature specialization, CBSA introduces a complementary gating mechanism. First, spatial context is aggregated across the fused representations $U = a + b$:
+To enforce orthogonal feature specialization, CBSA introduces a complementary gating mechanism. First, spatial context is aggregated across the fused representations $U = a + b$ (Eq.~\ref{eq:cbsa_u}):
 \begin{equation}
 \label{eq:cbsa_u}
 U_{\text{avg}} = \frac{1}{P^2} \sum_{u=1}^P \sum_{v=1}^P (a + b)[:, :, u, v, :] \in \mathbb{R}^{B \times K \times C_2}
 \end{equation}
-Next, a lightweight depthwise 1D convolution with kernel size $k_s = 3$ (grouped across $K$ channels, requiring only $K \times k_s = 48$ trainable parameters) models localized cross-band interactions:
+Next, a lightweight depthwise 1D convolution with kernel size $k_s = 3$ (grouped across $K$ channels, requiring only $K \times k_s = 48$ trainable parameters) models localized cross-band interactions (Eq.~\ref{eq:cbsa_alpha}):
 \begin{equation}
 \label{eq:cbsa_alpha}
 \alpha = \sigma\left(\text{Conv1D}_{k_s}(U_{\text{avg}})\right) \in \mathbb{R}^{B \times K \times C_2}
@@ -408,7 +410,7 @@ where each spectral residual block utilizes $1 \times 1 \times 7$ 3D convolution
 
 \subsection{Second-Order Covariance Fusion Gate (SCFG)}
 \label{subsec:scfg}
-As illustrated in Fig.~\ref{fig:proposed_modules}(c), to transition from spectral-dominant processing to spatial context extraction, the spectral dimension $C_2$ is collapsed using adaptive 3D average pooling:
+As illustrated in Fig.~\ref{fig:proposed_modules}(c), to transition from spectral-dominant processing to spatial context extraction, the spectral dimension $C_2$ is collapsed using adaptive 3D average pooling (Eq.~\ref{eq:scfg_pool}):
 \begin{equation}
 \label{eq:scfg_pool}
 v_{\text{pool}} = \text{AdaptiveAvgPool3D}_{(P, P, 1)}(v) \in \mathbb{R}^{B \times K \times P \times P \times 1}
@@ -422,29 +424,29 @@ Squeezing the singleton spectral dimension yields the 2D spatial feature map $x 
 
 Standard spatial attention mechanisms and global pooling operators compute only first-order spatial means $\mu_c = \frac{1}{HW}\sum_{i} x_{c, i}$, discarding spatial co-activation structures. In heterogeneous land covers, specific semantic channels correlate with distinct spatial locations (e.g., edges versus interior textures). SCFG captures these second-order correlations through bilinear outer-product covariance modeling \cite{lin2015bilinear}.
 
-Let $N = P \times P$ denote the total number of spatial pixels in the patch. We derive the global channel descriptor $f_{\text{ch}} \in \mathbb{R}^{B \times C_{\text{mid}}}$ and spatial position descriptor $f_{\text{sp}} \in \mathbb{R}^{B \times N}$:
+Let $N = P \times P$ denote the total number of spatial pixels in the patch. We derive the global channel descriptor $f_{\text{ch}} \in \mathbb{R}^{B \times C_{\text{mid}}}$ and spatial position descriptor $f_{\text{sp}} \in \mathbb{R}^{B \times N}$ (Eq.~\ref{eq:scfg_descriptors}):
 \begin{equation}
 \label{eq:scfg_descriptors}
 f_{\text{ch}}(b, c) = \frac{1}{N} \sum_{n=1}^N x(b, c, n), \quad f_{\text{sp}}(b, n) = \frac{1}{C_{\text{mid}}} \sum_{c=1}^{C_{\text{mid}}} x(b, c, n)
 \end{equation}
-The second-order spatial-channel covariance interaction matrix $G \in \mathbb{R}^{B \times C_{\text{mid}} \times N}$ is computed via batch outer product:
+The second-order spatial-channel covariance interaction matrix $G \in \mathbb{R}^{B \times C_{\text{mid}} \times N}$ is computed via batch outer product (Eq.~\ref{eq:scfg_g}):
 \begin{equation}
 \label{eq:scfg_g}
 G = f_{\text{ch}} \otimes f_{\text{sp}} = f_{\text{ch}} f_{\text{sp}}^T, \quad G(b, c, n) = f_{\text{ch}}(b, c) \cdot f_{\text{sp}}(b, n)
 \end{equation}
 Each matrix entry $G(b, c, n)$ measures the bilinear co-occurrence strength between channel $c$ and spatial coordinate $n$, extending second-order covariance principles from fine-grained recognition \cite{lin2015bilinear, gao2019global} and HSI covariance modeling \cite{fang2018new, he2019feature, xue2021attention, zheng2021hyperspectral} into an efficient spatial-channel gating operator without requiring iterative matrix square-root decompositions \cite{li2018towards}.
 
-To guarantee numerical stability and invariant gradient scaling across varied patch dynamics, $G$ is normalized by its Frobenius norm:
+To guarantee numerical stability and invariant gradient scaling across varied patch dynamics, $G$ is normalized by its Frobenius norm (Eq.~\ref{eq:scfg_frob}):
 \begin{equation}
 \label{eq:scfg_frob}
 \tilde{G} = \frac{G}{\|G\|_F + \epsilon} = \frac{G}{\sqrt{\sum_{c=1}^{C_{\text{mid}}} \sum_{n=1}^N G(b, c, n)^2} + \epsilon}
 \end{equation}
-where $\epsilon = 10^{-8}$. A learnable linear projection $W_G \in \mathbb{R}^{1 \times N}$ compresses the spatial interaction dimension of $\tilde{G}$ into a channel-wise modulation gate:
+where $\epsilon = 10^{-8}$. A learnable linear projection $W_G \in \mathbb{R}^{1 \times N}$ compresses the spatial interaction dimension of $\tilde{G}$ into a channel-wise modulation gate (Eq.~\ref{eq:scfg_gate}):
 \begin{equation}
 \label{eq:scfg_gate}
 g = \sigma\left(W_G \tilde{G}\right) \in \mathbb{R}^{B \times C_{\text{mid}}}
 \end{equation}
-The recalibrated feature map is obtained by element-wise modulation:
+The recalibrated feature map is obtained by element-wise modulation (Eq.~\ref{eq:scfg_mod}):
 \begin{equation}
 \label{eq:scfg_mod}
 x_{\text{scfg}} = x \odot g
@@ -479,12 +481,12 @@ Hyperspectral benchmark datasets exhibit severe class imbalance. For example, in
 To establish wide, robust decision boundaries while prioritizing under-represented categories, SGSCF-Net is trained with a hybrid objective combining margin-scheduled Spread Loss \cite{sabour2018matrix} and inverse-frequency class-weighted Focal Loss \cite{lin2017focal}, drawing upon margin optimization and sample-effective regularization principles \cite{cui2019class, cao2019learning, haut2021generative}.
 
 \subsubsection{Dynamic Margin-Scheduled Spread Loss}
-Spread Loss directly penalizes predictions where non-target class activations fall within a specified margin $m$ of the true class logit:
+Spread Loss directly penalizes predictions where non-target class activations fall within a specified margin $m$ of the true class logit (Eq.~\ref{eq:spread_loss}):
 \begin{equation}
 \label{eq:spread_loss}
 \mathcal{L}_{\text{Spread}} = \frac{1}{B} \sum_{i=1}^B \sum_{j \neq y_i} \left(\max\left(0, m(r) - (a_{y_i} - a_j)\right)\right)^2
 \end{equation}
-where $a_k$ represents the output activation for class $k$, and $m(r)$ is a dynamic margin scheduled linearly according to the training progression ratio $r = \frac{t}{T_{\text{total}}} \in [0, 1]$:
+where $a_k$ represents the output activation for class $k$, and $m(r)$ is a dynamic margin scheduled linearly according to the training progression ratio $r = \frac{t}{T_{\text{total}}} \in [0, 1]$ (Eq.~\ref{eq:margin_sched}):
 \begin{equation}
 \label{eq:margin_sched}
 m(r) = m_{\min} + (m_{\max} - m_{\min}) \cdot r
@@ -492,7 +494,7 @@ m(r) = m_{\min} + (m_{\max} - m_{\min}) \cdot r
 with $m_{\min} = 0.2$ and $m_{\max} = 0.9$. In early epochs ($r \to 0$), a relaxed margin $m=0.2$ prevents over-penalizing uncalibrated initial weights; in late epochs ($r \to 1$), the margin expands to $0.9$, compelling the model to enforce wide decision boundaries between competing categories.
 
 \subsubsection{Inverse-Frequency Class-Weighted Focal Loss}
-To prevent dominant majority classes from overwhelming the gradient signal and to focus optimization on hard samples, we integrate Focal Loss:
+To prevent dominant majority classes from overwhelming the gradient signal and to focus optimization on hard samples, we integrate Focal Loss (Eq.~\ref{eq:focal_loss}):
 \begin{equation}
 \label{eq:focal_loss}
 \mathcal{L}_{\text{Focal}} = -\frac{1}{B} \sum_{i=1}^B \alpha_{y_i} (1 - p_{t, i})^\gamma \log(p_{t, i})
@@ -505,13 +507,14 @@ w_c = \frac{1}{N_c + \epsilon}, \quad \alpha_c = \frac{w_c}{\sum_{k=1}^{C_{\text
 where $N_c$ is the total count of training samples belonging to class $c$.
 
 \subsubsection{Combined Optimization Objective}
-The total end-to-end training loss is defined as:
+The total end-to-end training loss is defined as (Eq.~\ref{eq:total_loss}):
 \begin{equation}
 \label{eq:total_loss}
 \mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}
 \end{equation}
 This hybrid objective balances margin spread across competing categories with hard-sample focal mining, ensuring balanced gradient contributions and preventing minority class collapse under extreme sample scarcity.
 
+\newpage
 \section{Experiments and Comparative Analysis}
 \label{sec:experiments}
 This section presents an empirical evaluation of SGSCF-Net alongside eight standardized baseline models. We first describe the benchmark hyperspectral datasets and provide comprehensive category distributions. Next, we outline the experimental setup, comparative models, and evaluation metrics. Finally, we report quantitative comparisons on Indian Pines, examine computational latency, and analyze parameter efficiency.
@@ -638,17 +641,17 @@ The Salinas Valley dataset was captured by the AVIRIS sensor \cite{green1998imag
 SGSCF-Net is benchmarked against eight representative baselines across four architectural paradigms, evaluated using their official open-source implementations: 3D residual CNNs (SSRN~\cite{zhong2017spectral}\footnote{\url{https://github.com/zilongzhong/SSRN}}, A2S2K-ResNet~\cite{roy2020attention}\footnote{\url{https://github.com/suvojit-0x55aa/A2S2K-ResNet}}), decoupled attention networks (SSAN~\cite{sun2019spectral}\footnote{\url{https://github.com/EtPan/SSAN}}), vision transformers (standard ViT~\cite{dosovitskiy2020image}\footnote{\url{https://github.com/google-research/vision_transformer}}, tokenized HSI-SSFTT~\cite{sun2022spectral}\footnote{\url{https://github.com/zgr6010/HSI_SSFTT}}, and rotary-embedded HyperRoPE-HiT~\cite{khan2025hyperrope}\footnote{\url{https://github.com/zirakkk/hyperrope-sst}}), and hybrid/capsule networks (CRV-MHDL~\cite{alalimi2022compression}\footnote{\url{https://github.com/DalalAL-Alimi/CRV}} and EM-routed DMC~\cite{wang2021deep}\footnote{\url{https://github.com/DeepMatrixCapsules/DeepMatrixCapsules}}).
 
 \subsubsection{Evaluation Metrics}
-Model performance is quantified across three standard objective metrics: Overall Accuracy (OA, \%), Average Accuracy (AA, \%), and Cohen's Kappa coefficient ($\kappa \times 100$). OA measures the proportion of correctly classified test samples over total test samples:
+Model performance is quantified across three standard objective metrics: Overall Accuracy (OA, \%), Average Accuracy (AA, \%), and Cohen's Kappa coefficient ($\kappa \times 100$). OA measures the proportion of correctly classified test samples over total test samples (Eq.~\ref{eq:oa}):
 \begin{equation}
 \label{eq:oa}
 \text{OA} = \frac{\sum_{i=1}^{C_{\text{cls}}} M_{ii}}{\sum_{i=1}^{C_{\text{cls}}} \sum_{j=1}^{C_{\text{cls}}} M_{ij}} \times 100\%
 \end{equation}
-where $M \in \mathbb{R}^{C_{\text{cls}} \times C_{\text{cls}}}$ denotes the classification confusion matrix, and $M_{ij}$ indicates the number of samples belonging to ground-truth class $i$ classified into class $j$. AA computes the unweighted arithmetic mean of per-class accuracies:
+where $M \in \mathbb{R}^{C_{\text{cls}} \times C_{\text{cls}}}$ denotes the classification confusion matrix, and $M_{ij}$ indicates the number of samples belonging to ground-truth class $i$ classified into class $j$. AA computes the unweighted arithmetic mean of per-class accuracies (Eq.~\ref{eq:aa}):
 \begin{equation}
 \label{eq:aa}
 \text{AA} = \frac{1}{C_{\text{cls}}} \sum_{i=1}^{C_{\text{cls}}} \frac{M_{ii}}{\sum_{j=1}^{C_{\text{cls}}} M_{ij}} \times 100\%
 \end{equation}
-AA directly reflects classification robustness across skewed class distributions. Cohen's Kappa ($\kappa$) quantifies statistical agreement adjusted for chance:
+AA directly reflects classification robustness across skewed class distributions. Cohen's Kappa ($\kappa$) quantifies statistical agreement adjusted for chance (Eq.~\ref{eq:kappa}):
 \begin{equation}
 \label{eq:kappa}
 \kappa = \frac{P_o - P_e}{1 - P_e} \times 100
@@ -664,7 +667,7 @@ Table~\ref{tab:perclass_ip} presents the quantitative per-class, overall, and av
 
 As demonstrated in Table~\ref{tab:perclass_ip}, SGSCF-Net achieves 98.05\% Overall Accuracy, 94.82\% Average Accuracy, and 97.78 Kappa on Indian Pines. Although SSRN posts a marginally higher Overall Accuracy (98.52\%), its Average Accuracy collapses to 79.99\% because it fails completely on the three smallest classes---Alfalfa, Grass-pasture-mowed, and Oats---each scoring 0.00\%. SGSCF-Net instead delivers the highest Average Accuracy of all nine models (94.82\%), narrowly ahead of A2S2K-ResNet (94.41\%) and HSI-SSFTT (94.29\%), confirming that the minority-aware hybrid objective protects rare land-cover boundaries rather than trading them for majority-class gains. The margin over the standard Vision Transformer (ViT, 90.33\% OA) reaches +7.72\% OA, and SGSCF-Net remains robust where the capsule and compression baselines degrade sharply (DMC 82.55\% OA, CRV-MHDL 67.20\% OA).
 
-Granular per-class results, reported in Table~\ref{tab:perclass_ip}, further confirm this robustness. Dominant agricultural categories such as Hay-windrowed (478 pixels) and Corn (237 pixels) saturate at 100.00\% accuracy, while the Soybean cluster---often confused by baseline methods---retains 98.84\% (Soybean-notill), 98.42\% (Soybean-mintill), and 91.85\% (Soybean-clean). Among the three extreme-minority categories (Alfalfa, Grass-pasture-mowed, and Oats with only 46, 28, and 20 labelled pixels respectively), SGSCF-Net preserves 95.00\%, 95.24\%, and 54.17\% accuracy. The Oats drop reflects the hard information floor imposed by only two training patches per class; nonetheless, the minority-aware hybrid objective ($\mathcal{L} = 0.7\mathcal{L}_{\text{Spread}} + 0.3\mathcal{L}_{\text{Focal}}$) prevents the complete decision-boundary collapse observed in SSAN (which drops to 64.19\% OA because its unweighted cross-entropy gradient is dominated by Soybean-mintill).
+Granular per-class results, reported in Table~\ref{tab:perclass_ip}, further confirm this robustness. Dominant agricultural categories such as Hay-windrowed (478 pixels) and Corn (237 pixels) saturate at 100.00\% accuracy, while the Soybean cluster---often confused by baseline methods---retains 98.84\% (Soybean-notill), 98.42\% (Soybean-mintill), and 91.85\% (Soybean-clean). Among the three extreme-minority categories (Alfalfa, Grass-pasture-mowed, and Oats with only 46, 28, and 20 labelled pixels respectively), SGSCF-Net preserves 95.00\%, 95.24\%, and 54.17\% accuracy. The Oats drop reflects the hard information floor imposed by only two training patches per class; nonetheless, the minority-aware hybrid objective ($\mathcal{L} = 0.7\mathcal{L}_{\text{Spread}} + 0.3\mathcal{L}_{\text{Focal}}$, Eq.~\ref{eq:total_loss}) prevents the complete decision-boundary collapse observed in SSAN (which drops to 64.19\% OA because its unweighted cross-entropy gradient is dominated by Soybean-mintill).
 
 \begin{table*}[tbp]
 \centering
@@ -742,7 +745,7 @@ As detailed in Table~\ref{tab:perclass_pu}, 3D convolutional models (SSRN at 99.
 
 The primary land-cover challenge in Pavia University centers on urban material confusion: spectral ambiguity between materials exhibiting similar visible-NIR reflectance curves (asphalt roads versus bitumen rooftops; self-blocking bricks versus bare soil), juxtaposed against thin geometric structures including pedestrian walkways and shadow slivers. Table~\ref{tab:perclass_pu} reports the granular per-class accuracies of SGSCF-Net and the eight baseline models under the standardized 11$\times$11 / batch-32 configuration.
 
-Four urban categories (Meadows, Painted metal sheets, Bare Soil, and Bitumen) reach perfect 100.00\% classification accuracy. The historically confused material pairs---Asphalt vs. Bitumen and Self-Blocking Bricks vs. Bare Soil---attain 99.79\% and 99.32\%, respectively. This fine discrimination is directly enabled by the complementary CBSA gating mechanism ($\alpha \odot a + (1-\alpha) \odot b$), which forces the $1\times 1\times 7$ spectral-only branch to isolate subtle hydrocarbon absorption valleys while the $3\times 3\times 7$ branch preserves structural boundaries. The low-radiance Shadows class (947 labeled pixels) attains 99.34\% accuracy through the second-order SCFG covariance operator, which preserves discriminative activation where first-order pooling drops toward zero.
+Four urban categories (Meadows, Painted metal sheets, Bare Soil, and Bitumen) reach perfect 100.00\% classification accuracy. The historically confused material pairs---Asphalt vs. Bitumen and Self-Blocking Bricks vs. Bare Soil---attain 99.79\% and 99.32\%, respectively. This fine discrimination is directly enabled by the complementary CBSA gating mechanism ($\alpha \odot a + (1-\alpha) \odot b$, Eq.~\ref{eq:cbsa_fuse}), which forces the $1\times 1\times 7$ spectral-only branch to isolate subtle hydrocarbon absorption valleys while the $3\times 3\times 7$ branch preserves structural boundaries. The low-radiance Shadows class (947 labeled pixels) attains 99.34\% accuracy through the second-order SCFG covariance operator, which preserves discriminative activation where first-order pooling drops toward zero.
 
 \begin{table*}[tbp]
 \centering
@@ -813,7 +816,7 @@ On Salinas Valley, the contiguous parcel layout allows top models to reach excep
 
 In contrast, SGSCF-Net achieves 99.92\% OA, 99.92\% AA, and 99.91 Kappa. Eleven of the sixteen categories reach 100.00\% accuracy, as detailed in Table~\ref{tab:perclass_sv}.
 
-The Salinas agricultural complex presents two fine-grained spectral discrimination dilemmas. First, four Romaine lettuce cultivars at successive growth stages (4-week, 5-week, 6-week, 7-week) exhibit nearly identical broad-spectrum reflectance profiles, varying only across narrow chlorophyll absorption depths. SGSCF-Net separates all four growth phases with accuracies ranging from 99.65\% to 100.00\%. This level of fine-grained separation is driven by the SCFG bilinear covariance operator ($G = f_{\text{ch}} \otimes f_{\text{sp}}$), which captures second-order channel co-activations and amplifies specific chlorophyll band ratio shifts. Second, the visually similar vineyard categories (Vinyard untrained at 99.73\% vs. Vinyard vertical trellis at 100.00\%) are differentiated by trellis spacing geometry. The dual-branch CBSA module isolates this canopy geometry along the $3\times 3\times 7$ stream while tracking underlying soil-canopy spectral mixing on the $1\times 1\times 7$ stream.
+The Salinas agricultural complex presents two fine-grained spectral discrimination dilemmas. First, four Romaine lettuce cultivars at successive growth stages (4-week, 5-week, 6-week, 7-week) exhibit nearly identical broad-spectrum reflectance profiles, varying only across narrow chlorophyll absorption depths. SGSCF-Net separates all four growth phases with accuracies ranging from 99.65\% to 100.00\%. This level of fine-grained separation is driven by the SCFG bilinear covariance operator ($G = f_{\text{ch}} \otimes f_{\text{sp}}$, Eq.~\ref{eq:scfg_g}), which captures second-order channel co-activations and amplifies specific chlorophyll band ratio shifts. Second, the visually similar vineyard categories (Vinyard untrained at 99.73\% vs. Vinyard vertical trellis at 100.00\%) are differentiated by trellis spacing geometry. The dual-branch CBSA module isolates this canopy geometry along the $3\times 3\times 7$ stream while tracking underlying soil-canopy spectral mixing on the $1\times 1\times 7$ stream.
 
 \begin{table*}[tbp]
 \centering
@@ -936,10 +939,11 @@ SSAN~\cite{sun2019spectral}            & 14.00           & 25.54           & 8.7
 \Description{Training and validation loss convergence trajectories of SGSCF-Net across 200 epochs on Indian Pines, Pavia University, and Salinas Valley.}
 \end{figure*}
 
-Beyond scalar wall-clock metrics, examining epoch-by-epoch loss trajectories provides crucial insights into optimization stability and generalization behavior. Fig.~\ref{fig:loss_convergence} delineates the empirical convergence trajectories of the total hybrid loss $\mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}$ across both training and held-out validation partitions over 200 epochs on Indian Pines, Pavia University, and Salinas Valley. Across all three benchmarks, the optimization profile exhibits two distinct regimes:
+Beyond scalar wall-clock metrics, examining epoch-by-epoch loss trajectories provides crucial insights into optimization stability and generalization behavior. Fig.~\ref{fig:loss_convergence} delineates the empirical convergence trajectories of the total hybrid loss $\mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}$ (Eq.~\ref{eq:total_loss}) across both training and held-out validation partitions over 200 epochs on Indian Pines, Pavia University, and Salinas Valley. Across all three benchmarks, the optimization profile exhibits two distinct regimes:
 (1) \textit{Rapid Optimization Phase}: within the first 20--25 epochs (demarcated by the shaded blue zone in Fig.~\ref{fig:loss_convergence}), $\mathcal{L}_{\text{Total}}$ descends sharply from initial magnitudes ($\approx 6.5$ on Indian Pines, $\approx 1.0$ on Pavia University, and $\approx 2.5$ on Salinas Valley) to below 0.35. The direct gradient pathways introduced by SBAM's input-level gating and CBSA's complementary residual fusion prevent early saturation, enabling fast feature extraction across both spectral and spatial dimensions.
-(2) \textit{Zero Generalization Divergence}: over the remaining 175 epochs, held-out validation loss tightly tracks training loss without asymptotic divergence or oscillation. In particular, the dynamic margin scheduling in $\mathcal{L}_{\text{Spread}}$ and inverse-frequency reweighting in $\mathcal{L}_{\text{Focal}}$ prevent boundary overfitting on skewed distributions. As demonstrated in Table~\ref{tab:perclass_ip}, unweighted baselines such as SSAN (64.19\% OA and 59.79 Kappa) suffer catastrophic gradient dominance from majority categories, collapsing to 0.00\% on Oats and Grass-pasture-mowed; in contrast, SGSCF-Net maintains strict margin separation and high classification stability across all minority boundaries.
+(2) \textit{Zero Generalization Divergence}: over the remaining 175 epochs, held-out validation loss tightly tracks training loss without asymptotic divergence or oscillation. In particular, the dynamic margin scheduling in $\mathcal{L}_{\text{Spread}}$ (Eq.~\ref{eq:margin_sched}) and inverse-frequency reweighting in $\mathcal{L}_{\text{Focal}}$ (Eq.~\ref{eq:class_weights}) prevent boundary overfitting on skewed distributions. As demonstrated in Table~\ref{tab:perclass_ip}, unweighted baselines such as SSAN (64.19\% OA and 59.79 Kappa) suffer catastrophic gradient dominance from majority categories, collapsing to 0.00\% on Oats and Grass-pasture-mowed; in contrast, SGSCF-Net maintains strict margin separation and high classification stability across all minority boundaries.
 
+\newpage
 \section{Discussion and Ablation Analysis}
 \label{sec:discussion}
 In this section, we conduct a systematic empirical discussion and ablation investigation into the architectural mechanisms of SGSCF-Net. Following the comparative evaluation in Section~\ref{sec:experiments}, we first evaluate model parameter scalability and computational efficiency against existing deep learning paradigms. Next, we examine isolated component contributions and layer depth sensitivity. Then, we analyze the 60-run spatial patch and batch size grid search. Finally, we investigate the degradation dynamics of SGSCF-Net under extreme data scarcity stress testing across all three benchmarks.
@@ -1003,7 +1007,7 @@ Classifier Head & Adaptive Pool + Linear ($16 \to 16$) & 272 & 0.09 \\
 
 \subsection{Architectural Component Ablation and Layer Depth Sensitivity}
 \label{subsec:ablation_analysis}
-To isolate the empirical contribution of each architectural component, we conduct an incremental ablation study on Indian Pines ($11 \times 11$ patch, batch size 32, 200 epochs), summarized in Table~\ref{tab:component_ablation}. The baseline dual-branch 3D CNN---configured with a shared Squeeze-and-Excitation gate, first-order Global Average Pooling (GAP), and Cross-Entropy loss---yields 93.65\% OA and 89.24\% AA. Introducing SBAM on raw input patches $X \in \mathbb{R}^{B \times 1 \times P \times P \times C}$ provides an immediate boost of +1.53\% OA (95.18\%) and +2.56\% AA (91.80\%) by dampening atmospheric water-vapor noise before convolutional filtering. Replacing the uniform SE gate with CBSA further raises OA to 96.44\% (+1.26\%) and AA to 93.05\%; its complementary weighting $\alpha \odot a + (1-\alpha) \odot b$ forces orthogonal specialization between the $1\times 1\times 7$ spectral and $3\times 3\times 7$ spatial-spectral branches. Incorporating SCFG elevates OA to 97.26\% (+0.82\%) by computing second-order covariance $G = f_{\text{ch}} \otimes f_{\text{sp}}$, recovering localized spatial-spectral correlations discarded under GAP. Finally, substituting Cross-Entropy with the minority-aware hybrid objective ($\mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}$) achieves peak accuracy at 98.05\% OA and 94.82\% AA (+1.04\% AA). The scheduled spread margin $m(r) \in [0.2, 0.9]$ reinforces decision boundaries on confused agricultural classes, while focal weighting prevents minority gradient starvation.
+To isolate the empirical contribution of each architectural component, we conduct an incremental ablation study on Indian Pines ($11 \times 11$ patch, batch size 32, 200 epochs), summarized in Table~\ref{tab:component_ablation}. The baseline dual-branch 3D CNN---configured with a shared Squeeze-and-Excitation gate, first-order Global Average Pooling (GAP), and Cross-Entropy loss---yields 93.65\% OA and 89.24\% AA. Introducing SBAM on raw input patches $X \in \mathbb{R}^{B \times 1 \times P \times P \times C}$ (Eq.~\ref{eq:input_tensor}) provides an immediate boost of +1.53\% OA (95.18\%) and +2.56\% AA (91.80\%) by dampening atmospheric water-vapor noise before convolutional filtering. Replacing the uniform SE gate with CBSA further raises OA to 96.44\% (+1.26\%) and AA to 93.05\%; its complementary weighting $\alpha \odot a + (1-\alpha) \odot b$ (Eq.~\ref{eq:cbsa_fuse}) forces orthogonal specialization between the $1\times 1\times 7$ spectral and $3\times 3\times 7$ spatial-spectral branches. Incorporating SCFG elevates OA to 97.26\% (+0.82\%) by computing second-order covariance $G = f_{\text{ch}} \otimes f_{\text{sp}}$ (Eq.~\ref{eq:scfg_g}), recovering localized spatial-spectral correlations discarded under GAP. Finally, substituting Cross-Entropy with the minority-aware hybrid objective ($\mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}$, Eq.~\ref{eq:total_loss}) achieves peak accuracy at 98.05\% OA and 94.82\% AA (+1.04\% AA). The scheduled spread margin $m(r) \in [0.2, 0.9]$ (Eq.~\ref{eq:margin_sched}) reinforces decision boundaries on confused agricultural classes, while focal weighting prevents minority gradient starvation.
 
 \begin{table}[t]
 \centering
@@ -1244,11 +1248,12 @@ Salinas Valley & Brocoli\_green\_weeds\_2 (100.00\%) & Fallow (89.47\%) \\
 \end{tabular}
 \end{table}
 
-Table~\ref{tab:class_extremes_1percent} details the per-dataset class extremes under 1\% data. On Indian Pines, the Oats category contains only 20 total labeled pixels across the entire scene. At a 1\% sampling ratio, the training set receives only $\max(\lfloor 0.01 \times 20 \rfloor, 3)$ or fewer than 2 distinct training patches. With only 1 or 2 patches available, learning high-dimensional 3D spatial-spectral features becomes mathematically indeterminate, dropping Oats accuracy to 7.66\%. Conversely, well-sampled categories such as Hay-windrowed maintain 99.27\% accuracy. Crucially, while baseline models such as SSAN collapse into predicting majority categories exclusively under this extreme regime, SGSCF-Net's minority-aware hybrid loss ($\mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}$) prevents complete boundary collapse, preserving stable 70.12\% overall accuracy across the remaining fifteen categories, corroborating minority stabilization insights from prior imbalanced HSI literature \cite{cui2019class, haut2021generative, su2023spectral}.
+Table~\ref{tab:class_extremes_1percent} details the per-dataset class extremes under 1\% data. On Indian Pines, the Oats category contains only 20 total labeled pixels across the entire scene. At a 1\% sampling ratio, the training set receives only $\max(\lfloor 0.01 \times 20 \rfloor, 3)$ or fewer than 2 distinct training patches. With only 1 or 2 patches available, learning high-dimensional 3D spatial-spectral features becomes mathematically indeterminate, dropping Oats accuracy to 7.66\%. Conversely, well-sampled categories such as Hay-windrowed maintain 99.27\% accuracy. Crucially, while baseline models such as SSAN collapse into predicting majority categories exclusively under this extreme regime, SGSCF-Net's minority-aware hybrid loss ($\mathcal{L}_{\text{Total}} = 0.7 \mathcal{L}_{\text{Spread}} + 0.3 \mathcal{L}_{\text{Focal}}$, Eq.~\ref{eq:total_loss}) prevents complete boundary collapse, preserving stable 70.12\% overall accuracy across the remaining fifteen categories, corroborating minority stabilization insights from prior imbalanced HSI literature \cite{cui2019class, haut2021generative, su2023spectral}.
 
+\newpage
 \section{Conclusion and Future Work}
 \label{sec:conclusion}
-This article proposes the Spectral-Guided Spatial Cross-Attention Fusion Network (SGSCF-Net) to improve the classification performance and computational efficiency of hyperspectral image analysis. The architecture organically unifies input-level spectral gating, dual-stream convolutional feature extraction, and second-order spatial-channel pooling into an end-to-end framework. Specifically, the Spectral Band Attention Module (SBAM) dynamically attenuates atmospheric water-vapor noise on raw spectral bands before spatial convolution. The Complementary Branch Spectral Attention (CBSA) then enforces orthogonal feature specialization between pure-spectral ($1\times 1\times 7$) and joint spatial-spectral ($3\times 3\times 7$) 3D streams via complementary gating ($\alpha$ versus $1-\alpha$). Downstream, the Second-Order Covariance Fusion Gate (SCFG) replaces first-order global pooling with bilinear outer-product covariance pooling ($G = f_{\text{ch}} \otimes f_{\text{sp}}$), capturing localized spatial-channel co-activations while introducing only 82 learnable parameters. During training, a minority-aware hybrid objective ($\mathcal{L}_{\text{Spread}} + \mathcal{L}_{\text{Focal}}$) establishes margin-expanded decision boundaries to prevent representation collapse on severely imbalanced classes. Extensive experimental evaluations across Indian Pines, Pavia University, and Salinas Valley demonstrate that SGSCF-Net achieves competitive or superior accuracy (98.05\% OA and 94.82\% AA on Indian Pines, 99.82\% OA on Pavia University, and 99.92\% OA on Salinas Valley) while operating with only 308,097 parameters and an 8.80-minute training latency, successfully bypassing the quadratic computational constraints of Transformer self-attention.
+This article proposes the Spectral-Guided Spatial Cross-Attention Fusion Network (SGSCF-Net) to improve the classification performance and computational efficiency of hyperspectral image analysis. The architecture organically unifies input-level spectral gating, dual-stream convolutional feature extraction, and second-order spatial-channel pooling into an end-to-end framework. Specifically, the Spectral Band Attention Module (SBAM) dynamically attenuates atmospheric water-vapor noise on raw spectral bands before spatial convolution. The Complementary Branch Spectral Attention (CBSA) then enforces orthogonal feature specialization between pure-spectral ($1\times 1\times 7$) and joint spatial-spectral ($3\times 3\times 7$) 3D streams via complementary gating ($\alpha$ versus $1-\alpha$, Eq.~\ref{eq:cbsa_fuse}). Downstream, the Second-Order Covariance Fusion Gate (SCFG) replaces first-order global pooling with bilinear outer-product covariance pooling ($G = f_{\text{ch}} \otimes f_{\text{sp}}$, Eq.~\ref{eq:scfg_g}), capturing localized spatial-channel co-activations while introducing only 82 learnable parameters. During training, a minority-aware hybrid objective ($\mathcal{L}_{\text{Spread}} + \mathcal{L}_{\text{Focal}}$, Eqs.~\ref{eq:spread_loss}--\ref{eq:total_loss}) establishes margin-expanded decision boundaries to prevent representation collapse on severely imbalanced classes. Extensive experimental evaluations across Indian Pines, Pavia University, and Salinas Valley demonstrate that SGSCF-Net achieves competitive or superior accuracy (98.05\% OA and 94.82\% AA on Indian Pines, 99.82\% OA on Pavia University, and 99.92\% OA on Salinas Valley) while operating with only 308,097 parameters and an 8.80-minute training latency, successfully bypassing the quadratic computational constraints of Transformer self-attention.
 
 In the future, based on the lightweight design of SGSCF-Net, we will investigate hardware-aware integer quantization (INT8/FP8) and structured tensor pruning to support onboard, real-time inference on edge NPUs and FPGAs aboard aerial and satellite platforms. We also plan to explore self-supervised masked spectral pre-training on large uncurated hyperspectral cubes to enhance representation transfer under extreme label scarcity. In addition, the second-order covariance fusion mechanism offers high architectural scalability for multimodal earth observation, providing a principled foundation for joint feature extraction and classification across co-registered hyperspectral and LiDAR data.
 
